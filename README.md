@@ -32,7 +32,7 @@
     
 # USAGE
 <br />
-  -The user must create the <em>'scripts/tiks.txt'<em/> list with MikroTik Router IP's.
+  -The user must create the <em>'scripts/tiks.txt'</em> list with MikroTik Router IP's.
   <br>
   -Easiest way to do this is using bulk nMap scrapes or Shodan.
     <br>
