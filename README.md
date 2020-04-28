@@ -43,7 +43,7 @@
      or with nMap using the following command.
     <br />
     <br />
-    # sudo nmap -vv -O -A -Pn -p 80,8291 111.11.11.1/24
+    <strong><em># sudo nmap -vv -O -A -Pn -p 80,8291 111.11.11.1/24</em></strong>
     <br />
     This will scan the given IP block for all online devices and check if the appropriate services are running and vulnerable
     <br />
