@@ -1,5 +1,5 @@
 <p align="center">
- <img align="center" src="https://raw.githubusercontent.com/s1l3nt78/Private/master/Photos/mcheck.PNG" />
+ <img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MCheck/master/mcheck.PNG" />
 <br />
  <img align="center" src="https://img.shields.io/github/issues/s1l3nt78/MCheck" />
  <img align="center" src="https://img.shields.io/github/forks/s1l3nt78/MCheck" />
