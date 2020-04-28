@@ -14,7 +14,7 @@
 <br />
 
 # MCheck
-*s1l3nt78*
+<strong>*s1l3nt78*</strong>
 
 # Functions
 
@@ -32,7 +32,7 @@
     
 # USAGE
 <br />
-  -The user must create the <em>'scripts/tiks.txt'</em> list with MikroTik Router IP's.
+  -The user must create the <strong><em>'scripts/tiks.txt'</em></strong> list with MikroTik Router IP's.
   <br>
   -Easiest way to do this is using bulk nMap scrapes or Shodan.
     <br>
@@ -42,7 +42,7 @@
 
 
 # TODO
-
+<br />
   Incorporation of routersploit to do automatic vuln checks for the MikroTik Router firmware.
   For now manual checks must be done by user.
   
