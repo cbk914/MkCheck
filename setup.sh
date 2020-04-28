@@ -13,7 +13,7 @@ if [[ -d /opt/MCheck ]]; then
 else
 	echo -e "${W}Moving MCheck to the correct directory${NC}"
 	pwd && cd ..
-	mv MCheck -t /opt
+	sudo mv MCheck -t /opt
 fi
 
 # Routersploit Setup

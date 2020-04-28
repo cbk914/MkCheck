@@ -56,7 +56,7 @@ mchecker(){
 # Routersploit Vuln Check
 rsf(){
 	cd /root/routersploit
-	for name in `cat /opt/MCheck/scripts/tiks_rsf.txt`
+	for name in `cat /opt/MCheck/files/tiks_rsf.txt`
 		do
 			sudo python3.7 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}"
 			sudo python3.7 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}"
