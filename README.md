@@ -38,12 +38,13 @@
 # USAGE
 <br />
   -The user must create the <strong><em>'scripts/tiks.txt'</em></strong> list with MikroTik Router IP's.
-  <br>
+  <br />
   -Easiest way to do this is using bulk nMap scrapes or Shodan.
-    <br>
+    <br />
+    <br />
     Once the attacker has a specific netblock <eg. 111.69.145.1/24>, the best way to create the list is using Microsoft Excel
     As you need to fill in the first block (111.69.145.1), then you can drag the coloum to quickly fill the IP's in the colom.
-    Then copy the entire block into the 'scripts/tiks.txt' file.
+    Then copy the entire block into the <strong><em>'scripts/tiks.txt'</em></strong> file.
 
 # NOTE
 <br />
