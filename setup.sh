@@ -1,5 +1,17 @@
 #!/bin/bash
+ORNG='\033[0;33m'
+NC='\033[0m'
+W='\033[1;37m'
+LP='\033[1;35m'
+YLW='\033[1;33m'
+LBBLUE='\e[104m'
 RED='\033[0;31m'
+LGRY='\033[0;37m'
+INV='\e[7m'
+BRED='\033[1;31m'
+UPURPLE='\033[4;35m'
+UBLUE='\033[4;34m'
+URED='\033[4;31m'
 
 # Root Check
 if [[ $EUID -ne 0 ]]; then
@@ -20,11 +32,13 @@ fi
 # Routersploit Setup
 cd /root/
 echo -e "${LP}"
-figlet -f mini "MCheck Setup"
+figlet -f mini "RoutersSploit"
 echo -e "${NC}"
 if [[ -d "/root/routersploit" ]]; then
+	echo -e "${W}Routersploit is already installed${NC}"
 	sleep 1
 else
+	echo -e "${YLW}Installing RouterSploit${NC}"
 	git clone https://github.com/threat9/routersploit.git
 	cd routersploit
 	python3.7 -m pip install -r requirements.txt
@@ -33,3 +47,12 @@ fi
 
 cd /opt/MCheck
 chmod +x mcheck
+# Path Options
+echo -e "${YLW}Would you like to add MCheck to path to run it from anywhere?${LBBLUE}(y/n)${NC}"
+read LOPT
+if [[ ${LOPT} == "y" ]]; then
+	sudo cp mcheck -t /usr/sbin
+	sudo chown $USER:$USER /usr/sbin/mcheck
+else
+	echo -e "${RED}MCheck installed${NC}"
+fi
