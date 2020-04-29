@@ -44,12 +44,18 @@
   <br>
     This is done through <strong><em>command = "/system identity print"</em></strong>
     <br />
-    You can change the value of the command run in order to enumerate different data.
+    You can change the <strong>command</strong> value in order to enumerate different data.
     <br />
-    -Once the Network AP Name has been found the attacker can use the IP and login credentials to work with
+    Once the Network AP Name has been found the attacker can use the IP and login credentials to work with
      Mikrotik Routers config from a web-session.
     <br>
     <br>
+  Results are automatically saved in organised in their respective folders
+  <br />
+  <em>- Vulns (MikroTik AP Name Search)
+ - RSF (Routersploit Scan Info)</em>
+ <br />
+ <br />
 
 <h2>Images:</h2>
 <p>
