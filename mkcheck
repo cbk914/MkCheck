@@ -111,9 +111,6 @@ function trap_ctrlc ()
 }
 # Mikro Network AP Name Check (No Proxy)
 mchecker(){
-	# initialise trap to call trap_ctrlc function
-	# when signal 2 (SIGINT) is received
-	trap "trap_ctrlc" 2
 	while :
 	do
 		echo "Press <CTRL+C> to exit."
@@ -136,9 +133,6 @@ mchecker(){
 }
 # Routersploit Vuln Check
 rtsploit(){
-	# initialise trap to call trap_ctrlc function
-	# when signal 2 (SIGINT) is received
-	trap "trap_ctrlc" 2
 	cd /root/routersploit
 	for name in `cat /opt/MCheck/files/tiks_rsf.txt`
 		do
@@ -182,10 +176,6 @@ update(){
 }
 #MCheck Start
 main(){
-	# initialise trap to call trap_ctrlc function
-	# when signal 2 (SIGINT) is received
-	trap "trap_ctrlc" 2
-	cd /opt/MCheck
 	echo -e "${BRED}"
 	python3 files/banner.py
 	echo -e "${NC}"
@@ -226,6 +216,13 @@ main(){
 			done
 		echo -e "${YLW}All results have been saved to ${UPURPLE}/opt/MCheck/files/${NC}"
 }
+cd /opt/MCheck
+# initialise trap to call trap_ctrlc function
+# when signal 2 (SIGINT) is received
+trap "trap_ctrlc" 2
 
+echo -e "${LP}"
+figlet MkCheck
+echo -e "${NC}"
 main
 exit 0
