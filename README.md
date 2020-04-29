@@ -52,6 +52,8 @@
 <img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MCheck/master/files/mcheck.PNG" 
 </p>
 <br />
+ <br />
+ 
 # USAGE
 <br />
   The following values need to be changed in <strong><em>'scripts/miko.py'</em></strong>
