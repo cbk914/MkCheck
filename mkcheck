@@ -109,21 +109,6 @@ function trap_ctrlc ()
     echo -e "${W}Would you like to exit?${YLW}(y/n)${NC}"
 	read EXIT
 	if [[ ${EXIT} == "y" ]]; then
-		apresults
-		exit 2
-	else
-		return
-	fi
-}
-function trap_ctrlcrsf ()
-{
-    # perform cleanup here
-    echo -e "${URED}Ctrl-C caught...${NC}"
-    echo -e "${W}Would you like to exit?${YLW}(y/n)${NC}"
-	read EXIT
-	if [[ ${EXIT} == "y" ]]; then
-		wbresults
-		jbresults
 		exit 2
 	else
 		return
@@ -131,9 +116,6 @@ function trap_ctrlcrsf ()
 }
 # Mikro Network AP Name Check (No Proxy)
 mchecker(){
-	# initialise trap to call trap_ctrlc function
-	# when signal 2 (SIGINT) is received
-	trap "trap_ctrlc" 2
 	while :
 	do
 		echo "Press <CTRL+C> to exit."
@@ -148,32 +130,14 @@ mchecker(){
 		echo "${VER}" >> results/Vulns/${VAR}.results
 		echo "==============================================================================================" 
 		sudo rm output.log
-	done
-}
-# Mikrotik Network AP Name Check (with Proxy)
-pchecker(){
-	# initialise trap to call trap_ctrlc function
-	# when signal 2 (SIGINT) is received
-	trap "trap_ctrlc" 2
-	while :
-	do
-		echo "Press <CTRL+C> to exit."
-		target
-		running
-		sudo python scripts/miko.py | tee output.log
-		NAME=$(cat output.log | grep 'admin@')
-		VER=$(cat output.log | grep 'MikroTik RouterOS')
-		echo "${NAME}" >> results/Vulns/${VAR}.results
-		echo "${VER}" >> results/Vulns/${VAR}.results
-		echo "==============================================================================================" 
-		sudo rm output.log
+		if [[ -f '/opt/MCheck/results/Vulns/*.255.results' ]]; then
+			apresults
+			main
+		fi
 	done
 }
 # Routersploit Vuln Check
 rsf(){
-	# initialise trap to call trap_ctrlc function
-	# when signal 2 (SIGINT) is received
-	trap "trap_ctrlcrsf" 2
 	cd /root/routersploit
 	for name in `cat /opt/MCheck/files/tiks_rsf.txt`
 		do
@@ -187,6 +151,11 @@ rsf(){
 			JAIL=$(cat jailbreak.log)
 			echo "${JAIL}" >> results/RSF/Jailbreak_${name}.results
 			sudo rm jailbreak.log
+			if [[ -f '/opt/MCheck/results/RSF/*.255.results' ]]; then
+				jbresults
+				wbresults
+				main
+			fi
 		done	
 }
 # Update Args
@@ -213,46 +182,51 @@ update(){
   echo -e "${NC}"
 }
 #MCheck Start
-echo -e "${LP}"
-figlet -f mini "MKCheck"
-echo -e "${NC}"
-echo -e "${BRED}"
-python3 files/banner.py
-echo -e "${NC}"
-PS3='What tool would you like to use?'
-	options=("MikroTik Auto-EX" "Routersploit Vuln Check" "Sort Results" "Update")
-    select opt in "${options[@]}"
-		do
-			case $opt in
-				"MikroTik Auto-EX")
-					BK=$(date -Iseconds)
-					echo -e "${YLW}Creating a backup of this sessions Target file as ${UBLUE}tiks_${BK}.txt${NC}"
-					cp files/tiks.txt files/tiks_${BK}.txt
-					echo -e "${W}Would you like to run MCheck using a proxy?${YLW}(y/n)${NC}"
-					read PROXY 
-					if [[ ${PROXY} == "y" ]]; then
-						sudo service tor start
-						proxychains4 pchecker
-					else
-						mchecker
-					fi
-					;;
+main(){
+	echo -e "${BRED}"
+	python3 files/banner.py
+	echo -e "${NC}"
+	PS3='What tool would you like to use?'
+		options=("MikroTik Auto-EX" "Routersploit Vuln Check" "Sort Results" "Update")
+		select opt in "${options[@]}"
+			do
+				case $opt in
+					"MikroTik Auto-EX")
+						BK=$(date -Iseconds)
+						echo -e "${YLW}Creating a backup of this sessions Target file as ${UBLUE}tiks_${BK}.txt${NC}"
+						cp files/tiks.txt files/tiks_${BK}.txt
+						echo -e "${W}Would you like to run MCheck using a proxy?${YLW}(y/n)${NC}"
+						read PROXY 
+						if [[ ${PROXY} == "y" ]]; then
+							sudo service tor start
+							proxychains4 mchecker
+						else
+							mchecker
+						fi
+						;;
 
-				"Routersploit Vuln Check")
-					rsf
-					;;
+					"Routersploit Vuln Check")
+						rsf
+						;;
 
-				"Sort Results")
-					apresults
-					jbresults
-					wbresults
-					;;
+					"Sort Results")
+						apresults
+						jbresults
+						wbresults
+						;;
 
-				"Update")
-					update
-					;;
+					"Update")
+						update
+						;;
 
-			esac
-		done
-	echo -e "${YLW}All results have been saved to ${UPURPLE}/opt/MCheck/files/${NC}"
+				esac
+			done
+		echo -e "${YLW}All results have been saved to ${UPURPLE}/opt/MCheck/files/${NC}"
+	exit 0
+}
+
+# initialise trap to call trap_ctrlc function
+# when signal 2 (SIGINT) is received
+trap "trap_ctrlc" 2
+main
 exit 0
