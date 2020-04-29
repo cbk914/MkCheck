@@ -29,7 +29,10 @@
   <br />
   Which must be entered into <strong><em>scripts/miko.py</em></strong> for MkCheck's auto shell module to correctly work.
   <br />
-    <strong>Change These</strong>
+  <br />
+    <strong>Change These:</strong>
+    <strong>*************</strong>
+    <br />
     <em> username = "<strong>admin</strong>"
  <br />
          password = "<strong>admin</strong>"</em>
