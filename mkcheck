@@ -190,23 +190,6 @@ rsf(){
 		done	
 }
 # Update Args
-up_arg(){
-    echo $1 >> temp.log
-    echo $2 >> temp.log
-    echo $3 >> temp.log
-    echo $4 >> temp.log
-    echo $5 >> temp.log
-    echo $6 >> temp.log
-    echo $7 >> temp.log
-    echo $8 >> temp.log
-    echo $9 >> temp.log
-
-    for UFILES in `cat temp.log`
-       	        do
-    	            rm ${LPATH}${UFILES}
-                done
-    rm /opt/MCheck/temp.log
-}
 update(){
     cd /opt/MCheck
     echo -e "${ORNG}"
@@ -219,26 +202,14 @@ update(){
         figlet -f mini "Up to date."
         echo -e "${NC}"
     else
-	    sleep 5
-	    echo -e "${W}Are there pull conflicts with files?(y/n)${NC}"
-        sleep 3
-	    read UANS
-	    if [[ ${UANS} == "y" ]]; then
-            export LPATH
-            echo -e "${W}Please enter the conflicting files (seperated by a space)${NC}"
-		    read FILES
-            sleep 2
-		    up_arg ${FILES}
-		    git pull
-	    else
-		    git fetch && git pull
-	    fi
-		if [[ -f '/usr/sbin/mkcheck' ]]; then
+		git pull
+	    if [[ -f '/usr/sbin/mkcheck' ]]; then
 			sudo cp mkcheck -t /usr/sbin
 			sudo chmod +x /usr/sbin/mkcheck
 			sudo chown $USER:$USER /usr/sbin/mkcheck
 		fi
-    fi
+		sudo mkcheck
+	fi
   echo -e "${NC}"
 }
 #MCheck Start
