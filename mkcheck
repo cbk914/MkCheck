@@ -111,6 +111,9 @@ function trap_ctrlc ()
 }
 # Mikro Network AP Name Check (No Proxy)
 mchecker(){
+	# initialise trap to call trap_ctrlc function
+	# when signal 2 (SIGINT) is received
+	trap "trap_ctrlc" 2
 	while :
 	do
 		echo "Press <CTRL+C> to exit."
@@ -128,6 +131,9 @@ mchecker(){
 }
 # Mikrotik Network AP Name Check (with Proxy)
 pchecker(){
+	# initialise trap to call trap_ctrlc function
+	# when signal 2 (SIGINT) is received
+	trap "trap_ctrlc" 2
 	while :
 	do
 		echo "Press <CTRL+C> to exit."
@@ -146,6 +152,9 @@ pchecker(){
 }
 # Routersploit Vuln Check
 rsf(){
+	# initialise trap to call trap_ctrlc function
+	# when signal 2 (SIGINT) is received
+	trap "trap_ctrlc" 2
 	cd /root/routersploit
 	for name in `cat /opt/MCheck/files/tiks_rsf.txt`
 		do
@@ -212,10 +221,7 @@ update(){
 	    fi
     fi
   echo -e "${NC}"
-  }
-# initialise trap to call trap_ctrlc function
-# when signal 2 (SIGINT) is received
-trap "trap_ctrlc" 2
+}
 #MCheck Start
 echo -e "${LP}"
 figlet -f mini "MKCheck"
