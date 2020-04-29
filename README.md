@@ -31,11 +31,14 @@
   <br />
   <br />
     <strong>Change These:</strong>
+    <br />
     <strong>*************</strong>
+    <br />
     <br />
     <em> username = "<strong>admin</strong>"
  <br />
          password = "<strong>admin</strong>"</em>
+  <br />
   <br />
   <br />
   The main function auto spawns ssh sessions on the compromised targets to enumerate the Network Access Point name from IP
