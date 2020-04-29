@@ -20,11 +20,13 @@ fi
 # Routersploit Setup
 cd /root/
 echo -e "${LP}"
-figlet -f mini "MCheck Setup"
+figlet -f mini "RoutersSploit"
 echo -e "${NC}"
 if [[ -d "/root/routersploit" ]]; then
+	echo -e "${W}Routersploit is already installed${NC}"
 	sleep 1
 else
+	echo -e "${YLW}Installing RouterSploit${NC}"
 	git clone https://github.com/threat9/routersploit.git
 	cd routersploit
 	python3.7 -m pip install -r requirements.txt
