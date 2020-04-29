@@ -80,7 +80,7 @@
     Then copy the entire block into the <strong><em>'scripts/tiks.txt'</em></strong> file.
     <br />
 
-# NOTE
+# LICENCE
 <br />
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
