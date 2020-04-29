@@ -25,7 +25,7 @@
      -routeros_jailbreak</em>
   <br />
   <br />
-  If routersploit module confirms if the Mikrotik device is vulnerable and if found to be displays credentials
+  If routersploit module confirms if the Mikrotik device is vulnerable and if found - displays login credentials
   <br />
   Then can then be entered into <strong><em>scripts/miko.py</em></strong> 
   <br />
