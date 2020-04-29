@@ -52,8 +52,8 @@ apresults(){
 		do
 			echo "${log}"
 			echo "${log}" >> results/Vulns/final.result
-			cat results/Vulns/${log}.results
-			cat results/Vulns/${log}.results >> results/Vulns/final.result
+			cat results/Vulns/Mikro_${log}.results
+			cat results/Vulns/Mikro_${log}.results >> results/Vulns/final.result
 			echo "==========================================================================="
 			echo "===========================================================================" >> results/Vulns/final.result
 		done
