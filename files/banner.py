@@ -12,5 +12,5 @@ def showbanner():
   MMM      MMM  III  KKK  KKK  RRR  RRR   OOOOOO      TTT     III  KKK  KKK
 
   MikroTik RouterOS 6.43.12 (c) 1999-2018  ''' + __version__)
-    print("MCheck by s1l3nt78"\n")
+    print("MCheck by s1l3nt78")
     exit
