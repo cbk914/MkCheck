@@ -29,13 +29,14 @@
   <br />
   Which must be entered into <strong><em>scripts/miko.py</em></strong> for MCheck's auto shell module to correctly work.
   <br />
-    <em> -'username'
-         -'password'</em>
+    <em> username = "<strong>admin</strong>"
+ <br />
+         password = "<strong>admin</strong>"</em>
   <br />
   <br />
   The main function auto spawns ssh sessions on the compromised targets to enumerate the Network Access Point name from IP
   <br>
-    This is done through <em>command = "/system identity print"</em>
+    This is done through <strong><em>command = "/system identity print"</em></strong>
     <br />
     You can change the value of the command run in order to enumerate different data.
     <br />
@@ -52,6 +53,8 @@
 <img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MCheck/master/files/mcheck.PNG" 
 </p>
 <br />
+ <br />
+ 
 # USAGE
 <br />
   The following values need to be changed in <strong><em>'scripts/miko.py'</em></strong>
@@ -90,8 +93,4 @@ THIS TOOL WAS MADE FOR EDUCATIONAL PURPOSES. ALL DAMAGE CAUSED BY ANY ACTIVITIES
 ILLEGAL OR OTHERWISE, FALLS SOLELY ON THE RESPONSIBILY OF THE USER.
 
 
-# TODO
-<br />
-  Incorporation of routersploit to do automatic vuln checks for the MikroTik Router firmware.
-  For now manual checks must be done by user.
   
