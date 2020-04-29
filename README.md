@@ -34,7 +34,6 @@
     <br />
     <strong>*************</strong>
     <br />
-    <br />
     <em> username = "<strong>admin</strong>"
  <br />
          password = "<strong>admin</strong>"</em>
