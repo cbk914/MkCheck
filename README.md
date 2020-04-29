@@ -32,7 +32,7 @@
   <br />
     <strong>Change These:</strong>
     <br />
-    <strong>*************</strong>
+    <strong>****************</strong>
     <br />
     <em> username = "<strong>admin</strong>"
  <br />
