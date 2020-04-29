@@ -35,7 +35,7 @@
   <br />
   The main function auto spawns ssh sessions on the compromised targets to enumerate the Network Access Point name from IP
   <br>
-    This is done through <em>command = "/system identity print"</em>
+    This is done through <strong><em>command = "/system identity print"</em></strong>
     <br />
     You can change the value of the command run in order to enumerate different data.
     <br />
@@ -92,8 +92,4 @@ THIS TOOL WAS MADE FOR EDUCATIONAL PURPOSES. ALL DAMAGE CAUSED BY ANY ACTIVITIES
 ILLEGAL OR OTHERWISE, FALLS SOLELY ON THE RESPONSIBILY OF THE USER.
 
 
-# TODO
-<br />
-  Incorporation of routersploit to do automatic vuln checks for the MikroTik Router firmware.
-  For now manual checks must be done by user.
   
