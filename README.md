@@ -13,7 +13,7 @@
 <br />
 <br />
 
-# MCheck
+# MkCheck
 <strong>*s1l3nt78*</strong>
 
 # Functions
@@ -27,8 +27,9 @@
   <br />
   If routersploit module confirms if the Mikrotik device is vulnerable and if found - displays login credentials
   <br />
-  Which must be entered into <strong><em>scripts/miko.py</em></strong> for MCheck's auto shell module to correctly work.
+  Which must be entered into <strong><em>scripts/miko.py</em></strong> for MkCheck's auto shell module to correctly work.
   <br />
+    <strong>Change These</strong>
     <em> username = "<strong>admin</strong>"
  <br />
          password = "<strong>admin</strong>"</em>
@@ -82,6 +83,7 @@
     As you need to fill in the first block (111.69.145.1), then you can drag the coloum to quickly fill the IP's in the colom.
     Then copy the entire block into the <strong><em>'scripts/tiks.txt'</em></strong> file.
     <br />
+    
 
 # LICENCE
 <br />
