@@ -29,9 +29,9 @@
   <br />
   Which must be entered into <strong><em>scripts/miko.py</em></strong> for MCheck's auto shell module to correctly work.
   <br />
-    <em> -'username'
+    <em> username = "<strong>admin</strong>"
  <br />
-         -'password'</em>
+         password = "<strong>admin</strong>"</em>
   <br />
   <br />
   The main function auto spawns ssh sessions on the compromised targets to enumerate the Network Access Point name from IP
