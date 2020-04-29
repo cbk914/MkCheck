@@ -31,5 +31,8 @@ else
 	python3.7 -m pip install -r requirements-dev.txt
 fi
 
+cd /opt/MCheck
+chmod +x mcheck
+
 
 cd /opt/MCheck
