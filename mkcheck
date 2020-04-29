@@ -24,7 +24,7 @@ fi
 TIK=$(cat /opt/MCheck/files/tiks.txt)
 if [[ ${TIK} == "" ]]; then
 	echo -e "${URED}Please enter an IP block in ${UBLUE}files/tiks.txt ${URED}to start scanning first${NC}"
-	nano files/tiks.txt
+	exit 1
 fi
 # Tiks.txt file for RouterSploit
 if [[ ! -f '/opt/MCheck/files/tiks_rsf.txt' ]]; then
@@ -90,10 +90,7 @@ target(){
 }
 # Host Auto Load
 running(){
-	CHECK=$(cat files/tiks1.txt)
-	if [[ ${CHECK} == "" ]]; then
-		apresults
-	else
+	if
 		mv files/tiks1.txt files/tiks.txt
 		# Start
 		TARG=$(cat scripts/miko.py | grep "host = *")
@@ -140,7 +137,7 @@ mchecker(){
 	done
 }
 # Routersploit Vuln Check
-rsf(){
+rtsploit(){
 	# initialise trap to call trap_ctrlc function
 	# when signal 2 (SIGINT) is received
 	trap "trap_ctrlc" 2
@@ -213,7 +210,7 @@ main(){
 						;;
 
 					"Routersploit Vuln Check")
-						rsf
+						rtsploit
 						;;
 
 					"Sort Results")
@@ -229,7 +226,6 @@ main(){
 				esac
 			done
 		echo -e "${YLW}All results have been saved to ${UPURPLE}/opt/MCheck/files/${NC}"
-	exit 0
 }
 
 main
