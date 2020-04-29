@@ -1,9 +1,9 @@
 <p align="center">
- <img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MCheck/master/files/logo.PNG" />
+ <img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MkCheck/master/files/logo.PNG" />
 <br />
- <img align="center" src="https://img.shields.io/github/issues/s1l3nt78/MCheck" />
- <img align="center" src="https://img.shields.io/github/forks/s1l3nt78/MCheck" />
- <img align="center" src="https://img.shields.io/github/stars/s1l3nt78/MCheck" />
+ <img align="center" src="https://img.shields.io/github/issues/s1l3nt78/MkCheck" />
+ <img align="center" src="https://img.shields.io/github/forks/s1l3nt78/MkCheck" />
+ <img align="center" src="https://img.shields.io/github/stars/s1l3nt78/MkCheck" />
  <br />
  <img align="center" src="https://img.shields.io/badge/Build-Alfa-orange" />
  <img align="center" src="https://img.shields.io/badge/Version-0.7-red" />
@@ -47,13 +47,13 @@
 
 <h2>Images:</h2>
 <p>
-<img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MCheck/master/files/main.PNG">
+<img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MkCheck/master/files/main.PNG">
  <br />
  <br />
-<img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MCheck/master/files/mcheck.PNG" 
+<img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MkCheck/master/files/mcheck.PNG" 
 <br />
 <br />
-<img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MCheck/master/files/rsf.PNG">
+<img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MkCheck/master/files/rsf.PNG">
 </p>
 <br />
  <br />
