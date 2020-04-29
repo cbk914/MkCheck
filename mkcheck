@@ -43,8 +43,8 @@ if [[ ! -d '/opt/MCheck/results/RSF' ]]; then
 	mkdir /opt/MCheck/results/RSF
 fi
 # Vuln folder check
-if [[ ! -d '/opt/MCheck/files/Vulns' ]]; then
-	mkdir /opt/MCheck/files/Vulns
+if [[ ! -d '/opt/MCheck/results/Vulns' ]]; then
+	mkdir /opt/MCheck/results/Vulns
 fi
 # New Target Thread for MCheck
 target(){
@@ -57,11 +57,11 @@ apresults(){
 	for log in `cat /opt/MCheck/files/tiks_res.txt`
 		do
 			echo "${log}"
-			echo "${log}" >> final.result
+			echo "${log}" >> results/Vulns/final.result
 			cat results/Vulns/${log}.results
-			cat results/Vulns/${log}.results >> final.result
+			cat results/Vulns/${log}.results >> results/Vulns/final.result
 			echo "==========================================================================="
-			echo "===========================================================================" >> final.result
+			echo "===========================================================================" >> results/Vulns/final.result
 		done
 }
 # Jailbreak Result Correlation
@@ -229,6 +229,9 @@ PS3='What tool would you like to use?'
 		do
 			case $opt in
 				"MikroTik Auto-EX")
+					BK=$(date -Iseconds)
+					echo -e "${YLW}Creating a backup of this sessions Target file as ${UBLUE}tiks_${BK}.txt${NC}"
+					cp files/tiks.txt files/tiks_${BK}.txt
 					echo -e "${W}Would you like to run MCheck using a proxy?${YLW}(y/n)${NC}"
 					read PROXY 
 					if [[ ${PROXY} == "y" ]]; then
