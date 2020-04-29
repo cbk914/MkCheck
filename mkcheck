@@ -46,12 +46,6 @@ fi
 if [[ ! -d '/opt/MCheck/results/Vulns' ]]; then
 	mkdir /opt/MCheck/results/Vulns
 fi
-# New Target Thread for MCheck
-target(){
-	RARG=$(python scripts/get_t.py)
-	VAR=$(echo ${RARG})
-	FARG='host = "ARG"'
-}
 # Final Results Correlation for Net AP Name 
 apresults(){
 	for log in `cat /opt/MCheck/files/tiks_res.txt`
@@ -88,6 +82,12 @@ wbresults(){
 			echo "===========================================================================" >> results/RSF/WinBox_final.result
 		done
 }
+# New Target Thread for MCheck
+target(){
+	RARG=$(python scripts/get_t.py)
+	VAR=$(echo ${RARG})
+	FARG='host = "ARG"'
+}
 # Host Auto Load
 running(){
 	mv files/tiks1.txt files/tiks.txt
@@ -96,6 +96,8 @@ running(){
 	sed -i "s/${TARG}/${FARG}/g" scripts/miko.py
 	sed -i "s/ARG/${VAR}/g" scripts/miko.py
 	echo -e "${UBLUE}Next Target is ${YLW}${VAR}${NC}"
+	echo ""
+	echo ""
 }
 function trap_ctrlc ()
 {
