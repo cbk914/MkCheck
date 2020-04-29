@@ -84,7 +84,7 @@ wbresults(){
 }
 # New Target Thread for MCheck
 target(){
-	RARG=$(python scripts/get_t.py)
+	RARG=$(python3 scripts/get_t.py)
 	VAR=$(echo ${RARG})
 	FARG='host = "ARG"'
 }
@@ -96,8 +96,6 @@ running(){
 	sed -i "s/${TARG}/${FARG}/g" scripts/miko.py
 	sed -i "s/ARG/${VAR}/g" scripts/miko.py
 	echo -e "${UBLUE}Next Target is ${YLW}${VAR}${NC}"
-	echo ""
-	echo ""
 }
 function trap_ctrlc ()
 {
@@ -120,7 +118,9 @@ mchecker(){
 	do
 		echo "Press <CTRL+C> to exit."
 		target
+		echo ""
 		running
+		echo ""
 		python scripts/miko.py | tee output.log
 		NAME=$(cat output.log | grep 'admin@')
 		VER=$(cat output.log | grep 'MikroTik RouterOS')
