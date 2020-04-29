@@ -30,6 +30,7 @@
   Which must be entered into <strong><em>scripts/miko.py</em></strong> for MCheck's auto shell module to correctly work.
   <br />
     <em> -'username'
+ <br />
          -'password'</em>
   <br />
   <br />
