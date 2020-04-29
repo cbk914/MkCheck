@@ -27,11 +27,11 @@ if [[ ${TIK} == "" ]]; then
 	nano files/tiks.txt
 fi
 # Tiks.txt file for RouterSploit
-if [[ ! -d '/opt/MCheck/files/tiks_rsf.txt' ]]; then
+if [[ ! -f '/opt/MCheck/files/tiks_rsf.txt' ]]; then
 	cp /opt/MCheck/files/tiks.txt /opt/MCheck/files/tiks_rsf.txt
 fi
 # Tiks.txt file for Result sorting
-if [[ ! -d '/opt/MCheck/files/tiks_res.txt' ]]; then
+if [[ ! -f '/opt/MCheck/files/tiks_res.txt' ]]; then
 	cp /opt/MCheck/files/tiks.txt /opt/MCheck/files/tiks_res.txt
 fi
 # Result folder check
