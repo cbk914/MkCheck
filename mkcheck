@@ -52,10 +52,8 @@ apresults(){
 		do
 			echo "${log}"
 			echo "${log}" >> results/Vulns/final.result
-			AP=$(cat results/Vulns/${log}.results | grep 'admin@')
-			VER=$(cat results/Vulns/${log}.results | grep "MikroTik RouterOS")
-			echo "${AP}" >> results/Vulns/final.result
-			echo "${VER}" >> rezults/Vulns/final.results
+			cat results/Vulns/${log}.results
+			cat results/Vulns/${log}.results >> results/Vulns/final.result
 			echo "==========================================================================="
 			echo "===========================================================================" >> results/Vulns/final.result
 		done
@@ -124,8 +122,10 @@ mchecker(){
 		target
 		running
 		python scripts/miko.py | tee output.log
-		SAVE=$(cat output.log | grep 'admin@')
-		echo "${SAVE}" >> results/Vulns/${VAR}.results
+		NAME=$(cat output.log | grep 'admin@')
+		VER=$(cat output.log | grep 'MikroTik RouterOS')
+		echo "${NAME}" >> results/Vulns/${VAR}.results
+		echo "${VER}" >> results/Vulns/${VAR}.results
 		echo "==============================================================================================" 
 		sudo rm output.log
 		if [[ -f '/opt/MCheck/results/Vulns/*.255.results' ]]; then
