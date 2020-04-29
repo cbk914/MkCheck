@@ -33,6 +33,3 @@ fi
 
 cd /opt/MCheck
 chmod +x mcheck
-
-
-cd /opt/MCheck
