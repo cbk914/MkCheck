@@ -90,12 +90,17 @@ target(){
 }
 # Host Auto Load
 running(){
-	mv files/tiks1.txt files/tiks.txt
-	# Start
-	TARG=$(cat scripts/miko.py | grep "host = *")
-	sed -i "s/${TARG}/${FARG}/g" scripts/miko.py
-	sed -i "s/ARG/${VAR}/g" scripts/miko.py
-	echo -e "${UBLUE}Next Target is ${YLW}${VAR}${NC}"
+	CHECK=$(cat files/tiks1.txt)
+	if [[ ${CHECK} == "" ]]; then
+		apresults
+	else
+		mv files/tiks1.txt files/tiks.txt
+		# Start
+		TARG=$(cat scripts/miko.py | grep "host = *")
+		sed -i "s/${TARG}/${FARG}/g" scripts/miko.py
+		sed -i "s/ARG/${VAR}/g" scripts/miko.py
+		echo -e "${UBLUE}Next Target is ${YLW}${VAR}${NC}"
+	fi
 }
 function trap_ctrlc ()
 {
@@ -128,9 +133,9 @@ mchecker(){
 		echo "${VER}" >> results/Vulns/${VAR}.results
 		echo "==============================================================================================" 
 		sudo rm output.log
-		if [[ -f '/opt/MCheck/results/Vulns/*.255.results' ]]; then
-			apresults
-		fi
+#		if [[ -f '/opt/MCheck/results/Vulns/*.255.results' ]]; then
+#			apresults
+#		fi
 	done
 }
 # Mikrotik Network AP Name Check (with Proxy)
@@ -144,8 +149,10 @@ pchecker(){
 		target
 		running
 		sudo python scripts/miko.py | tee output.log
-		SAVE=$(cat output.log | grep 'admin@')
-		echo "${SAVE}" >> results/Vulns/Mikro_${VAR}.results
+		NAME=$(cat output.log | grep 'admin@')
+		VER=$(cat output.log | grep 'MikroTik RouterOS')
+		echo "${NAME}" >> results/Vulns/${VAR}.results
+		echo "${VER}" >> results/Vulns/${VAR}.results
 		echo "==============================================================================================" 
 		sudo rm output.log
 		if [[ -f '/opt/MCheck/results/Vulns/*.255.results' ]]; then
