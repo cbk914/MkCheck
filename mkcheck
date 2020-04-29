@@ -144,7 +144,7 @@ pchecker(){
 		echo "${SAVE}" >> results/Vulns/Mikro_${VAR}.results
 		echo "==============================================================================================" 
 		sudo rm output.log
-		if [[ -f '/opt/MCheck/results/Vulns/Mikro_*.255.results' ]]; then
+		if [[ -f '/opt/MCheck/results/Vulns/*.255.results' ]]; then
 			echo -e "${LP}All IP's checked${NC}"
 			apresults
 		fi
@@ -219,6 +219,11 @@ update(){
 	    else
 		    sleep 1
 	    fi
+		if [[ -f '/usr/sbin/mkcheck' ]]; then
+			sudo cp mkcheck -t /usr/sbin
+			sudo chmod +x /usr/sbin/mkcheck
+			sudo chown $USER:$USER /usr/sbin/mkcheck
+		fi
     fi
   echo -e "${NC}"
 }
