@@ -228,7 +228,7 @@ update(){
 		    up_arg ${FILES}
 		    git pull
 	    else
-		    sleep 1
+		    git fetch && git pull
 	    fi
 		if [[ -f '/usr/sbin/mkcheck' ]]; then
 			sudo cp mkcheck -t /usr/sbin
