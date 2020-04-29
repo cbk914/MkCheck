@@ -1,5 +1,5 @@
 <p align="center">
- <img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MCheck/master/files/mcheck.PNG" />
+ <img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MCheck/master/files/logo.PNG" />
 <br />
  <img align="center" src="https://img.shields.io/github/issues/s1l3nt78/MCheck" />
  <img align="center" src="https://img.shields.io/github/forks/s1l3nt78/MCheck" />
@@ -20,24 +20,48 @@
 
   MCheck is used to check MikroTik Routers for:
   <br />
-     -winbox_auth_bypass_creds_disclosure
+     <em>-winbox_auth_bypass_creds_disclosure
   <br />
-     -routeros_jailbreak
-  <br />
-  <br />
-  If routersploit module (in development) confirms the Mikrotik device is vulnerable it parses the credentials into the miko.py script.
+     -routeros_jailbreak</em>
   <br />
   <br />
-  The main function spawns a quick ssh session on the compromised machine to enumerate the Net AP name from IP
+  If routersploit module confirms if the Mikrotik device is vulnerable and if found - displays login credentials
+  <br />
+  Which must be entered into <strong><em>scripts/miko.py</em></strong> for MCheck's auto shell module to correctly work.
+  <br />
+    <em> -'username'
+         -'password'</em>
+  <br />
+  <br />
+  The main function auto spawns ssh sessions on the compromised targets to enumerate the Network Access Point name from IP
   <br>
+    This is done through <em>command = "/system identity print"</em>
+    <br />
+    You can change the value of the command run in order to enumerate different data.
+    <br />
     -Once the Network AP Name has been found the attacker can use the IP and login credentials to work with
      Mikrotik Routers config from a web-session.
     <br>
     <br>
-    
+
+<h2>Images:</h2>
+<p>
+<img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MCheck/master/files/main.PNG">
+ <br />
+ <br />
+<img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MCheck/master/files/mcheck.PNG" 
+</p>
+<br />
 # USAGE
 <br />
+  The following values need to be changed in <strong><em>'scripts/miko.py'</em></strong>
+ 
+  For the Checker module to word correctly. Target host is set dynamically during the scan.
+  <br />
+  <br />
   -The user must create the <strong><em>'scripts/tiks.txt'</em></strong> list with MikroTik Router IP's.
+  <br />
+  Current <em>'scripts/tiks.txt'</em> does not contain valid MikroTik Router IP's. <strong>(STRICTLY EXAMPLE)</strong>
   <br />
   -Easiest way to do this is using Shodan for Vuln searching.
      or with nMap using the following command.
