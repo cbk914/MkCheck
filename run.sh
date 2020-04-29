@@ -34,7 +34,6 @@ running(){
 	mv files/tiks1.txt files/tiks.txt
 	# Start
 	TARG=$(cat scripts/miko.py | grep "host = *")
-	target
 	sed -i "s/${TARG}/${FARG}/g" scripts/miko.py
 	sed -i "s/ARG/${VAR}/g" scripts/miko.py
 }
@@ -43,14 +42,14 @@ mchecker(){
 	cd /opt/MCheck
 	while :
 	do
-	  echo "Press <CTRL+C> to exit."
-	  target
-	  running
-	  python scripts/miko.py | tee output.log
-	  SAVE=$(cat output.log)
-	  echo "${SAVE}" >> Micro_Check.results
-	  echo "==============================================================================================" >> Micro_Check.results
-	  rm output.log
+		echo "Press <CTRL+C> to exit."
+		target
+		running
+		python scripts/miko.py | tee output.log
+		SAVE=$(cat output.log)
+		echo "${SAVE}" >> Micro_Check.results
+		echo "==============================================================================================" >> Micro_Check.results
+		rm output.log
 	done
 }
 # Routersploit Vuln Check
