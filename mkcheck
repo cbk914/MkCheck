@@ -109,6 +109,21 @@ function trap_ctrlc ()
     echo -e "${W}Would you like to exit?${YLW}(y/n)${NC}"
 	read EXIT
 	if [[ ${EXIT} == "y" ]]; then
+		apresults
+		exit 2
+	else
+		return
+	fi
+}
+function trap_ctrlcrsf ()
+{
+    # perform cleanup here
+    echo -e "${URED}Ctrl-C caught...${NC}"
+    echo -e "${W}Would you like to exit?${YLW}(y/n)${NC}"
+	read EXIT
+	if [[ ${EXIT} == "y" ]]; then
+		wbresults
+		jbresults
 		exit 2
 	else
 		return
@@ -133,9 +148,6 @@ mchecker(){
 		echo "${VER}" >> results/Vulns/${VAR}.results
 		echo "==============================================================================================" 
 		sudo rm output.log
-#		if [[ -f '/opt/MCheck/results/Vulns/*.255.results' ]]; then
-#			apresults
-#		fi
 	done
 }
 # Mikrotik Network AP Name Check (with Proxy)
@@ -155,17 +167,13 @@ pchecker(){
 		echo "${VER}" >> results/Vulns/${VAR}.results
 		echo "==============================================================================================" 
 		sudo rm output.log
-		if [[ -f '/opt/MCheck/results/Vulns/*.255.results' ]]; then
-			echo -e "${LP}All IP's checked${NC}"
-			apresults
-		fi
 	done
 }
 # Routersploit Vuln Check
 rsf(){
 	# initialise trap to call trap_ctrlc function
 	# when signal 2 (SIGINT) is received
-	trap "trap_ctrlc" 2
+	trap "trap_ctrlcrsf" 2
 	cd /root/routersploit
 	for name in `cat /opt/MCheck/files/tiks_rsf.txt`
 		do
@@ -179,11 +187,6 @@ rsf(){
 			JAIL=$(cat jailbreak.log)
 			echo "${JAIL}" >> results/RSF/Jailbreak_${name}.results
 			sudo rm jailbreak.log
-			if [[ -f '/opt/MCheck/results/RSF/Jailbreak_*.255.results' ]]; then
-				echo -e "${LP}All IP's checked${NC}"
-				wbresults
-				jbresults
-			fi
 		done	
 }
 # Update Args
@@ -246,7 +249,7 @@ echo -e "${BRED}"
 python3 files/banner.py
 echo -e "${NC}"
 PS3='What tool would you like to use?'
-	options=("MikroTik Auto-EX" "Routersploit Vuln Check" "Update")
+	options=("MikroTik Auto-EX" "Routersploit Vuln Check" "Sort Results" "Update")
     select opt in "${options[@]}"
 		do
 			case $opt in
@@ -266,6 +269,12 @@ PS3='What tool would you like to use?'
 
 				"Routersploit Vuln Check")
 					rsf
+					;;
+
+				"Sort Results")
+					apresults
+					jbresults
+					wbresults
 					;;
 
 				"Update")
