@@ -20,12 +20,14 @@
 
   MCheck is used to check MikroTik Routers for:
   <br />
-     -winbox_auth_bypass_creds_disclosure
+     <em>-winbox_auth_bypass_creds_disclosure
   <br />
-     -routeros_jailbreak
+     -routeros_jailbreak</em>
   <br />
   <br />
-  If routersploit module (in development) confirms the Mikrotik device is vulnerable it parses the credentials into the miko.py script.
+  If routersploit module confirms if the Mikrotik device is vulnerable and if found to be displays credentials
+  <br />
+  Then can then be entered into <strong><em>scripts/miko.py</em></strong> 
   <br />
   <br />
   The main function spawns a quick ssh session on the compromised machine to enumerate the Net AP name from IP
