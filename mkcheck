@@ -139,7 +139,7 @@ pchecker(){
 		echo "Press <CTRL+C> to exit."
 		target
 		running
-		proxychains4 sudo python scripts/miko.py | tee output.log
+		sudo python scripts/miko.py | tee output.log
 		SAVE=$(cat output.log | grep 'admin@')
 		echo "${SAVE}" >> results/Vulns/Mikro_${VAR}.results
 		echo "==============================================================================================" 
@@ -247,7 +247,7 @@ PS3='What tool would you like to use?'
 					read PROXY 
 					if [[ ${PROXY} == "y" ]]; then
 						sudo service tor start
-						pchecker
+						proxychains4 pchecker
 					else
 						mchecker
 					fi
