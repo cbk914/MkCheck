@@ -52,8 +52,10 @@ apresults(){
 		do
 			echo "${log}"
 			echo "${log}" >> results/Vulns/final.result
-			cat results/Vulns/${log}.results
-			cat results/Vulns/${log}.results >> results/Vulns/final.result
+			AP=$(cat results/Vulns/${log}.results | grep 'admin@')
+			VER=$(cat results/Vulns/${log}.results | grep "MikroTik RouterOS")
+			echo "${AP}" >> results/Vulns/final.result
+			echo "${VER}" >> rezults/Vulns/final.results
 			echo "==========================================================================="
 			echo "===========================================================================" >> results/Vulns/final.result
 		done
