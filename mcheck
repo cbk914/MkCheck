@@ -30,6 +30,10 @@ fi
 if [[ ! -d '/opt/MCheck/files/tiks_rsf.txt' ]]; then
 	cp /opt/MCheck/files/tiks.txt /opt/MCheck/files/tiks_rsf.txt
 fi
+# Tiks.txt file for Result sorting
+if [[ ! -d '/opt/MCheck/files/tiks_res.txt' ]]; then
+	cp /opt/MCheck/files/tiks.txt /opt/MCheck/files/tiks_res.txt
+fi
 # Result folder check
 if [[ ! -d '/opt/MCheck/results' ]]; then
 	mkdir /opt/MCheck/results
@@ -48,6 +52,43 @@ target(){
 	VAR=$(echo ${RARG})
 	FARG='host = "ARG"'
 }
+# Final Results Correlation for Net AP Name 
+apresults(){
+	for log in `cat /opt/MCheck/files/tiks_res.txt`
+		do
+			echo "${log}"
+			echo "${log}" >> final.result
+			cat results/Vulns/${log}.results
+			cat results/Vulns/${log}.results >> final.result
+			echo "==========================================================================="
+			echo "===========================================================================" >> final.result
+		done
+}
+# Jailbreak Result Correlation
+jbresults(){
+	for log in `cat /opt/MCheck/files/tiks_res.txt`
+		do
+			echo "${log}"
+			echo "${log}" >> results/RSF/Jailbreak_final.result
+			cat results/RSF/Jailbreak_${log}.results
+			cat results/RSF/Jailbreak_${log}.results >> results/RSF/Jailbreak_final.result
+			echo "==========================================================================="
+			echo "===========================================================================" >> results/RSF/Jailbreak_final.result
+		done
+}
+# WinBox Result Correlation
+wbresults(){
+	for log in `cat /opt/MCheck/files/tiks_res.txt`
+		do
+			echo "${log}"
+			echo "${log}" >> results/RSF/WinBox_final.result
+			cat results/Vulns/Winbox_${log}.results
+			cat results/Vulns/Winbox_${log}.results >> results/RSF/WinBox_final.result
+			echo "==========================================================================="
+			echo "===========================================================================" >> results/RSF/WinBox_final.result
+		done
+}
+# Host Auto Load
 running(){
 	mv files/tiks1.txt files/tiks.txt
 	# Start
@@ -56,7 +97,19 @@ running(){
 	sed -i "s/ARG/${VAR}/g" scripts/miko.py
 	echo -e "${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
-# Start of Mikro_Check
+function trap_ctrlc ()
+{
+    # perform cleanup here
+    echo -e "${URED}Ctrl-C caught...${NC}"
+    echo -e "${W}Would you like to exit?${YLW}(y/n)${NC}"
+	read EXIT
+	if [[ ${EXIT} == "y" ]]; then
+		exit 2
+	else
+		return
+	fi
+}
+# Mikro Network AP Name Check (No Proxy)
 mchecker(){
 	while :
 	do
@@ -64,16 +117,16 @@ mchecker(){
 		target
 		running
 		python scripts/miko.py | tee output.log
-		SAVE=$(cat output.log)
-		echo "${SAVE}" >> results/Vulns/Mikro_${VAR}.results
+		SAVE=$(cat output.log | grep 'admin@')
+		echo "${SAVE}" >> results/Vulns/${VAR}.results
 		echo "==============================================================================================" 
 		sudo rm output.log
-		if [[ -f '/opt/MCheck/results/Vulns/Mikro_*.255.results' ]]; then
-			sudo ./mcheck
+		if [[ -f '/opt/MCheck/results/Vulns/*.255.results' ]]; then
+			apresults
 		fi
 	done
 }
-# MCheck with Proxy
+# Mikrotik Network AP Name Check (with Proxy)
 pchecker(){
 	while :
 	do
@@ -81,13 +134,13 @@ pchecker(){
 		target
 		running
 		proxychains4 sudo python scripts/miko.py | tee output.log
-		SAVE=$(cat output.log)
+		SAVE=$(cat output.log | grep 'admin@')
 		echo "${SAVE}" >> results/Vulns/Mikro_${VAR}.results
 		echo "==============================================================================================" 
 		sudo rm output.log
 		if [[ -f '/opt/MCheck/results/Vulns/Mikro_*.255.results' ]]; then
 			echo -e "${LP}All IP's checked${NC}"
-			sudo ./mcheck
+			apresults
 		fi
 	done
 }
@@ -108,7 +161,8 @@ rsf(){
 			sudo rm jailbreak.log
 			if [[ -f '/opt/MCheck/results/RSF/Jailbreak_*.255.results' ]]; then
 				echo -e "${LP}All IP's checked${NC}"
-				sudo ./mcheck
+				wbresults
+				jbresults
 			fi
 		done	
 }
@@ -159,6 +213,9 @@ update(){
     fi
   echo -e "${NC}"
   }
+# initialise trap to call trap_ctrlc function
+# when signal 2 (SIGINT) is received
+trap "trap_ctrlc" 2
 #MCheck Start
 echo -e "${LP}"
 figlet -f mini "MCheck"
@@ -167,7 +224,7 @@ echo -e "${BRED}"
 python3 files/banner.py
 echo -e "${NC}"
 PS3='What tool would you like to use?'
-	options=("MikroTik Auto-EX" "Routersploit Vuln Check")
+	options=("MikroTik Auto-EX" "Routersploit Vuln Check" "Update")
     select opt in "${options[@]}"
 		do
 			case $opt in
@@ -184,6 +241,10 @@ PS3='What tool would you like to use?'
 
 				"Routersploit Vuln Check")
 					rsf
+					;;
+
+				"Update")
+					update
 					;;
 
 			esac
