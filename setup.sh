@@ -46,13 +46,13 @@ else
 fi
 
 cd /opt/MCheck
-chmod +x mcheck
+chmod +x mkcheck
 # Path Options
 echo -e "${YLW}Would you like to add MCheck to path to run it from anywhere?${LBBLUE}(y/n)${NC}"
 read LOPT
 if [[ ${LOPT} == "y" ]]; then
-	sudo cp mcheck -t /usr/sbin
-	sudo chown $USER:$USER /usr/sbin/mcheck
+	sudo cp mkcheck -t /usr/sbin
+	sudo chown $USER:$USER /usr/sbin/mkcheck
 else
 	echo -e "${RED}MCheck installed${NC}"
 fi

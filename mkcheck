@@ -218,7 +218,7 @@ update(){
 trap "trap_ctrlc" 2
 #MCheck Start
 echo -e "${LP}"
-figlet -f mini "MCheck"
+figlet -f mini "MKCheck"
 echo -e "${NC}"
 echo -e "${BRED}"
 python3 files/banner.py
