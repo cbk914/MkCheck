@@ -1,5 +1,5 @@
 #!/bin/bash
-LPATH='/opt/MCheck/'
+LPATH='/opt/MkCheck/'
 ORNG='\033[0;33m'
 NC='\033[0m'
 W='\033[1;37m'
@@ -14,41 +14,41 @@ UPURPLE='\033[4;35m'
 UBLUE='\033[4;34m'
 URED='\033[4;31m'
 
-sudo chown $USER:$USER -R /opt/MCheck
-cd /opt/MCheck
+sudo chown $USER:$USER -R /opt/MkCheck
+cd /opt/MkCheck
 # Root Check
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
 fi
-TIK=$(cat /opt/MCheck/files/tiks.txt)
+TIK=$(cat /opt/MkCheck/files/tiks.txt)
 if [[ ${TIK} == "" ]]; then
 	echo -e "${URED}Please enter an IP block in ${UBLUE}files/tiks.txt ${URED}to start scanning first${NC}"
-	sudo nano /opt/MCheck/files/tiks.txt
+	sudo nano /opt/MkCheck/files/tiks.txt
 fi
 # Tiks.txt file for RouterSploit
-if [[ ! -f '/opt/MCheck/files/tiks_rsf.txt' ]]; then
-	cp /opt/MCheck/files/tiks.txt /opt/MCheck/files/tiks_rsf.txt
+if [[ ! -f '/opt/MkCheck/files/tiks_rsf.txt' ]]; then
+	cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_rsf.txt
 fi
 # Tiks.txt file for Result sorting
-if [[ ! -f '/opt/MCheck/files/tiks_res.txt' ]]; then
-	cp /opt/MCheck/files/tiks.txt /opt/MCheck/files/tiks_res.txt
+if [[ ! -f '/opt/MkCheck/files/tiks_res.txt' ]]; then
+	cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_res.txt
 fi
 # Result folder check
-if [[ ! -d '/opt/MCheck/results' ]]; then
-	mkdir /opt/MCheck/results
+if [[ ! -d '/opt/MkCheck/results' ]]; then
+	mkdir /opt/MkCheck/results
 fi
 # RSF folder check
-if [[ ! -d '/opt/MCheck/results/RSF' ]]; then
-	mkdir /opt/MCheck/results/RSF
+if [[ ! -d '/opt/MkCheck/results/RSF' ]]; then
+	mkdir /opt/MkCheck/results/RSF
 fi
 # Vuln folder check
-if [[ ! -d '/opt/MCheck/results/Vulns' ]]; then
-	mkdir /opt/MCheck/results/Vulns
+if [[ ! -d '/opt/MkCheck/results/Vulns' ]]; then
+	mkdir /opt/MkCheck/results/Vulns
 fi
 # Final Results Correlation for Net AP Name 
 apresults(){
-	for log in `cat /opt/MCheck/files/tiks_res.txt`
+	for log in `cat /opt/MkCheck/files/tiks_res.txt`
 		do
 			echo "${log}"
 			echo "${log}" >> results/Vulns/final.result
@@ -60,7 +60,7 @@ apresults(){
 }
 # Jailbreak Result Correlation
 jbresults(){
-	for log in `cat /opt/MCheck/files/tiks_res.txt`
+	for log in `cat /opt/MkCheck/files/tiks_res.txt`
 		do
 			echo "${log}"
 			echo "${log}" >> results/RSF/Jailbreak_final.result
@@ -72,7 +72,7 @@ jbresults(){
 }
 # WinBox Result Correlation
 wbresults(){
-	for log in `cat /opt/MCheck/files/tiks_res.txt`
+	for log in `cat /opt/MkCheck/files/tiks_res.txt`
 		do
 			echo "${log}"
 			echo "${log}" >> results/RSF/WinBox_final.result
@@ -125,7 +125,7 @@ mchecker(){
 		echo "${VER}" >> results/Vulns/${VAR}.results
 		echo "==============================================================================================" 
 		sudo rm output.log
-		if [[ -f '/opt/MCheck/results/Vulns/*.255.results' ]]; then
+		if [[ -f '/opt/MkCheck/results/Vulns/*.255.results' ]]; then
 			apresults
 			main
 		fi
@@ -134,17 +134,17 @@ mchecker(){
 # Routersploit Vuln Check
 rtsploit(){
 	cd /root/routersploit
-	for name in `cat /opt/MCheck/files/tiks_rsf.txt`
+	for name in `cat /opt/MkCheck/files/tiks_rsf.txt`
 		do
 			#winbox_auth_bypass_creds_disclosure
 			WINSAVE=$(sudo python3.7 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}")
-			echo "${WINSAVE}" >> /opt/MCheck/results/RSF/Winbox_${name}.results
+			echo "${WINSAVE}" >> /opt/MkCheck/results/RSF/Winbox_${name}.results
 			echo "${WINSAVE}"
 			# routeros_jailbreak
 			JAIL=$(sudo python3.7 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}")
 			echo "${JAIL}"
-			echo "${JAIL}" >> /opt/MCheck/results/RSF/Jailbreak_${name}.results
-			if [[ -f '/opt/MCheck/results/RSF/*.255.results' ]]; then
+			echo "${JAIL}" >> /opt/MkCheck/results/RSF/Jailbreak_${name}.results
+			if [[ -f '/opt/MkCheck/results/RSF/*.255.results' ]]; then
 				jbresults
 				wbresults
 				main
@@ -152,8 +152,25 @@ rtsploit(){
 		done	
 }
 # Update Args
+up_arg(){
+    echo $1 >> temp.log
+    echo $2 >> temp.log
+    echo $3 >> temp.log
+    echo $4 >> temp.log
+    echo $5 >> temp.log
+    echo $6 >> temp.log
+    echo $7 >> temp.log
+    echo $8 >> temp.log
+    echo $9 >> temp.log
+
+    for UFILES in `cat temp.log`
+       	        do
+    	            rm /opt/MkCheck/${UFILES}
+                done
+    rm /opt/MkCheck/temp.log
+}
 update(){
-    cd /opt/MCheck
+    cd /opt/MkCheck
     echo -e "${ORNG}"
     figlet -f mini "Checking for updates"
     echo -e "${NC}"
@@ -164,13 +181,26 @@ update(){
         figlet -f mini "Up to date."
         echo -e "${NC}"
     else
-		git pull
+		sleep 5
+	    echo -e "${W}Are there pull conflicts with files?(y/n)${NC}"
+        sleep 3
+	    read UANS
+	    if [[ ${UANS} == "y" ]]; then
+            export LPATH
+            echo -e "${W}Please enter the conflicting files (seperated by a space)${NC}"
+		    read FILES
+            sleep 2
+		    up_arg ${FILES}
+		    git pull
+	    else
+		    sleep 1
+	    fi
 	    if [[ -f '/usr/sbin/mkcheck' ]]; then
 			sudo cp mkcheck -t /usr/sbin
 			sudo chmod +x /usr/sbin/mkcheck
 			sudo chown $USER:$USER /usr/sbin/mkcheck
 		fi
-		sudo mkcheck
+		main
 	fi
   echo -e "${NC}"
 }
@@ -214,9 +244,9 @@ main(){
 
 				esac
 			done
-		echo -e "${YLW}All results have been saved to ${UPURPLE}/opt/MCheck/files/${NC}"
+		echo -e "${YLW}All results have been saved to ${UPURPLE}/opt/MkCheck/files/${NC}"
 }
-cd /opt/MCheck
+cd /opt/MkCheck
 # initialise trap to call trap_ctrlc function
 # when signal 2 (SIGINT) is received
 trap "trap_ctrlc" 2
