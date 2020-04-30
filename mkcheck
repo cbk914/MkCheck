@@ -42,6 +42,8 @@ else
 		echo -e "${W}Please enter your target block${NC}"
 		sleep 2
 		nano files/tiks.txt
+	else
+		sudo cp files/session_* files/tiks.txt
 	fi
 fi
 # Routersploit file check (tiks.rsf.txt)
@@ -145,7 +147,7 @@ function trap_ctrlc ()
 mchecker(){
 	while :
 	do
-		echo "Press <CTRL+C> to exit."
+		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		target
 		echo ""
 		running
@@ -251,9 +253,10 @@ main(){
 			do
 				case $opt in
 					"MikroTik Auto-EX")
-						BK=$(date -Iseconds)
-						echo -e "${YLW}Creating a backup of this sessions Target file as ${UBLUE}tiks_${BK}.txt${NC}"
-						cp files/tiks.txt files/tiks_${BK}.txt
+						echo -e "${W}Please enter a name for this session${NC}"
+						read SESSION
+						echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}session_${SESSION}.txt${NC}"
+						cp files/tiks.txt files/session_${SESSION}.txt
 						echo -e "${W}Would you like to run MCheck using a proxy?${YLW}(y/n)${NC}"
 						read PROXY 
 						if [[ ${PROXY} == "y" ]]; then
