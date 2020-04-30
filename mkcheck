@@ -130,6 +130,24 @@ function trap_ctrlc ()
 		return
 	fi
 }
+ap_check(){
+	if [[ -f '/opt/MkCheck/results/Vulns/*.255.results' ]]; then
+		apresults
+		sudo cp results/Vulns/final.results results/Vulns/${SESSION}_final.results
+		main
+	else
+		return
+	fi
+}
+rsf_check(){
+	if [[ -f '/opt/MkCheck/results/RSF/*.255.results' ]]; then
+		rsfresults
+		sudo cp results/RSF/final.results results/RSF/${SESSION}_final.results
+		main
+	else
+		return
+	fi
+}
 # Mikro Network AP Name Check (No Proxy)
 mchecker(){
 	while :
@@ -146,11 +164,7 @@ mchecker(){
 		echo "${VER}" >> results/Vulns/${VAR}.results
 		echo "==============================================================================================" 
 		sudo rm output.log
-		if [[ -f '/opt/MkCheck/results/Vulns/*.255.results' ]]; then
-			apresults
-			sudo cp results/Vulns/final.results results/Vulns/${SESSION}_final.results
-			main
-		fi
+		ap_check
 	done
 }
 # Routersploit Vuln Check
@@ -166,12 +180,7 @@ rtsploit(){
 			JAIL=$(sudo python3 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}")
 			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${name}.results
 			echo "${JAIL}"
-			if [[ -f '/opt/MkCheck/results/RSF/*.255.results' ]]; then
-				jbresults
-				wbresults
-				sudo cp results/RSF/final.results results/RSF/${SESSION}_final.results
-				main
-			fi
+			rsf_check
 		done	
 }
 # Update Args
@@ -261,9 +270,12 @@ main(){
 						;;
 
 					"Sort Results")
-						apresults
-						jbresults
-						wbresults
+						if [[ -f /opt/MkCheck/results/Vulns/*.255.results ]]; then
+							apresults
+						fi
+						if [[ -f /opt/MkCheck/results/RSF/*.255.results ]]; then
+							rsfresults
+						fi
 						;;
 
 					"Update")
