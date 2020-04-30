@@ -251,10 +251,6 @@ main(){
 			do
 				case $opt in
 					"MikroTik Auto-EX")
-						echo -e "${W}Please enter a name for this session${NC}"
-						read SESSION
-						echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}session_${SESSION}.txt${NC}"
-						cp files/tiks.txt files/session_${SESSION}.txt
 						echo -e "${W}Would you like to run MCheck using a proxy?${YLW}(y/n)${NC}"
 						read PROXY 
 						if [[ ${PROXY} == "y" ]]; then
@@ -287,5 +283,9 @@ cd /opt/MkCheck
 echo -e "${LP}"
 figlet MkCheck
 echo -e "${NC}"
+echo -e "${W}Please enter a name for this session${NC}"
+read SESSION
+echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}session_${SESSION}.txt${NC}"
+cp files/tiks.txt files/session_${SESSION}.txt
 main
 exit 0
