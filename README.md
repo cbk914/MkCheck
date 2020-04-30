@@ -6,7 +6,7 @@
  <img align="center" src="https://img.shields.io/github/stars/s1l3nt78/MkCheck" />
  <br />
  <img align="center" src="https://img.shields.io/badge/Build-Alfa-orange" />
- <img align="center" src="https://img.shields.io/badge/Version-0.7-red" />
+ <img align="center" src="https://img.shields.io/badge/Version-0.8-red" />
  <br />
   <img align="center" src="https://img.shields.io/badge/Author-s1l3nt78-yellowgreen" />
 </p>

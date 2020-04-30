@@ -21,17 +21,47 @@ if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
 fi
-TIK=$(cat /opt/MkCheck/files/tiks.txt)
-if [[ ${TIK} == "" ]]; then
-	echo -e "${URED}Please enter an IP block in ${UBLUE}files/tiks.txt ${URED}to start scanning first${NC}"
+# First check to see if tiks.txt has data
+RE=$(cat /opt/MkCheck/files/tiks.txt)
+if [[ ${RE} == "" ]]; then
+	echo -e "${URED}Please enter an IP block to start scanning first${NC}"
 	sudo nano /opt/MkCheck/files/tiks.txt
 fi
-# Tiks.txt file for RouterSploit
-if [[ ! -f '/opt/MkCheck/files/tiks_rsf.txt' ]]; then
-	cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_rsf.txt
+# Second check to see if data is example data
+RR=$(cat /opt/MkCheck/files/tiks.txt | grep "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS")
+if [[ ${RR} == "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS" ]]; then
+	sudo rm /opt/MkCheck/files/tiks.txt
+	echo -e "${URED}Please enter an IP block to start scanning first${NC}"
+	nano /opt/MkCheck/files/tiks.txt
+else
+	# Check to see if user will keep original data or replace
+	echo -e "${W}Would you like to ${YLW}k${W}eep previous target files or start ${YLW}f${W}resh?${YLW}(k/f)${NC}"
+	read CONF
+	if [[ ${CONF} == "f" ]]; then
+		sudo rm files/tiks.txt files/tiks_res.txt tiks_rsf.txt
+		echo -e "${W}Please enter your target block${NC}"
+		sleep 2
+		nano files/tiks.txt
+	fi
 fi
-# Tiks.txt file for Result sorting
-if [[ ! -f '/opt/MkCheck/files/tiks_res.txt' ]]; then
+# Routersploit file check (tiks.rsf.txt)
+if [[ -f '/opt/MkCheck/files/tiks_rsf.txt' ]]; then
+	RT=$(cat /opt/MkCheck/files/tiks_rsf.txt | grep "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS")
+	if [[ ${RT} == "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS" ]]; then
+		sudo rm /opt/MkCheck/files/tiks_rsf.txt
+		cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_rsf.txt
+	fi
+else
+	sudo cp files/tiks.txt files/tiks_rsf.txt
+fi
+# Result file check (tiks_res.txt)
+if [[ -f '/opt/MkCheck/files/tiks_res.txt' ]]; then
+	RS=$(cat /opt/MkCheck/files/tiks_res.txt | grep "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS")
+	if [[ ${RS} == "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS" ]]; then
+		sudo rm /opt/MkCheck/files/tiks_res.txt
+		cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_res.txt
+	fi
+else
 	cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_res.txt
 fi
 # Result folder check
@@ -68,6 +98,7 @@ jbresults(){
 			cat results/RSF/Jailbreak_${log}.results >> results/RSF/Jailbreak_final.result
 			echo "==========================================================================="
 			echo "===========================================================================" >> results/RSF/Jailbreak_final.result
+			sleep 2
 		done
 }
 # WinBox Result Correlation
@@ -80,6 +111,7 @@ wbresults(){
 			cat results/Vulns/Winbox_${log}.results >> results/RSF/WinBox_final.result
 			echo "==========================================================================="
 			echo "===========================================================================" >> results/RSF/WinBox_final.result
+			sleep 2
 		done
 }
 # New Target Thread for MCheck
@@ -137,11 +169,11 @@ rtsploit(){
 	for name in `cat /opt/MkCheck/files/tiks_rsf.txt`
 		do
 			#winbox_auth_bypass_creds_disclosure
-			WINSAVE=$(sudo python3 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}")
+			WINSAVE=$(sudo python3.7 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}")
 			echo "${WINSAVE}" >> /opt/MkCheck/results/RSF/${name}.results
 			echo "${WINSAVE}"
 			# routeros_jailbreak
-			JAIL=$(sudo python3 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}")
+			JAIL=$(sudo python3.7 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}")
 			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${name}.results
 			echo "${JAIL}"
 			if [[ -f '/opt/MkCheck/results/RSF/*.255.results' ]]; then
@@ -206,6 +238,9 @@ update(){
 }
 #MCheck Start
 main(){
+	# initialise trap to call trap_ctrlc function
+	# when signal 2 (SIGINT) is received
+	trap "trap_ctrlc" 2
 	echo -e "${BRED}"
 	python3 files/banner.py
 	echo -e "${NC}"
@@ -247,9 +282,6 @@ main(){
 		echo -e "${YLW}All results have been saved to ${UPURPLE}/opt/MkCheck/files/${NC}"
 }
 cd /opt/MkCheck
-# initialise trap to call trap_ctrlc function
-# when signal 2 (SIGINT) is received
-trap "trap_ctrlc" 2
 
 echo -e "${LP}"
 figlet MkCheck
