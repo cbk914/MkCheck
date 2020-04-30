@@ -20,7 +20,7 @@ sudo chown $USER:$USER -R /opt/MkCheck
 cd /opt/MkCheck
 # Root Check
 if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root" 
+   echo "This script must be run as root"
    exit 1
 fi
 # Result folder check
@@ -120,7 +120,7 @@ running(){
 	sed -i "s/ARG/${VAR}/g" scripts/miko.py
 	echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
-trap_ctrlc (){
+function trap_ctrlc (){
     # perform cleanup here
     echo -e "${URED}Ctrl-C caught...${NC}"
     echo -e "${W}Would you like to exit?${YLW}(y/n)${NC}"
@@ -131,7 +131,7 @@ trap_ctrlc (){
 		return
 	fi
 }
-# Final Results Correlation for Net AP Name 
+# Final Results Correlation for Net AP Name
 apresults(){
 	for log in `cat /opt/MkCheck/files/tiks_res.txt`
 		do
@@ -173,7 +173,7 @@ mchecker(){
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
 		sudo rm output.log
 		Z=$(( $Z + 1 ))
-		if [[ ${Z} == 255 ]]; then
+		if [[ ${Z} == 254 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
 			apresults
 		fi
@@ -196,7 +196,7 @@ pchecker(){
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
 		sudo rm output.log
 		Z=$(( $Z + 1 ))
-		if [[ ${Z} == 255 ]]; then
+		if [[ ${Z} == 254 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
 			apresults
 		fi
@@ -249,27 +249,27 @@ update(){
         figlet -f mini "Up to date."
         echo -e "${NC}"
     else
-		sleep 5
-	    echo -e "${W}Are there pull conflicts with files?(y/n)${NC}"
+		    sleep 5
+	      echo -e "${W}Are there pull conflicts with files?(y/n)${NC}"
         sleep 3
-	    read UANS
-	    if [[ ${UANS} == "y" ]]; then
-            export LPATH
-            echo -e "${W}Please enter the conflicting files (seperated by a space)${NC}"
-		    read FILES
-            sleep 2
-		    up_arg ${FILES}
-		    git pull
-	    else
-		    git pull
-	    fi
-	    if [[ -f '/usr/sbin/mkcheck' ]]; then
-			sudo cp mkcheck -t /usr/sbin
-			sudo chmod +x /usr/sbin/mkcheck
-			sudo chown $USER:$USER /usr/sbin/mkcheck
-		fi
-		main
-	fi
+	      read UANS
+	      if [[ ${UANS} == "y" ]]; then
+          export LPATH
+          echo -e "${W}Please enter the conflicting files (seperated by a space)${NC}"
+		      read FILES
+          sleep 2
+		      up_arg ${FILES}
+		      git pull
+	     else
+		      git pull
+	     fi
+	     if [[ -f '/usr/sbin/mkcheck' ]]; then
+			     sudo cp mkcheck -t /usr/sbin
+			     sudo chmod +x /usr/sbin/mkcheck
+			     sudo chown $USER:$USER /usr/sbin/mkcheck
+		   fi
+		  main
+    fi
   echo -e "${NC}"
 }
 # MkCheck Start
@@ -279,15 +279,16 @@ main(){
 	echo -e "${NC}"
 #	echo -e "${W}Hit ${UBLUE}Ctrl + z${NC} ${W}to exit completely or ${UBLUE}Ctrl + c${NC} ${W}to quit a scan${NC}"
 	PS3='What tool would you like to use?'
-		options=("MikroTik Auto-EX" "Routersploit Vuln Check" "Update") #"Sort Results" 
+		options=("MikroTik Auto-EX" "Routersploit Vuln Check" "Update") #"Sort Results"
 		select opt in "${options[@]}"
 			do
 				case $opt in
 					"MikroTik Auto-EX")
 						echo -e "${W}Would you like to run MCheck using a proxy?${YLW}(y/n)${NC}"
-						read PROXY 
+						read PROXY
 						if [[ ${PROXY} == "y" ]]; then
-							pchecker
+              sudo service tor start
+              pchecker
 						else
 							mchecker
 						fi
