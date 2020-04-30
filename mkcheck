@@ -36,6 +36,10 @@ if [[ ! -f '.conf' ]]; then
 		echo -e "${URED}Please enter an IP block to start scanning first${NC}"
 		nano /opt/MkCheck/files/tiks.txt
 	fi
+	echo -e "${W}Please enter a name for this session${NC}"
+	read SESSION
+	echo "${SESSION}" > .conf
+	echo -e "${W}Session: ${LP}${SESSION}${NC}"
 else
 	# Check to see if user will keep original data or replace
 	SESH=$(cat .conf)
