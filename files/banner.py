@@ -11,8 +11,8 @@ def showbanner():
   MMM      MMM  III  KKK KKK   RRRRRR    OOO  OOO     TTT     III  KKK KKK
   MMM      MMM  III  KKK  KKK  RRR  RRR   OOOOOO      TTT     III  KKK  KKK
 
-  MikroTik RouterOS Exploitation  ''' + "Alfa v0.8")
-    print("")
+  MikroTik RouterOS Exploitation  ''' + "Codename: JailBoxer")
+    print("Version 1")
     print("by s1l3nt78")
     print("")
     print("Mikrotik WinBox Auth Bypass - Versions 6.29 to 6.42")
