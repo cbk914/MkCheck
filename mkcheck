@@ -14,6 +14,7 @@ UPURPLE='\033[4;35m'
 UBLUE='\033[4;34m'
 URED='\033[4;31m'
 
+#trap "trap_ctrlc" 2
 sudo chown $USER:$USER -R /opt/MkCheck
 cd /opt/MkCheck
 # Root Check
@@ -122,8 +123,7 @@ running(){
 	sed -i "s/ARG/${VAR}/g" scripts/miko.py
 	echo -e "${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
-function trap_ctrlc ()
-{
+trap_ctrlc (){
     # perform cleanup here
     echo -e "${URED}Ctrl-C caught...${NC}"
     echo -e "${W}Would you like to exit?${YLW}(y/n)${NC}"
@@ -136,6 +136,7 @@ function trap_ctrlc ()
 }
 ap_check(){
 	if [[ -f '/opt/MkCheck/results/Vulns/*.255.results' ]]; then
+		kill $!
 		apresults
 		main
 	else
@@ -144,6 +145,7 @@ ap_check(){
 }
 rsf_check(){
 	if [[ -f '/opt/MkCheck/results/RSF/*.255.results' ]]; then
+		kill $!
 		rsfresults
 		main
 	else
@@ -242,11 +244,10 @@ update(){
 main(){
 	# initialise trap to call trap_ctrlc function
 	# when signal 2 (SIGINT) is received
-	trap "trap_ctrlc" 2
 	echo -e "${BRED}"
 	python3 files/banner.py
 	echo -e "${NC}"
-	echo -e "${W}Hit ${UBLUE}Ctrl + z${NC} ${W}to exit completely or ${UBLUE}Ctrl + c${NC} ${W}to quit a scan${NC}"
+#	echo -e "${W}Hit ${UBLUE}Ctrl + z${NC} ${W}to exit completely or ${UBLUE}Ctrl + c${NC} ${W}to quit a scan${NC}"
 	PS3='What tool would you like to use?'
 		options=("MikroTik Auto-EX" "Routersploit Vuln Check" "Sort Results" "Update")
 		select opt in "${options[@]}"
