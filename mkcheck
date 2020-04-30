@@ -35,7 +35,7 @@ if [[ ${RR} == "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS" ]]; then
 	nano /opt/MkCheck/files/tiks.txt
 else
 	# Check to see if user will keep original data or replace
-	echo -e "${W}Would you like to ${URED}k${W}eep previous target files or start ${URED}f${W}resh?${YLW}(k/f)${NC}"
+	echo -e "${W}Would you like to ${URED}k${NC}${W}eep previous target files or start ${URED}f${NC}${W}resh?${YLW}(k/f)${NC}"
 	read CONF
 	if [[ ${CONF} == "f" ]]; then
 		sudo rm files/tiks.txt files/tiks_res.txt tiks_rsf.txt
@@ -244,7 +244,7 @@ main(){
 	echo -e "${BRED}"
 	python3 files/banner.py
 	echo -e "${NC}"
-	echo -e "${W}Hit ${UBLUE}Ctrl + z ${W}to exit completely or ${UBLUE}Ctrl + c ${W}to quit a scan${NC}"
+	echo -e "${W}Hit ${UBLUE}Ctrl + z${NC} ${W}to exit completely or ${UBLUE}Ctrl + c${NC} ${W}to quit a scan${NC}"
 	PS3='What tool would you like to use?'
 		options=("MikroTik Auto-EX" "Routersploit Vuln Check" "Sort Results" "Update")
 		select opt in "${options[@]}"
