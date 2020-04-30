@@ -6,8 +6,8 @@ import os
 
 host = "127.0.0.1"
 port = 22
-username = "admin"
-password = "admin"
+username = "admin"								# CHANGE THIS
+password = "admin"								# CHANGE THIS
 command = "/system identity print"
 
 ssh = paramiko.SSHClient()
