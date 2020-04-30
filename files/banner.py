@@ -17,6 +17,7 @@ def showbanner():
     print("")
     print("Mikrotik WinBox Auth Bypass - Versions 6.29 to 6.42")
     print("Mikrotik RouterOS Jailbreak - Versions 2.9.8 up to 6.41rc56")
+    print("Hit Ctrl + z to exit completely or Ctrl + c to quit a scan")
     exit
 
 showbanner()
