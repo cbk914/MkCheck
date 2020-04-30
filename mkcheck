@@ -39,19 +39,23 @@ if [[ ! -f '.conf' ]]; then
 else
 	# Check to see if user will keep original data or replace
 	SESH=$(cat .conf)
-	echo -e "${W}Previous Session: ${SESH}"
+	echo -e "${W}Previous Session: ${LP}${SESH}${NC}"
 	echo -e "${W}Would you like to ${URED}k${NC}${W}eep previous session or start ${URED}f${NC}${W}resh?${YLW}(k/f)${NC}"
 	read CONF
 	if [[ ${CONF} == "f" ]]; then
-		sudo rm files/tiks.txt files/tiks_res.txt tiks_rsf.txt
+		sudo rm files/tiks.txt files/tiks_res.txt tiks_rsf.txt .conf .${SESH}_tiks.txt
+		echo -e "${W}Please enter a name for this session${NC}"
+		read SESSION
+		echo ${SESSION} >> .conf
+		echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}${SESSION}_tiks.txt${NC}"
+		cp files/tiks.txt files/.${SESSION}_tiks.txt
 		echo -e "${W}Please enter your target block${NC}"
 		sleep 2
 		nano files/tiks.txt
 	else
-		if [[ -f 'files/.${SESH}_tiks.txt' ]]; then
-			sudo cp files/.${SESH}_tiks.txt files/tiks.txt
-		fi
+		sudo cp files/.${SESH}_tiks.txt files/tiks.txt
 	fi
+	echo -e "${W}Session: ${LP}${SESSION}${NC}"
 fi
 # Routersploit file check (tiks.rsf.txt)
 if [[ -f '/opt/MkCheck/files/tiks_rsf.txt' ]]; then
@@ -291,11 +295,6 @@ cd /opt/MkCheck
 echo -e "${LP}"
 figlet MkCheck
 echo -e "${NC}"
-echo -e "${W}Please enter a name for this session${NC}"
-read SESSION
-echo ${SESSION} >> .conf
-echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}${SESSION}_tiks.txt${NC}"
-cp files/tiks.txt files/.${SESSION}_tiks.txt
 mkdir results/Vulns/${SESSION}
 mkdir results/RSF/${SESSION}
 main
