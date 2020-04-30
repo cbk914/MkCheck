@@ -40,6 +40,7 @@ if [[ ! -f '.conf' ]]; then
 	read SESSION
 	echo "${SESSION}" > .conf
 	echo -e "${W}Session: ${LP}${SESSION}${NC}"
+	cp files/tiks.txt files/.${SESSION}_tiks.txt
 else
 	# Check to see if user will keep original data or replace
 	SESH=$(cat .conf)
