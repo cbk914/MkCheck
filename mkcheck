@@ -294,7 +294,7 @@ echo -e "${NC}"
 echo -e "${W}Please enter a name for this session${NC}"
 read SESSION
 echo ${SESSION} >> .conf
-echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}session_${SESSION}.txt${NC}"
+echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}${SESSION}_tiks.txt${NC}"
 cp files/tiks.txt files/.${SESSION}_tiks.txt
 mkdir results/Vulns/${SESSION}
 mkdir results/RSF/${SESSION}
