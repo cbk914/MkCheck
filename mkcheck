@@ -31,6 +31,10 @@ fi
 if [[ ! -d '/opt/MkCheck/results/RSF' ]]; then
 	mkdir /opt/MkCheck/results/RSF
 fi
+# Vuln folder check
+if [[ ! -d '/opt/MkCheck/results/Vulns' ]]; then
+	mkdir /opt/MkCheck/results/Vulns
+fi
 if [[ ! -f '.conf' ]]; then
 	# First check to see if tiks.txt has data
 	RE=$(cat /opt/MkCheck/files/tiks.txt)
@@ -51,13 +55,8 @@ if [[ ! -f '.conf' ]]; then
 	echo -e "${W}Session: ${LP}${SESSION}${NC}"
 	cp files/tiks.txt files/.${SESSION}_tiks.txt
 	# RSF Session Folder Check
-	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
-			mkdir /opt/MkCheck/results/RSF/${SESSION}
-	fi
-	# Vuln Session Folder Check
-	if [[ ! -d /opt/MkCheck/result/Vulns/${SESSION} ]]; then
-		mkdir /opt/MkCheck/result/Vulns/${SESSION}
-	fi
+	mkdir /opt/MkCheck/results/RSF/${SESSION}
+	mkdir /opt/MkCheck/results/Vulns/${SESSION}
 else
 	# Check to see if user will keep original data or replace
 	SESSION=$(cat .conf)
@@ -83,8 +82,8 @@ else
 			mkdir /opt/MkCheck/results/RSF/${SESSION}
 	fi
 	# Vuln Session Folder Check
-	if [[ ! -d /opt/MkCheck/result/Vulns/${SESSION} ]]; then
-		mkdir /opt/MkCheck/result/Vulns/${SESSION}
+	if [[ ! -d /opt/MkCheck/results/Vulns/${SESSION} ]]; then
+		mkdir /opt/MkCheck/results/Vulns/${SESSION}
 	fi
 fi
 # Routersploit file check (tiks.rsf.txt)
@@ -132,9 +131,34 @@ trap_ctrlc (){
 		return
 	fi
 }
+# Final Results Correlation for Net AP Name 
+apresults(){
+	for log in `cat /opt/MkCheck/files/tiks_res.txt`
+		do
+			echo "${log}"
+			echo "${log}" >> results/Vulns/${SESSION}/final.results
+			cat results/Vulns/${SESSION}/${log}.results
+			cat results/Vulns/${SESSION}/${log}.results >> results/Vulns/${SESSION}_final.result
+			echo "==========================================================================="
+		done
+	main
+}
+# Jailbreak Result Correlation
+rsfresults(){
+	for log in `cat /opt/MkCheck/files/tiks_res.txt`
+		do
+			echo "${log}"
+			echo "${log}" >> results/RSF/${SESSION}/final.results
+			cat results/RSF/${SESSION}/${log}.results
+			cat results/RSF/${SESSION}/${log}.results >> results/RSF/${SESSION}/final.results
+			echo "==========================================================================="
+			sleep 2
+		done
+	main
+}
 # Mikro Network AP Name Check (No Proxy)
 mchecker(){
-	while [[ $Y -lt 255 ]];
+	while [[ $Z -lt 255 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		target
@@ -148,17 +172,15 @@ mchecker(){
 		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
 		sudo rm output.log
-		FINAL=$(cat results/Vulns/${SESSION}/${VAR}.results)
-		echo ${FINAL} >> results/Vulns/${SESSION}/final.results
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} == 255 ]]; then
-			main
+			apresults
 		fi
 	done
 }
 # Network AP Discovery (with Proxy)
 pchecker(){
-	while [[ $Y -lt 255 ]];
+	while [[ $Z -lt 255 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		target
@@ -172,19 +194,15 @@ pchecker(){
 		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
 		sudo rm output.log
-		FINAL=$(cat results/Vulns/${SESSION}/${VAR}.results)
-		echo ${FINAL} >> results/Vulns/${SESSION}/final.results
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} == 255 ]]; then
-			main
+			apresults
 		fi
 	done
 }
 # Routersploit Vuln Check
 rtsploit(){
-	cd /root/ro
-mkdir results/Vulns/${SESSION}
-mkdir results/RSF/${SESSION}utersploit
+	cd /root/routersploit
 	for name in `cat /opt/MkCheck/files/tiks_rsf.txt`
 		do
 			#winbox_auth_bypass_creds_disclosure
@@ -196,7 +214,7 @@ mkdir results/RSF/${SESSION}utersploit
 			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${SESSION}/${name}.results
 			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
 			echo "${JAIL}"
-			echo "================================================================================================" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
+			echo "======================================================================" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
 		done
 }
 # Update Args
