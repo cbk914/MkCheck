@@ -85,23 +85,23 @@ apresults(){
 	for log in `cat /opt/MkCheck/files/tiks_res.txt`
 		do
 			echo "${log}"
-			echo "${log}" >> results/Vulns/final.result
-			cat results/Vulns/Mikro_${log}.results
-			cat results/Vulns/Mikro_${log}.results >> results/Vulns/final.result
+			echo "${log}" >> results/Vulns/${SESSION}_final.result
+			cat results/Vulns/${log}.results
+			cat results/Vulns/${log}.results >> results/Vulns/${SESSION}_final.result
 			echo "==========================================================================="
-			echo "===========================================================================" >> results/Vulns/final.result
+			echo "===========================================================================" >> results/Vulns/${SESSION}_final.result
 		done
 }
 # Jailbreak Result Correlation
-jbresults(){
+rsfresults(){
 	for log in `cat /opt/MkCheck/files/tiks_res.txt`
 		do
 			echo "${log}"
-			echo "${log}" >> results/RSF/final.result
+			echo "${log}" >> results/RSF/${SESSION}_final.result
 			cat results/RSF/${log}.results
-			cat results/RSF/${log}.results >> results/RSF/final.result
+			cat results/RSF/${log}.results >> results/RSF/${SESSION}_final.result
 			echo "==========================================================================="
-			echo "===========================================================================" >> results/RSF/final.result
+			echo "===========================================================================" >> results/RSF/${SESSION}_final.result
 			sleep 2
 		done
 }
@@ -135,7 +135,6 @@ function trap_ctrlc ()
 ap_check(){
 	if [[ -f '/opt/MkCheck/results/Vulns/*.255.results' ]]; then
 		apresults
-		sudo cp results/Vulns/final.results results/Vulns/${SESSION}_final.results
 		main
 	else
 		return
@@ -144,7 +143,6 @@ ap_check(){
 rsf_check(){
 	if [[ -f '/opt/MkCheck/results/RSF/*.255.results' ]]; then
 		rsfresults
-		sudo cp results/RSF/final.results results/RSF/${SESSION}_final.results
 		main
 	else
 		return
