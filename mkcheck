@@ -90,9 +90,8 @@ apresults(){
 			cat results/Vulns/${log}.results >> results/Vulns/${SESSION}_final.result
 			echo "==========================================================================="
 			echo "===========================================================================" >> results/Vulns/${SESSION}_final.result
-			mv results/Vulns/${log}.results -t results/Vulns/${SESSION}
 		done
-	sudo mv results/Vulns/${SESSION}_final.results -t results/Vulns/${SESSION}
+	sudo mv results/Vulns/*.results -t results/Vulns/${SESSION}
 }
 # Jailbreak Result Correlation
 rsfresults(){
@@ -105,9 +104,8 @@ rsfresults(){
 			echo "==========================================================================="
 			echo "===========================================================================" >> results/RSF/${SESSION}_final.result
 			sleep 2
-			mv results/RSF/${log}.results -t results/RSF/${SESSION}
 		done
-	sudo mv results/RSF/${SESSION}_final.results -t results/RSF/${SESSION}
+	sudo mv results/RSF/*.results -t results/RSF/${SESSION}
 }
 # New Target Thread for MCheck
 target(){
