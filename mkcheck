@@ -105,7 +105,7 @@ rsfresults(){
 			echo "==========================================================================="
 			echo "===========================================================================" >> results/RSF/${SESSION}_final.result
 			sleep 2
-			mv results/RSF/${RSF}.results -t results/RSF/${SESSION}
+			mv results/RSF/${log}.results -t results/RSF/${SESSION}
 		done
 	sudo mv results/RSF/${SESSION}_final.results -t results/RSF/${SESSION}
 }
