@@ -90,14 +90,12 @@ target(){
 }
 # Host Auto Load
 running(){
-	if
-		mv files/tiks1.txt files/tiks.txt
-		# Start
-		TARG=$(cat scripts/miko.py | grep "host = *")
-		sed -i "s/${TARG}/${FARG}/g" scripts/miko.py
-		sed -i "s/ARG/${VAR}/g" scripts/miko.py
-		echo -e "${UBLUE}Next Target is ${YLW}${VAR}${NC}"
-	fi
+	mv files/tiks1.txt files/tiks.txt
+	# Start
+	TARG=$(cat scripts/miko.py | grep "host = *")
+	sed -i "s/${TARG}/${FARG}/g" scripts/miko.py
+	sed -i "s/ARG/${VAR}/g" scripts/miko.py
+	echo -e "${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
 function trap_ctrlc ()
 {
