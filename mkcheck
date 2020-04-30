@@ -43,7 +43,9 @@ else
 		sleep 2
 		nano files/tiks.txt
 	else
-		sudo cp files/session_* files/tiks.txt
+		if [[ -f 'files/session_*' ]]; then
+			sudo cp files/session_* files/tiks.txt
+		fi
 	fi
 fi
 # Routersploit file check (tiks.rsf.txt)
@@ -272,7 +274,6 @@ main(){
 					"Sort Results")
 						apresults
 						rsfresults
-						fi
 						;;
 
 					"Update")
