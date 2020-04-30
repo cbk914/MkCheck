@@ -13,7 +13,7 @@ BRED='\033[1;31m'
 UPURPLE='\033[4;35m'
 UBLUE='\033[4;34m'
 URED='\033[4;31m'
-Z=0
+Z=1
 
 trap "trap_ctrlc" 2
 sudo chown $USER:$USER -R /opt/MkCheck
@@ -118,7 +118,7 @@ running(){
 	TARG=$(cat scripts/miko.py | grep "host = *")
 	sed -i "s/${TARG}/${FARG}/g" scripts/miko.py
 	sed -i "s/ARG/${VAR}/g" scripts/miko.py
-	echo -e "${UBLUE}Next Target is ${YLW}${VAR}${NC}"
+	echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
 trap_ctrlc (){
     # perform cleanup here
@@ -138,7 +138,7 @@ apresults(){
 			echo "${log}"
 			echo "${log}" >> results/Vulns/${SESSION}/final.results
 			cat results/Vulns/${SESSION}/${log}.results
-			cat results/Vulns/${SESSION}/${log}.results >> results/Vulns/${SESSION}_final.result
+			cat results/Vulns/${SESSION}/${log}.results >> results/Vulns/${SESSION}/final.results
 			echo "==========================================================================="
 		done
 	main
@@ -174,6 +174,7 @@ mchecker(){
 		sudo rm output.log
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} == 255 ]]; then
+			echo -e "${LP}Sorting Results${NC}"
 			apresults
 		fi
 	done
@@ -196,6 +197,7 @@ pchecker(){
 		sudo rm output.log
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} == 255 ]]; then
+			echo -e "${LP}Sorting Results${NC}"
 			apresults
 		fi
 	done
