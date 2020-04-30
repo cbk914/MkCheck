@@ -95,24 +95,11 @@ jbresults(){
 	for log in `cat /opt/MkCheck/files/tiks_res.txt`
 		do
 			echo "${log}"
-			echo "${log}" >> results/RSF/Jailbreak_final.result
-			cat results/RSF/Jailbreak_${log}.results
-			cat results/RSF/Jailbreak_${log}.results >> results/RSF/Jailbreak_final.result
+			echo "${log}" >> results/RSF/final.result
+			cat results/RSF/${log}.results
+			cat results/RSF/${log}.results >> results/RSF/final.result
 			echo "==========================================================================="
-			echo "===========================================================================" >> results/RSF/Jailbreak_final.result
-			sleep 2
-		done
-}
-# WinBox Result Correlation
-wbresults(){
-	for log in `cat /opt/MkCheck/files/tiks_res.txt`
-		do
-			echo "${log}"
-			echo "${log}" >> results/RSF/WinBox_final.result
-			cat results/Vulns/Winbox_${log}.results
-			cat results/Vulns/Winbox_${log}.results >> results/RSF/WinBox_final.result
-			echo "==========================================================================="
-			echo "===========================================================================" >> results/RSF/WinBox_final.result
+			echo "===========================================================================" >> results/RSF/final.result
 			sleep 2
 		done
 }
@@ -161,6 +148,7 @@ mchecker(){
 		sudo rm output.log
 		if [[ -f '/opt/MkCheck/results/Vulns/*.255.results' ]]; then
 			apresults
+			sudo cp results/Vulns/final.results results/Vulns/${SESSION}_final.results
 			main
 		fi
 	done
@@ -181,6 +169,7 @@ rtsploit(){
 			if [[ -f '/opt/MkCheck/results/RSF/*.255.results' ]]; then
 				jbresults
 				wbresults
+				sudo cp results/RSF/final.results results/RSF/${SESSION}_final.results
 				main
 			fi
 		done	
