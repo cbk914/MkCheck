@@ -173,7 +173,7 @@ rtsploit(){
 			echo "${WINSAVE}" >> /opt/MkCheck/results/RSF/${name}.results
 			echo "${WINSAVE}"
 			# routeros_jailbreak
-			JAIL=$(sudo python3.7 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}")
+			JAIL=$(sudo python3 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}")
 			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${name}.results
 			echo "${JAIL}"
 			if [[ -f '/opt/MkCheck/results/RSF/*.255.results' ]]; then
