@@ -11,7 +11,7 @@ def showbanner():
   MMM      MMM  III  KKK KKK   RRRRRR    OOO  OOO     TTT     III  KKK KKK
   MMM      MMM  III  KKK  KKK  RRR  RRR   OOOOOO      TTT     III  KKK  KKK
 
-  MikroTik RouterOS Exploitation  ''' + "Alfa v0.4")
+  MikroTik RouterOS Exploitation  ''' + "Alfa v0.7")
     print("MCheck")
     print("by s1l3nt78")
     print("")
