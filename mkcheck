@@ -35,6 +35,7 @@ if [[ ! -f '.conf' ]]; then
 		sudo rm /opt/MkCheck/files/tiks.txt
 		echo -e "${URED}Please enter an IP block to start scanning first${NC}"
 		nano /opt/MkCheck/files/tiks.txt
+	fi
 else
 	# Check to see if user will keep original data or replace
 	SESH=$(cat .conf)
@@ -298,4 +299,4 @@ cp files/tiks.txt files/.${SESSION}_tiks.txt
 mkdir results/Vulns/${SESSION}
 mkdir results/RSF/${SESSION}
 main
-exit 0
+exit 1
