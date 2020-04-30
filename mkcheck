@@ -23,6 +23,14 @@ if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
 fi
+# Result folder check
+if [[ ! -d '/opt/MkCheck/results' ]]; then
+	mkdir /opt/MkCheck/results
+fi
+# RSF folder check
+if [[ ! -d '/opt/MkCheck/results/RSF' ]]; then
+	mkdir /opt/MkCheck/results/RSF
+fi
 if [[ ! -f '.conf' ]]; then
 	# First check to see if tiks.txt has data
 	RE=$(cat /opt/MkCheck/files/tiks.txt)
@@ -42,6 +50,14 @@ if [[ ! -f '.conf' ]]; then
 	echo "${SESSION}" > .conf
 	echo -e "${W}Session: ${LP}${SESSION}${NC}"
 	cp files/tiks.txt files/.${SESSION}_tiks.txt
+	# RSF Session Folder Check
+	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
+			mkdir /opt/MkCheck/results/RSF/${SESSION}
+	fi
+	# Vuln Session Folder Check
+	if [[ ! -d /opt/MkCheck/result/Vulns/${SESSION} ]]; then
+		mkdir /opt/MkCheck/result/Vulns/${SESSION}
+	fi
 else
 	# Check to see if user will keep original data or replace
 	SESSION=$(cat .conf)
@@ -49,7 +65,7 @@ else
 	echo -e "${W}Would you like to ${URED}k${NC}${W}eep previous session or start ${URED}f${NC}${W}resh?${YLW}(k/f)${NC}"
 	read CONF
 	if [[ ${CONF} == "f" ]]; then
-		sudo rm files/tiks.txt files/tiks_res.txt tiks_rsf.txt .conf .${SESH}_tiks.txt
+		sudo rm files/tiks.txt files/tiks_res.txt files/tiks_rsf.txt .conf files/.${SESSION}_tiks.txt
 		echo -e "${W}Please enter a name for this session${NC}"
 		read SESSION
 		echo ${SESSION} > .conf
@@ -62,6 +78,14 @@ else
 		sudo cp files/.${SESSION}_tiks.txt files/tiks.txt
 	fi
 	echo -e "${W}Session: ${LP}${SESSION}${NC}"
+	# RSF Session Folder Check
+	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
+			mkdir /opt/MkCheck/results/RSF/${SESSION}
+	fi
+	# Vuln Session Folder Check
+	if [[ ! -d /opt/MkCheck/result/Vulns/${SESSION} ]]; then
+		mkdir /opt/MkCheck/result/Vulns/${SESSION}
+	fi
 fi
 # Routersploit file check (tiks.rsf.txt)
 if [[ -f '/opt/MkCheck/files/tiks_rsf.txt' ]]; then
@@ -82,28 +106,6 @@ if [[ -f '/opt/MkCheck/files/tiks_res.txt' ]]; then
 	fi
 else
 	cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_res.txt
-fi
-# Result folder check
-if [[ -d '/opt/MkCheck/results' ]]; then
-	sleep 1
-else
-	mkdir /opt/MkCheck/results
-fi
-# RSF folder check
-if [[ ! -d '/opt/MkCheck/results/RSF' ]]; then
-	mkdir /opt/MkCheck/results/RSF
-fi
-# RSF Session Folder Check
-if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
-		mkdir /opt/MkCheck/results/RSF/${SESSION}
-fi
-# Vuln folder check
-if [[ ! -d '/opt/MkCheck/results/Vulns' ]]; then
-	mkdir /opt/MkCheck/results/Vulns
-fi
-# Vuln Session Folder Check
-if [[ ! -d /opt/MkCheck/result/Vulns/${SESSION} ]]; then
-	mkdir /opt/MkCheck/result/Vulns/${SESSION}
 fi
 target(){
 	RARG=$(python3 scripts/get_t.py)
@@ -180,7 +182,9 @@ pchecker(){
 }
 # Routersploit Vuln Check
 rtsploit(){
-	cd /root/routersploit
+	cd /root/ro
+mkdir results/Vulns/${SESSION}
+mkdir results/RSF/${SESSION}utersploit
 	for name in `cat /opt/MkCheck/files/tiks_rsf.txt`
 		do
 			#winbox_auth_bypass_creds_disclosure
