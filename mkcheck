@@ -144,7 +144,7 @@ trap_ctrlc (){
 # Mikro Network AP Name Check (No Proxy)
 mchecker(){
 	Z=0
-	while [[ $Y -lt 255 ]]:
+	while [[ $Y -lt 255 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		target
@@ -166,7 +166,7 @@ mchecker(){
 # Network AP Discovery (with Proxy)
 pchecker(){
 	Z=0
-	while [[ $Z -lt 255 ]]:
+	while [[ $Z -lt 255 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		target

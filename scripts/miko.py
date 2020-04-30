@@ -22,7 +22,7 @@ output = remote_connection.recv(10240)
 print(output)
 
 # Command String (Checks the Router Network Identity)
-remote_connection = ssh.exec_command(command)
+com1 = remote_connection.send("/system identity print\n")
 
 time.sleep(5)
 output1 = remote_connection.recv(10240)
