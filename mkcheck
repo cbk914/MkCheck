@@ -90,7 +90,9 @@ apresults(){
 			cat results/Vulns/${log}.results >> results/Vulns/${SESSION}_final.result
 			echo "==========================================================================="
 			echo "===========================================================================" >> results/Vulns/${SESSION}_final.result
+			mv results/Vulns/${log}.results -t results/Vulns/${SESSION}
 		done
+	sudo mv results/Vulns/${SESSION}_final.results -t results/Vulns/${SESSION}
 }
 # Jailbreak Result Correlation
 rsfresults(){
@@ -103,7 +105,9 @@ rsfresults(){
 			echo "==========================================================================="
 			echo "===========================================================================" >> results/RSF/${SESSION}_final.result
 			sleep 2
+			mv results/RSF/${RSF}.results -t results/RSF/${SESSION}
 		done
+	sudo mv results/RSF/${SESSION}_final.results -t results/RSF/${SESSION}
 }
 # New Target Thread for MCheck
 target(){
@@ -181,7 +185,7 @@ rtsploit(){
 			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${name}.results
 			echo "${JAIL}"
 			rsf_check
-		done	
+		done
 }
 # Update Args
 up_arg(){
@@ -287,5 +291,7 @@ echo -e "${W}Please enter a name for this session${NC}"
 read SESSION
 echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}session_${SESSION}.txt${NC}"
 cp files/tiks.txt files/session_${SESSION}.txt
+mkdir results/Vulns/${SESSION}
+mkdir results/RSF/${SESSION}
 main
 exit 0
