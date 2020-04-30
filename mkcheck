@@ -270,11 +270,8 @@ main(){
 						;;
 
 					"Sort Results")
-						if [[ -f /opt/MkCheck/results/Vulns/*.255.results ]]; then
-							apresults
-						fi
-						if [[ -f /opt/MkCheck/results/RSF/*.255.results ]]; then
-							rsfresults
+						apresults
+						rsfresults
 						fi
 						;;
 
