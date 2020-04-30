@@ -46,7 +46,7 @@ else
 		sudo rm files/tiks.txt files/tiks_res.txt tiks_rsf.txt .conf .${SESH}_tiks.txt
 		echo -e "${W}Please enter a name for this session${NC}"
 		read SESSION
-		echo ${SESSION} >> .conf
+		echo ${SESSION} > .conf
 		echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}${SESSION}_tiks.txt${NC}"
 		cp files/tiks.txt files/.${SESSION}_tiks.txt
 		echo -e "${W}Please enter your target block${NC}"
@@ -55,7 +55,7 @@ else
 	else
 		sudo cp files/.${SESH}_tiks.txt files/tiks.txt
 	fi
-	echo -e "${W}Session: ${LP}${SESSION}${NC}"
+	echo -e "${W}Session: ${LP}${SESH}${NC}"
 fi
 # Routersploit file check (tiks.rsf.txt)
 if [[ -f '/opt/MkCheck/files/tiks_rsf.txt' ]]; then
@@ -144,13 +144,14 @@ trap_ctrlc (){
 # Mikro Network AP Name Check (No Proxy)
 mchecker(){
 	Z=0
-	while [[ $Y -lt 255 ]]; do
+	while [[ $Y -lt 255 ]]:
+	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		target
 		echo ""
 		running
 		echo ""
-		python scripts/miko.py | tee output.log
+		sudo python scripts/miko.py | tee output.log
 		NAME=$(cat output.log | grep 'admin@')
 		VER=$(cat output.log | grep 'MikroTik RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
@@ -165,13 +166,14 @@ mchecker(){
 # Network AP Discovery (with Proxy)
 pchecker(){
 	Z=0
-	while [[ $Z -lt 255 ]];	do
+	while [[ $Z -lt 255 ]]:
+	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		target
 		echo ""
 		running
 		echo ""
-		proxychains4 python scripts/miko.py | tee output.log
+		proxychains4 sudo python scripts/miko.py | tee output.log
 		NAME=$(cat output.log | grep 'admin@')
 		VER=$(cat output.log | grep 'MikroTik RouterOS')
 		echo "${NAME}" >> results/Vulns/${VAR}.results
@@ -290,8 +292,8 @@ main(){
 				esac
 			done
 }
-cd /opt/MkCheck
 
+cd /opt/MkCheck
 echo -e "${LP}"
 figlet MkCheck
 echo -e "${NC}"
