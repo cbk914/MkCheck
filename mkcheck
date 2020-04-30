@@ -24,7 +24,7 @@ fi
 TIK=$(cat /opt/MCheck/files/tiks.txt)
 if [[ ${TIK} == "" ]]; then
 	echo -e "${URED}Please enter an IP block in ${UBLUE}files/tiks.txt ${URED}to start scanning first${NC}"
-	exit 1
+	sudo nano /opt/MCheck/files/tiks.txt
 fi
 # Tiks.txt file for RouterSploit
 if [[ ! -f '/opt/MCheck/files/tiks_rsf.txt' ]]; then
