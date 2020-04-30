@@ -14,7 +14,7 @@ UPURPLE='\033[4;35m'
 UBLUE='\033[4;34m'
 URED='\033[4;31m'
 
-trap "trap_ctrlc" 2
+#trap "trap_ctrlc" 2
 sudo chown $USER:$USER -R /opt/MkCheck
 cd /opt/MkCheck
 # Root Check
@@ -52,11 +52,11 @@ else
 		echo -e "${W}Please enter a name for this session${NC}"
 		read SESSION
 		echo ${SESSION} > .conf
-		echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}${SESSION}_tiks.txt${NC}"
-		cp files/tiks.txt files/.${SESSION}_tiks.txt
 		echo -e "${W}Please enter your target block${NC}"
 		sleep 2
 		nano files/tiks.txt
+		echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}${SESSION}_tiks.txt${NC}"
+		cp files/tiks.txt files/.${SESSION}_tiks.txt
 	else
 		sudo cp files/.${SESH}_tiks.txt files/tiks.txt
 	fi
