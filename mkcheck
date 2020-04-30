@@ -138,12 +138,12 @@ rtsploit(){
 		do
 			#winbox_auth_bypass_creds_disclosure
 			WINSAVE=$(sudo python3 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}")
-			echo "${WINSAVE}" >> /opt/MkCheck/results/RSF/Winbox_${name}.results
+			echo "${WINSAVE}" >> /opt/MkCheck/results/RSF/${name}.results
 			echo "${WINSAVE}"
 			# routeros_jailbreak
 			JAIL=$(sudo python3 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}")
+			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${name}.results
 			echo "${JAIL}"
-			echo "${JAIL}" >> /opt/MkCheck/results/RSF/Jailbreak_${name}.results
 			if [[ -f '/opt/MkCheck/results/RSF/*.255.results' ]]; then
 				jbresults
 				wbresults
