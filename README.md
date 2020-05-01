@@ -41,7 +41,7 @@
   <br />
   <strong>Copy the 1st IP from files/tiks.txt here:
   <br />
-  **************************************</strong>
+  *****************************************</strong>
 <br /> 
   <em>host = "<strong>127.0.0.1</strong>"
   <br />
