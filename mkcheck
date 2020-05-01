@@ -40,6 +40,7 @@ if [[ ! -f '.conf' ]]; then
 	RE=$(cat /opt/MkCheck/files/tiks.txt)
 	if [[ ${RE} == "" ]]; then
 		echo -e "${URED}Please enter an IP block to start scanning first${NC}"
+		echo "# LEAVE THIS LINE IN* (FOR BEST RESULTS USE AN ENTIRE IP BLOCK)" > /opt/MkCheck/files/tiks.txt
 		sudo nano /opt/MkCheck/files/tiks.txt
 	fi
 	# Second check to see if data is example data
@@ -47,6 +48,7 @@ if [[ ! -f '.conf' ]]; then
 	if [[ ${RR} == "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS" ]]; then
 		sudo rm /opt/MkCheck/files/tiks.txt
 		echo -e "${URED}Please enter an IP block to start scanning first${NC}"
+		echo "# LEAVE THIS LINE IN* (FOR BEST RESULTS USE AN ENTIRE IP BLOCK)" > /opt/MkCheck/files/tiks.txt
 		nano /opt/MkCheck/files/tiks.txt
 	fi
 	echo -e "${W}Please enter a name for this session${NC}"
@@ -173,11 +175,13 @@ mchecker(){
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
 		sudo rm output.log
 		Z=$(( $Z + 1 ))
-		if [[ ${Z} == 254 ]]; then
+		if [[ ${Z} -eq 255 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
-			apresults
+			breaks
 		fi
 	done
+
+	apresults
 }
 # Network AP Discovery (with Proxy)
 pchecker(){
@@ -196,11 +200,13 @@ pchecker(){
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
 		sudo rm output.log
 		Z=$(( $Z + 1 ))
-		if [[ ${Z} == 254 ]]; then
+		if [[ ${Z} -eq 255 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
-			apresults
+			break
 		fi
 	done
+
+	apresults
 }
 # Routersploit Vuln Check
 rtsploit(){
@@ -276,34 +282,31 @@ update(){
 main(){
 	echo -e "${BRED}"
 	python3 files/banner.py
-	echo -e "${NC}"
-#	echo -e "${W}Hit ${UBLUE}Ctrl + z${NC} ${W}to exit completely or ${UBLUE}Ctrl + c${NC} ${W}to quit a scan${NC}"
-	PS3='What tool would you like to use?'
-		options=("MikroTik Auto-EX" "Routersploit Vuln Check" "Update") #"Sort Results"
-		select opt in "${options[@]}"
-			do
-				case $opt in
-					"MikroTik Auto-EX")
-						echo -e "${W}Would you like to run MCheck using a proxy?${YLW}(y/n)${NC}"
-						read PROXY
-						if [[ ${PROXY} == "y" ]]; then
-              sudo service tor start
-              pchecker
-						else
-							mchecker
-						fi
-						;;
-
-					"Routersploit Vuln Check")
-						rtsploit
-						;;
-
-					"Update")
-						update
-						;;
-
-				esac
-			done
+	echo -e "${INV}"
+	python3 files/banner2.py
+	echo -e "${W}Hit ${UBLUE}Ctrl + z${NC} ${W}to exit completely or ${UBLUE}Ctrl + c${NC} ${W}to quit a scan${NC}"
+	echo -e "${RED}"What module would you like to use?${NC}"
+	echo ""
+	echo -e "${RED}1. MikroTik Auto-EX"
+	echo -e "2. RouterSploit Vuln Check"
+	echo -e "3. Update${NC}
+	read MODULE
+	if [[ ${MODULE} == "1" ]]; then
+		echo -e "${W}Would you like to run MCheck using a proxy?${YLW}(y/n)${NC}"
+		read PROXY
+		if [[ ${PROXY} == "y" ]]; then
+			sudo service tor start
+			pchecker
+		else
+			mchecker
+		fi
+	elif [[ ${MODULE} == "2" ]]; then
+		rtsploit
+	elif [[ ${MODULE} == "3" ]]; then
+		update
+	else
+		echo -e "${URED}You have selected an invalid option${NC}"
+	fi
 }
 
 cd /opt/MkCheck
