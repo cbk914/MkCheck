@@ -39,6 +39,12 @@
          password = "<strong>admin</strong>"</em>
   <br />
   <br />
+  <strong>Copy the 1st IP from files/tiks.txt here:</strong>
+  <br />
+  <em>host = "127.0.0.1"
+  <br />
+  host = "101.75.128.1"</em>
+  <br />
   <br />
   The main function auto spawns ssh sessions on the compromised targets to enumerate the Network Access Point name from IP
   <br>
