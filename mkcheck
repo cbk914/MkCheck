@@ -282,10 +282,10 @@ update(){
 main(){
 	echo -e "${BRED}"
 	python3 files/banner.py
-	echo -e "${INV}"
+	echo -e "${ORNG}"
 	python3 files/banner2.py
 	echo -e "${W}Hit ${UBLUE}Ctrl + z${NC} ${W}to exit completely or ${UBLUE}Ctrl + c${NC} ${W}to quit a scan${NC}"
-	echo -e "${RED}"What module would you like to use?${NC}"
+	echo -e "${RED}What module would you like to use?${NC}"
 	echo ""
 	echo -e "${RED}1. MikroTik Auto-EX"
 	echo -e "2. RouterSploit Vuln Check"
