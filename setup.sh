@@ -19,13 +19,13 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 # MCheck install
-if [[ -d /opt/MCheck ]]; then
+if [[ -d /opt/MkCheck ]]; then
 	sleep 1
-	echo -e "${YLW}MCheck is installed in the right place${NC}"
+	echo -e "${YLW}MkCheck is installed in the right place${NC}"
 else
-	echo -e "${W}Moving MCheck to the correct directory${NC}"
+	echo -e "${W}Moving MkCheck to the correct directory${NC}"
 	pwd && cd ..
-	sudo mv MCheck -t /opt
+	sudo mv MkCheck -t /opt
 	sudo python3 -m pip install paramiko
 fi
 
@@ -45,14 +45,14 @@ else
 	python3.7 -m pip install -r requirements-dev.txt
 fi
 
-cd /opt/MCheck
+cd /opt/MkCheck
 chmod +x mkcheck
 # Path Options
-echo -e "${YLW}Would you like to add MCheck to path to run it from anywhere?${LBBLUE}(y/n)${NC}"
+echo -e "${YLW}Would you like to add MkCheck to path to run it from anywhere?${LBBLUE}(y/n)${NC}"
 read LOPT
 if [[ ${LOPT} == "y" ]]; then
 	sudo cp mkcheck -t /usr/sbin
 	sudo chown $USER:$USER /usr/sbin/mkcheck
 else
-	echo -e "${RED}MCheck installed${NC}"
+	echo -e "${RED}MkCheck installed${NC}"
 fi
