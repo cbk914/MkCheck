@@ -7,7 +7,8 @@ host = "127.0.0.1"
 port = 22
 username = "admin"  # CHANGE THIS
 password = "admin"  # CHANGE THIS
-command = "/system identity print" # Change this for a different command to be run
+apname = "/system identity print" # Change this for a different command to be run
+clear = "/console clear-history"
 
 p = paramiko.SSHClient()
 p.set_missing_host_key_policy(paramiko.AutoAddPolicy()) 
@@ -18,10 +19,13 @@ time.sleep(5)
 output = remote_connection.recv(2048)
 print(output)
 
-stdin, stdout, stderr = p.exec_command(command)
+stdin, stdout, stderr = p.exec_command(apname)
 opt = stdout.readlines()
 opt = "".join(opt)
 print(opt)
 
-time.sleep(5)
+time.sleep(3)
+stdin, stdout, stderr = p.exec_command(clear)
+time.sleep(2)
+
 p.close()
