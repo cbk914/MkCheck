@@ -7,26 +7,21 @@ host = "127.0.0.1"
 port = 22
 username = "admin"  # CHANGE THIS
 password = "admin"  # CHANGE THIS
-command = "/system identity print"
+command = "/system identity print" # Change this for a different command to be run
 
-ssh = paramiko.SSHClient()
-ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-ssh.connect(host, port, username, password)
+p = paramiko.SSHClient()
+p.set_missing_host_key_policy(paramiko.AutoAddPolicy()) 
+p.connect(host, port, username, password)
 
-# Invoke Shell
-remote_connection = ssh.invoke_shell()
-
+remote_connection = p.invoke_shell()
 time.sleep(5)
-output = remote_connection.recv(10240)
-
+output = remote_connection.recv(2048)
 print(output)
 
-# Command String (Checks the Router Network Identity)
-com1 = remote_connection.send("/system identity print\n")
+stdin, stdout, stderr = p.exec_command(command)
+opt = stdout.readlines()
+opt = "".join(opt)
+print(opt)
 
 time.sleep(5)
-output1 = remote_connection.recv(10240)
-
-print(output1)
-
-ssh.close()
+p.close()
