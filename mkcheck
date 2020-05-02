@@ -182,8 +182,8 @@ mchecker(){
 		running
 		echo ""
 		sudo python scripts/miko.py | tee output.log
-		NAME=$(cat output.log | grep 'admin@')
-		VER=$(cat output.log | grep 'MikroTik RouterOS')
+		NAME=$(cat output.log | grep 'name:')
+		VER=$(cat output.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
@@ -207,8 +207,8 @@ pchecker(){
 		running
 		echo ""
 		proxychains4 sudo python scripts/miko.py | tee output.log
-		NAME=$(cat output.log | grep 'admin@')
-		VER=$(cat output.log | grep 'MikroTik RouterOS')
+		NAME=$(cat output.log | grep 'name:')
+		VER=$(cat output.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
@@ -269,26 +269,25 @@ update(){
         figlet -f mini "Up to date."
         echo -e "${NC}"
     else
-		    sleep 5
-	      echo -e "${W}Are there pull conflicts with files?(y/n)${NC}"
+		sleep 5
+	    echo -e "${W}Are there pull conflicts with files?(y/n)${NC}"
         sleep 3
-	      read UANS
-	      if [[ ${UANS} == "y" ]]; then
-          export LPATH
-          echo -e "${W}Please enter the conflicting files (seperated by a space)${NC}"
-		      read FILES
-          sleep 2
-		      up_arg ${FILES}
-		      git pull
-	     else
-		      git pull
-	     fi
-	     if [[ -f '/usr/sbin/mkcheck' ]]; then
-			     sudo cp mkcheck -t /usr/sbin
-			     sudo chmod +x /usr/sbin/mkcheck
-			     sudo chown $USER:$USER /usr/sbin/mkcheck
-		   fi
-		  main
+	    read UANS
+	    if [[ ${UANS} == "y" ]]; then
+        	export LPATH
+        	echo -e "${W}Please enter the conflicting files (seperated by a space)${NC}"
+		    read FILES
+          	sleep 2
+		    up_arg ${FILES}
+		    git pull
+	    else
+		    git pull
+	    fi
+	    if [[ -f '/usr/sbin/mkcheck' ]]; then
+		    sudo cp mkcheck -t /usr/sbin
+		    sudo chmod +x /usr/sbin/mkcheck
+		fi
+		main
     fi
   echo -e "${NC}"
 }
@@ -301,12 +300,12 @@ main(){
 	echo ""
 	echo -e "${LGRY}Mikrotik WinBox Auth Bypass - ${W}Versions ${YLW}6.29 to 6.42"
     echo -e "${LGRY}Mikrotik RouterOS Jailbreak - ${W}Versions ${YLW}2.9.8 up to 6.41rc56${NC}"
-	echo -e "${W}Hit ${UBLUE}Ctrl + z${NC} ${W}to exit completely or ${UBLUE}Ctrl + c${NC} ${W}to quit a scan${NC}"
+	echo -e "${W}Hit ${UBLUE}Ctrl + Z${NC} ${W}to background MkCheck or ${UBLUE}Ctrl + C${NC} ${W}to quit a scan${NC}"
 	echo ""
 	echo -e "${RED}1. MikroTik Auto-EX"
 	echo -e "2. RouterSploit Vuln Check"
-  echo -e "3. Change Session"
-  echo -e "4. Update${NC}"
+  	echo -e "3. Change Session"
+  	echo -e "4. Update${NC}"
 	echo ""
 	echo -e "${YLW}Which module would you like to use?${NC}"
 	read MODULE
@@ -323,8 +322,8 @@ main(){
 		rtsploit
 	elif [[ ${MODULE} == "3" ]]; then
 		session_choice
-  elif [[ ${MODULE} == "4" ]]; then
-    update
+  	elif [[ ${MODULE} == "4" ]]; then
+    	update
 	else
 		echo -e "${URED}You have selected an invalid option${NC}"
 	fi
