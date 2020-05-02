@@ -36,6 +36,37 @@ fi
 if [[ ! -d '/opt/MkCheck/results/Vulns' ]]; then
 	mkdir /opt/MkCheck/results/Vulns
 fi
+# Session Choice
+session_choice(){
+  SESSION=$(cat .conf)
+	echo -e "${W}Previous Sessions: ${LP}${SESSION}${NC}"
+	echo -e "${W}Would you like to ${URED}u${NC}${W}se a previous session or start ${URED}f${NC}${W}resh?${YLW}(u/f)${NC}"
+	read CONF
+	if [[ ${CONF} == "f" ]]; then
+		sudo rm files/tiks.txt files/tiks_res.txt files/tiks_rsf.txt
+		echo -e "${W}Please enter a name for this session${NC}"
+		read SESSION
+		echo ${SESSION} >> .conf
+		echo -e "${W}Please enter your target block${NC}"
+		sleep 2
+		nano files/tiks.txt
+		echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}${SESSION}_tiks.txt${NC}"
+		cp files/tiks.txt files/.${SESSION}_tiks.txt
+	else
+    echo -e "${W}Please enter the name of the session to use:${NC}"
+    read SESSION
+    cp files/.${SESSION}_tiks.txt files/tiks.txt
+	fi
+	echo -e "${W}Session: ${LP}${SESSION}${NC}"
+	# RSF Session Folder Check
+	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
+			mkdir /opt/MkCheck/results/RSF/${SESSION}
+	fi
+	# Vuln Session Folder Check
+	if [[ ! -d /opt/MkCheck/results/Vulns/${SESSION} ]]; then
+		mkdir /opt/MkCheck/results/Vulns/${SESSION}
+	fi
+}
 if [[ ! -f '.conf' ]]; then
 	# First check to see if tiks.txt has data
 	RE=$(cat /opt/MkCheck/files/tiks.txt)
@@ -62,32 +93,7 @@ if [[ ! -f '.conf' ]]; then
 	mkdir /opt/MkCheck/results/Vulns/${SESSION}
 else
 	# Check to see if user will keep original data or replace
-	SESSION=$(cat .conf)
-	echo -e "${W}Previous Session: ${LP}${SESSION}${NC}"
-	echo -e "${W}Would you like to ${URED}k${NC}${W}eep previous session or start ${URED}f${NC}${W}resh?${YLW}(k/f)${NC}"
-	read CONF
-	if [[ ${CONF} == "f" ]]; then
-		sudo rm files/tiks.txt files/tiks_res.txt files/tiks_rsf.txt .conf files/.${SESSION}_tiks.txt
-		echo -e "${W}Please enter a name for this session${NC}"
-		read SESSION
-		echo ${SESSION} > .conf
-		echo -e "${W}Please enter your target block${NC}"
-		sleep 2
-		nano files/tiks.txt
-		echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}${SESSION}_tiks.txt${NC}"
-		cp files/tiks.txt files/.${SESSION}_tiks.txt
-	else
-		sudo cp files/.${SESSION}_tiks.txt files/tiks.txt
-	fi
-	echo -e "${W}Session: ${LP}${SESSION}${NC}"
-	# RSF Session Folder Check
-	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
-			mkdir /opt/MkCheck/results/RSF/${SESSION}
-	fi
-	# Vuln Session Folder Check
-	if [[ ! -d /opt/MkCheck/results/Vulns/${SESSION} ]]; then
-		mkdir /opt/MkCheck/results/Vulns/${SESSION}
-	fi
+	session_choice
 fi
 # Routersploit file check (tiks.rsf.txt)
 if [[ -f '/opt/MkCheck/files/tiks_rsf.txt' ]]; then
@@ -299,7 +305,8 @@ main(){
 	echo ""
 	echo -e "${RED}1. MikroTik Auto-EX"
 	echo -e "2. RouterSploit Vuln Check"
-	echo -e "3. Update${NC}"
+  echo -e "3. Change Session"
+  echo -e "4. Update${NC}"
 	echo ""
 	echo -e "${YLW}Which module would you like to use?${NC}"
 	read MODULE
@@ -315,7 +322,9 @@ main(){
 	elif [[ ${MODULE} == "2" ]]; then
 		rtsploit
 	elif [[ ${MODULE} == "3" ]]; then
-		update
+		session_choice
+  elif [[ ${MODULE} == "4" ]]; then
+    update
 	else
 		echo -e "${URED}You have selected an invalid option${NC}"
 	fi
