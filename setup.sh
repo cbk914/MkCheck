@@ -18,6 +18,7 @@ if [[ $EUID -ne 0 ]]; then
    echo -e "${RED}This script must be run as root${NC}" 
    exit 1
 fi
+apt-get install figlet python3.7 python3-pip 
 # MCheck install
 if [[ -d /opt/MkCheck ]]; then
 	sleep 1
