@@ -45,6 +45,12 @@
     <br />
     You can change the <strong>command</strong> value in order to enumerate different data.
     <br />
+    <br />
+    eg. Changing command to "<em>/console clear-history</em>" will clear previous commands to cover your tracks
+    <br />
+    Chaning the command to "<em>/system default-configuration print</em>" will print out the default configuration
+    <br />
+    <br />
     Once the Network AP Name has been found the attacker can use the IP and login credentials to work with
      Mikrotik Routers config from a web-session.
     <br>
