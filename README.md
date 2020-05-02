@@ -79,17 +79,13 @@
 
 # USAGE
 <br />
-  The following values need to be changed in <strong><em>'scripts/miko.py'</em></strong>
- 
-  For the Checker module to word correctly. Target host is set dynamically during the scan.
-  <br />
-  <br />
-  -The user must create the <strong><em>'scripts/tiks.txt'</em></strong> list with MikroTik Router IP's.
+ -The user must create the <strong><em>'scripts/tiks.txt'</em></strong> list with MikroTik Router IP's.
   <br />
   Current <em>'scripts/tiks.txt'</em> does not contain valid MikroTik Router IP's. <strong>(STRICTLY EXAMPLE)</strong>
   <br />
-  -Easiest way to do this is using Shodan for Vuln searching.
-     or with nMap using the following command.
+  -Easiest way to do this is using Shodan for Vuln searching. WinBox Auth Bypass looks for port <strong>8291</strong>
+  <br />
+  -nMap can be used as well, using the following command:
     <br />
     <br />
     <strong><em># sudo nmap -vv -O -A -Pn -p 80,8291 111.11.11.1/24</em></strong>
