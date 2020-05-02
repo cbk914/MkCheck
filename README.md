@@ -39,15 +39,6 @@
          password = "<strong>admin</strong>"</em>
   <br />
   <br />
-  <strong>Copy the 1st IP from files/tiks.txt here:
-  <br />
-  *****************************************</strong>
-<br /> 
-  <em>host = "<strong>127.0.0.1</strong>"
-  <br />
-  host = "<strong>101.75.128.1</strong>"</em>
-  <br />
-  <br />
   The main function auto spawns ssh sessions on the compromised targets to enumerate the Network Access Point name from IP
   <br>
     This is done through <strong><em>command = "/system identity print"</em></strong>
@@ -117,6 +108,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 THIS TOOL WAS MADE FOR EDUCATIONAL PURPOSES. ALL DAMAGE CAUSED BY ANY ACTIVITIES 
 ILLEGAL OR OTHERWISE, FALLS SOLELY ON THE RESPONSIBILY OF THE USER.
+<br />
+<br/>
 
+# Other Projects
+<br />
+All information on projects in development can be found <a href="https://s1l3nt78.github.io">here</a>. 
+<br />
+For any requests or ideas on current projects please submit an issue request to the corresponding tool.
+<br />
+For ideas or collaboration requests on future projects., contact details can be found on the page.
+<br />
+<br />
+*GitHub Pages can be found here.
+<br />
+-<a href="https://github.com/s1l3nt78/sifter">Sifter</a> = Osint, Recon and Vuln Scanner
+<br />
+-<a href="https://github.com/s1l3nt78/TigerShark">TigerShark</a> = Multi-Tooled Phishing Framework
+<br />
 
   

@@ -283,18 +283,18 @@ update(){
 main(){
 	echo -e "${BRED}"
 	python3 files/banner.py
-	echo -e "${BRED}Codename: ${LCYN}JailBoxer"
-	echo -e "by ${LCYN}s1l3nt78${NC}"
+	echo -e "${ORNG}Codename: ${LCYN}JailBoxer"
+	echo -e "${ORNG}by ${LCYN}s1l3nt78${NC}"
 	echo ""
-	echo -e "${ORNG}Mikrotik WinBox Auth Bypass - ${YLW}Versions ${LGRY}6.29 to 6.42"
-    echo -e "${ORNG}Mikrotik RouterOS Jailbreak - ${YLW}Versions ${LGRY}2.9.8 up to 6.41rc56${NC}"
+	echo -e "${LGRY}Mikrotik WinBox Auth Bypass - ${W}Versions ${YLW}6.29 to 6.42"
+    echo -e "${LGRY}Mikrotik RouterOS Jailbreak - ${W}Versions ${YLW}2.9.8 up to 6.41rc56${NC}"
 	echo -e "${W}Hit ${UBLUE}Ctrl + z${NC} ${W}to exit completely or ${UBLUE}Ctrl + c${NC} ${W}to quit a scan${NC}"
 	echo ""
 	echo -e "${RED}1. MikroTik Auto-EX"
 	echo -e "2. RouterSploit Vuln Check"
 	echo -e "3. Update${NC}"
 	echo ""
-	echo -e "${YLW}What module would you like to use?${NC}"
+	echo -e "${YLW}Which module would you like to use?${NC}"
 	read MODULE
 	if [[ ${MODULE} == "1" ]]; then
 		echo -e "${W}Would you like to run MCheck using a proxy?${YLW}(y/n)${NC}"
