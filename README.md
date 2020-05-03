@@ -13,21 +13,21 @@
 <br />
 <br />
 
-# MkCheck
+# *MkCheck*
 <strong>*s1l3nt78*</strong>
 
 # Functions
 
   MCheck is used to check MikroTik Routers for:
   <br />
-     <em>-winbox_auth_bypass_creds_disclosure (Affected Versions: <strong>6.29 to 6.42</strong>)
+     <em>-winbox_auth_bypass_creds_disclosure (Affected Versions: <strong>6.29</strong> to <strong>6.42</strong>)
   <br />
-     -routeros_jailbreak (Affected Versions: <strong>2.9.8 up to 6.41rc56</strong>)</em> 
+     -routeros_jailbreak (Affected Versions: <strong>2.9.8</strong> to <strong>6.41rc56</strong>)</em> 
   <br />
   <br />
   If routersploit module confirms if the Mikrotik device is vulnerable and if found - displays login credentials
   <br />
-  Which must be entered into <strong><em>scripts/miko.py</em></strong> for MkCheck's auto shell module to correctly work.
+  Which must be entered into <strong><em>scripts/miko.py</em></strong> for MkCheck's auto search module to correctly work.
   <br />
   <br />
     <strong>Change These:</strong>
@@ -43,10 +43,10 @@
   <br>
     This is done through <strong><em>command = "/system identity print"</em></strong>
     <br />
+    The logs are then automatically cleaned via "<em>/console clear-history</em>" command.
+    <br />
+    <br />
     You can change the <strong>command</strong> value in order to enumerate different data.
-    <br />
-    <br />
-    eg. Changing command to "<em>/console clear-history</em>" will clear previous commands to cover your tracks
     <br />
     Chaning the command to "<em>/system default-configuration print</em>" will print out the default configuration
     <br />
