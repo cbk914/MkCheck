@@ -11,7 +11,7 @@ def showbanner():
   MMM      MMM  III  KKK KKK   RRRRRR    OOO  OOO     TTT     III  KKK KKK
   MMM      MMM  III  KKK  KKK  RRR  RRR   OOOOOO      TTT     III  KKK  KKK ''')
 
-    print("MikroTik RouterOS Exploitation V1")
+    print("MikroTik RouterOS Exploitation V1.1")
     exit
 
 showbanner()
