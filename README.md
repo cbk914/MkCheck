@@ -20,9 +20,9 @@
 
   MCheck is used to check MikroTik Routers for:
   <br />
-     <em>-winbox_auth_bypass_creds_disclosure (Affected Versions: <strong>6.29 to 6.42</strong>)
+     <em>-winbox_auth_bypass_creds_disclosure (Affected Versions: <strong>6.29</strong> to <strong>6.42</strong>)
   <br />
-     -routeros_jailbreak (Affected Versions: <strong>2.9.8 up to 6.41rc56</strong>)</em> 
+     -routeros_jailbreak (Affected Versions: <strong>2.9.8</strong> to <strong>6.41rc56</strong>)</em> 
   <br />
   <br />
   If routersploit module confirms if the Mikrotik device is vulnerable and if found - displays login credentials
