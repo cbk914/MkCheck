@@ -401,8 +401,10 @@ main(){
 		rtsploit
 	elif [[ ${MODULE} == "3" ]]; then
 		session_choice
+		main
   	elif [[ ${MODULE} == "4" ]]; then
     	update
+		main
 	elif [[ ${MODULE} == "5" ]]; then
 		sudo rm -rf .conf results/Vulns/* files/.*_tiks.txt
 		echo -e "${W}Would you like to create a ${URED}n${NC}${W}ew session or ${URED}e${NC}${W}xit?${YLW}(n/e)${NC}"
@@ -426,4 +428,4 @@ echo -e "${LP}"
 figlet MkCheck
 echo -e "${NC}"
 main
-exit 1
+
