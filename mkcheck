@@ -285,7 +285,8 @@ main(){
 	echo -e "${RED}1. MikroTik Auto-EX"
 	echo -e "2. RouterSploit Vuln Check"
   	echo -e "3. Change Session"
-  	echo -e "4. Update${NC}"
+  	echo -e "4. Update"
+	echo -e "5. Clear all previous sessions.${NC}"
 	echo ""
 	echo -e "${YLW}Which module would you like to use?${NC}"
 	read MODULE
@@ -304,6 +305,16 @@ main(){
 		session_choice
   	elif [[ ${MODULE} == "4" ]]; then
     	update
+	elif [[ ${MODULE} == "5" ]]; then
+		sudo rm -rf .conf results/Vulns/* files/.*_tiks.txt
+		echo -e "${W}Would you like to create a new session or exit?${YLW}(n/e)${NC}"
+		read MOD
+		if [[ ${MOD} == "n" ]]; then
+			session_choice
+			main
+		else
+			exit 2
+		fi
 	else
 		echo -e "${URED}You have selected an invalid option${NC}"
 	fi
