@@ -27,7 +27,7 @@
   <br />
   If routersploit module confirms if the Mikrotik device is vulnerable and if found - displays login credentials
   <br />
-  Which must be entered into <strong><em>scripts/miko.py</em></strong> for MkCheck's auto shell module to correctly work.
+  Which must be entered into <strong><em>scripts/miko.py</em></strong> for MkCheck's auto search module to correctly work.
   <br />
   <br />
     <strong>Change These:</strong>
