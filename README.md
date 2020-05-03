@@ -43,10 +43,10 @@
   <br>
     This is done through <strong><em>command = "/system identity print"</em></strong>
     <br />
+    The logs are then automatically cleaned via "<em>/console clear-history</em>" command.
+    <br />
+    <br />
     You can change the <strong>command</strong> value in order to enumerate different data.
-    <br />
-    <br />
-    eg. Changing command to "<em>/console clear-history</em>" will clear previous commands to cover your tracks
     <br />
     Chaning the command to "<em>/system default-configuration print</em>" will print out the default configuration
     <br />
