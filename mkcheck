@@ -226,11 +226,16 @@ running(){
 apresults(){
 	for log in `cat /opt/MkCheck/files/tiks_res.txt`
 		do
+			Y='1'
+			Y=$(( ${Y} + 1 ))
 			echo "${log}"
 			echo "${log}" >> results/Vulns/${SESSION}/final.results
 			cat results/Vulns/${SESSION}/${log}.results
 			cat results/Vulns/${SESSION}/${log}.results >> results/Vulns/${SESSION}/final.results
 			echo "==========================================================================="
+			if [[ ${Y} == ${Z} ]]; then
+				break
+			fi
 		done
 }
 
@@ -255,7 +260,7 @@ mchecker(){
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} -eq 255 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
-			breaks
+			break
 		fi
 	done
 	apresults
