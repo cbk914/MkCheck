@@ -27,7 +27,7 @@ else
 	echo -e "${W}Moving MkCheck to the correct directory${NC}"
 	pwd && cd ..
 	sudo mv MkCheck -t /opt
-	sudo python3 -m pip install paramiko
+	sudo python2 -m pip install paramiko
 fi
 
 # Routersploit Setup

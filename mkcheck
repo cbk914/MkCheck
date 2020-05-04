@@ -250,7 +250,7 @@ mchecker(){
 		echo ""
 		running
 		echo ""
-		sudo python scripts/miko.py | tee output.log
+		sudo python2 scripts/miko.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
 		VER=$(cat output.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
@@ -278,7 +278,7 @@ pchecker(){
 		echo ""
 		running
 		echo ""
-		proxychains4 sudo python scripts/miko.py | tee output.log
+		proxychains4 sudo python2 scripts/miko.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
 		VER=$(cat output.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
