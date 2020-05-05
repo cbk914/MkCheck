@@ -135,7 +135,6 @@ session_choice(){
 		read SESSION
 		cp files/.${SESSION}_tiks.txt files/tiks.txt
 	fi
-	echo -e "${W}Session: ${LP}${SESSION}${NC}"
 	
 	########################################################
     ##############################
@@ -443,7 +442,7 @@ main(){
     echo -e "${LGRY}Mikrotik RouterOS Jailbreak - ${W}Versions ${YLW}2.9.8 up to 6.41rc56${NC}"
 	echo -e "${W}Hit ${UBLUE}Ctrl + Z${NC} ${W}to background MkCheck or ${UBLUE}Ctrl + C${NC} ${W}to quit a scan${NC}"
 	echo ""
-	echo -e "${}"
+	echo -e "${W}Session: ${LP}${SESSION}${NC}"
 	echo -e "${RED}1. MikroTik Auto-EX"
 	echo -e "2. RouterSploit Vuln Check"
   	echo -e "3. Change Session"
