@@ -106,6 +106,26 @@ edit_session(){
 	echo ${SESSION} >> .conf
 	sed -i "s/${EXIT}/${ENTER}/g" files/.${SESHO}_tiks.txt
 	cp files/.${SESHO}_tiks.txt files/.${SESSION}_tiks.txt
+	cp files/.${SESSION}_tiks.txt files/tiks_res.txt
+	cp files/.${SESSION}_tiks.txt files/tiks_rsf.txt
+
+	########################################################
+    ##############################
+	#  RSF Session Folder Check  #
+	##############################
+	
+	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
+			mkdir /opt/MkCheck/results/RSF/${SESSION}
+	fi
+	
+	####################################################
+    ###############################
+	#  Vuln Session Folder Check  #
+	###############################
+	
+	if [[ ! -d /opt/MkCheck/results/Vulns/${SESSION} ]]; then
+		mkdir /opt/MkCheck/results/Vulns/${SESSION}
+	fi
 }
 
 ##############################################################
@@ -120,8 +140,28 @@ fresh(){
 	echo -e "${W}Please enter your target block${NC}"
 	sleep 2
 	nano files/tiks.txt
-	echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}${SESSION}_tiks.txt${NC}"
-	cp files/tiks.txt files/.${SESSION}_tiks.txt
+	echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}.${SESSION}_tiks.txt${NC}"
+	cp files/tiks.txt files/.${SESSION}_tiks.txt 
+	cp files/tiks.txt files/tiks_res.txt
+	cp files/tiks.txt files/tiks_rsf.txt
+
+	########################################################
+    ##############################
+	#  RSF Session Folder Check  #
+	##############################
+	
+	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
+			mkdir /opt/MkCheck/results/RSF/${SESSION}
+	fi
+	
+	####################################################
+    ###############################
+	#  Vuln Session Folder Check  #
+	###############################
+	
+	if [[ ! -d /opt/MkCheck/results/Vulns/${SESSION} ]]; then
+		mkdir /opt/MkCheck/results/Vulns/${SESSION}
+	fi
 }
 
 ##############################################################
@@ -144,28 +184,28 @@ session_choice(){
 		cp files/.${SESSION}_tiks.txt files/tiks.txt
 	fi
 	
-	########################################################
-    ##############################
-	#  RSF Session Folder Check  #
-	##############################
-	
-	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
-			mkdir /opt/MkCheck/results/RSF/${SESSION}
-	fi
-	
-	####################################################
-    ###############################
-	#  Vuln Session Folder Check  #
-	###############################
-	
-	if [[ ! -d /opt/MkCheck/results/Vulns/${SESSION} ]]; then
-		mkdir /opt/MkCheck/results/Vulns/${SESSION}
-	fi
+					#	########################################################
+					#    #############################
+					#	#  RSF Session Folder Check  #
+					#	##############################
+					#	
+					#	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
+					#			mkdir /opt/MkCheck/results/RSF/${SESSION}
+					#	fi
+					#	
+					#	####################################################
+					#   ###############################
+					#	#  Vuln Session Folder Check  #
+					#	###############################
+					#	
+					#	if [[ ! -d /opt/MkCheck/results/Vulns/${SESSION} ]]; then
+					#		mkdir /opt/MkCheck/results/Vulns/${SESSION}
+					#	fi
 }
 
 
 
-#########################################################################3
+#########################################################################
 #######################
 #    Session Check    #
 #######################
