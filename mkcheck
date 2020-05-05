@@ -521,12 +521,12 @@ main(){
 	cred_check
 	echo ""
 	echo -e ""
-	echo -e "${RED}1. ${W}MikroTik Auto-EX"
-	echo -e "${RED}2. ${W}RouterSploit Vuln Check"
-  	echo -e "${LP}3. ${W}Change Session"
-  	echo -e "${LP}4. ${W}Change Credential Values"
-	echo -e "${LP}5. ${W}Clear all previous sessions.${NC}"
-	echo -e "${LCYN}6. ${W}Update MkCheck"
+	echo -e "${RED}1. ${LGRY}MikroTik Auto-EX"
+	echo -e "${RED}2. ${LGRY}RouterSploit Vuln Check"
+  	echo -e "${LP}3. ${LGRY}Change Session"
+  	echo -e "${LP}4. ${LGRY}Change Credential Values"
+	echo -e "${LP}5. ${LGRY}Clear all previous sessions.${NC}"
+	echo -e "${LCYN}6. ${LGRY}Update MkCheck"
 	echo ""
 	echo -e "${YLW}Which module would you like to use?${NC}"
 	read MODULE
