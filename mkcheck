@@ -490,19 +490,6 @@ update(){
 }
 
 ##################################################################################
-#  Credential Change  #
-#######################
-#
-#change_creds(){
-#	echo -e "${W}Would you like to change these values?${YLW}(y/n)${NC}"
-#	read VALCH
-#	if [[ ${VALCH} == "y" ]]; then
-#		nano /opt/MkCheck/scripts/miko.py
-#	fi
-#}
-#################################################################################
-
-##################################################################################
 #######################
 #  Router Cred Check  #
 #######################
@@ -510,8 +497,8 @@ update(){
 cred_check(){
 	USER=$(cat /opt/MkCheck/scripts/miko.py | grep 'username =')
 	PASS=$(cat /opt/MkCheck/scripts/miko.py | grep 'password =')
-	echo -e "${YLW}Current Username Value: ${USER}"
-	echo -e "${YLW}Current Password Value: ${PASS}"
+	echo -e "${YLW}Current Username Value: ${ORNG}${USER}"
+	echo -e "${YLW}Current Password Value: ${ORNG}${PASS}${NC}"
 }
 
 ################################################################################
@@ -530,16 +517,16 @@ main(){
     echo -e "${LGRY}Mikrotik RouterOS Jailbreak - ${W}Versions ${YLW}2.9.8${NC} ${W}to ${YLW}6.41rc56${NC}"
 	echo -e "${W}Hit ${UBLUE}Ctrl + Z${NC} ${W}to background MkCheck or ${UBLUE}Ctrl + C${NC} ${W}to quit a scan${NC}"
 	echo ""
-	echo -e "${URED}${W}Current Session: ${LP}${SESSION}${NC}"
+	echo -e "${URED}${W}Current Session: ${ORNG}${SESSION}${NC}"
 	cred_check
 	echo ""
 	echo -e ""
-	echo -e "${RED}1. MikroTik Auto-EX"
-	echo -e "2. RouterSploit Vuln Check"
-  	echo -e "3. Change Session"
-  	echo -e "4. Update MkCheck"
-	echo -e "5. Change Credential Values"
-	echo -e "6. Clear all previous sessions.${NC}"
+	echo -e "${RED}1. ${W}MikroTik Auto-EX"
+	echo -e "${RED}2. ${W}RouterSploit Vuln Check"
+  	echo -e "${LP}3. ${W}Change Session"
+  	echo -e "${LP}4. ${W}Change Credential Values"
+	echo -e "${LP}5. ${W}Clear all previous sessions.${NC}"
+	echo -e "${LCYN}6. ${W}Update MkCheck"
 	echo ""
 	echo -e "${YLW}Which module would you like to use?${NC}"
 	read MODULE
@@ -557,12 +544,9 @@ main(){
 	elif [[ ${MODULE} == "3" ]]; then
 		session_choice
 		main
-  	elif [[ ${MODULE} == "4" ]]; then
-    	update
-		main
-	elif [[ ${MODULE} == "5" ]]; then
+	elif [[ ${MODULE} == "4" ]]; then
 		nano /opt/MkCheck/scripts/miko.py
-	elif [[ ${MODULE} == "6" ]]; then
+	elif [[ ${MODULE} == "5" ]]; then
 		sudo rm -rf .conf results/Vulns/* files/.*_tiks.txt
 		echo -e "${W}Would you like to create a ${URED}n${NC}${W}ew session or ${URED}e${NC}${W}xit?${YLW}(n/e)${NC}"
 		read MOD
@@ -572,6 +556,9 @@ main(){
 		else
 			exit 2
 		fi
+  	elif [[ ${MODULE} == "6" ]]; then
+    	update
+		main
 	else
 		echo -e "${URED}You have selected an invalid option${NC}"
 	fi
