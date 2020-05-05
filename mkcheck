@@ -104,7 +104,7 @@ edit_session(){
 	echo -e "${W}Please enter the name for this target files session${NC}"
 	read SESSION
 	echo ${SESSION} >> .conf
-	sed -i "s/${EXIT}/${ENTER}/g" files/.${SESHO}_res.txt
+	sed -i "s/${EXIT}/${ENTER}/g" files/.${SESHO}_tiks.txt
 	cp files/.${SESHO}_tiks.txt files/.${SESSION}_tiks.txt
 }
 
