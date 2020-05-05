@@ -95,19 +95,19 @@ fi
 
 edit_session(){
 	echo -e "${YLW}This changs a single number set <xx.xx.132.xx>, to change multiple, just run this option again${NC}"
-	echo -e "${W}Please enter the name of the session to edit${NC}"
-	read SESHO
-	echo -e "${W}Please enter the number to be replaced${NC}"
-	read EXIT
-	echo -e "${W}Please enter the number to insert${NC}"
-	read ENTER
-	echo -e "${W}Please enter the name for this target files session${NC}"
-	read SESSION
-	echo ${SESSION} >> .conf
-	sed -i "s/${EXIT}/${ENTER}/g" files/.${SESHO}_tiks.txt
-	cp files/.${SESHO}_tiks.txt files/.${SESSION}_tiks.txt
-	cp files/.${SESSION}_tiks.txt files/tiks_res.txt
-	cp files/.${SESSION}_tiks.txt files/tiks_rsf.txt
+        echo -e "${W}Please enter the name of the session to edit${NC}"
+        read SESHO
+        cp files/.${SESHO}_tiks.txt files/.${SESSION}_tiks.txt
+        echo -e "${W}Please enter the number to be replaced${NC}"
+        read EXIT
+        echo -e "${W}Please enter the number to insert${NC}"
+        read ENTER
+        echo -e "${W}Please enter the name for this target files session${NC}"
+        read SESSION
+        echo ${SESSION} >> .conf
+        sed -i "s/${EXIT}/${ENTER}/g" files/.${SESSION}_tiks.txt
+        cp files/.${SESSION}_tiks.txt files/tiks_res.txt
+        cp files/.${SESSION}_tiks.txt files/tiks_rsf.txt
 
 	########################################################
     ##############################
@@ -183,24 +183,6 @@ session_choice(){
 		read SESSION
 		cp files/.${SESSION}_tiks.txt files/tiks.txt
 	fi
-	
-					#	########################################################
-					#    #############################
-					#	#  RSF Session Folder Check  #
-					#	##############################
-					#	
-					#	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
-					#			mkdir /opt/MkCheck/results/RSF/${SESSION}
-					#	fi
-					#	
-					#	####################################################
-					#   ###############################
-					#	#  Vuln Session Folder Check  #
-					#	###############################
-					#	
-					#	if [[ ! -d /opt/MkCheck/results/Vulns/${SESSION} ]]; then
-					#		mkdir /opt/MkCheck/results/Vulns/${SESSION}
-					#	fi
 }
 
 
