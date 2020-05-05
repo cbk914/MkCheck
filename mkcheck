@@ -109,6 +109,22 @@ edit_session(){
 }
 
 ##############################################################
+#  Fresh Session  #
+###################
+
+fresh(){
+	sudo rm files/tiks.txt files/tiks_res.txt files/tiks_rsf.txt
+	echo -e "${W}Please enter a name for this session${NC}"
+	read SESSION
+	echo ${SESSION} >> .conf
+	echo -e "${W}Please enter your target block${NC}"
+	sleep 2
+	nano files/tiks.txt
+	echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}${SESSION}_tiks.txt${NC}"
+	cp files/tiks.txt files/.${SESSION}_tiks.txt
+}
+
+##############################################################
 ########################
 # (SC) Session Choice  #
 ########################
@@ -119,15 +135,7 @@ session_choice(){
 	echo -e "${W}Would you like to ${URED}u${NC}${W}se a previous session, edit an ${URED}e${NC}${W}xisting session or start ${URED}f${NC}${W}resh?${YLW}(u/e/f)${NC}"
 	read CONF
 	if [[ ${CONF} == "f" ]]; then
-		sudo rm files/tiks.txt files/tiks_res.txt files/tiks_rsf.txt
-		echo -e "${W}Please enter a name for this session${NC}"
-		read SESSION
-		echo ${SESSION} >> .conf
-		echo -e "${W}Please enter your target block${NC}"
-		sleep 2
-		nano files/tiks.txt
-		echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}${SESSION}_tiks.txt${NC}"
-		cp files/tiks.txt files/.${SESSION}_tiks.txt
+		fresh		
 	elif [[ ${CONF} == "e" ]]; then
 		edit_session
 	else
@@ -438,11 +446,12 @@ main(){
 	echo -e "${ORNG}Codename: ${LCYN}JailBoxer"
 	echo -e "${ORNG}by ${LCYN}s1l3nt78${NC}"
 	echo ""
-	echo -e "${LGRY}Mikrotik WinBox Auth Bypass - ${W}Versions ${YLW}6.29 to 6.42"
-    echo -e "${LGRY}Mikrotik RouterOS Jailbreak - ${W}Versions ${YLW}2.9.8 up to 6.41rc56${NC}"
+	echo -e "${LGRY}Mikrotik WinBox Auth Bypass - ${W}Versions ${YLW}6.29${NC} ${W}to${NC} ${YLW}6.42"
+    echo -e "${LGRY}Mikrotik RouterOS Jailbreak - ${W}Versions ${YLW}2.9.8${NC} ${W}to ${YLW}6.41rc56${NC}"
 	echo -e "${W}Hit ${UBLUE}Ctrl + Z${NC} ${W}to background MkCheck or ${UBLUE}Ctrl + C${NC} ${W}to quit a scan${NC}"
 	echo ""
-	echo -e "${W}Session: ${LP}${SESSION}${NC}"
+	echo -e "${URED}${W}Current Session: ${LP}${SESSION}${NC}"
+	echo -e ""
 	echo -e "${RED}1. MikroTik Auto-EX"
 	echo -e "2. RouterSploit Vuln Check"
   	echo -e "3. Change Session"
@@ -473,7 +482,7 @@ main(){
 		echo -e "${W}Would you like to create a ${URED}n${NC}${W}ew session or ${URED}e${NC}${W}xit?${YLW}(n/e)${NC}"
 		read MOD
 		if [[ ${MOD} == "n" ]]; then
-			session_choice
+			fresh
 			main
 		else
 			exit 2
