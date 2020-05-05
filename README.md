@@ -43,7 +43,7 @@
   <br>
     This is done through <strong><em>command = "/system identity print"</em></strong>
     <br />
-    The logs are then automatically cleaned via "<em>/console clear-history</em>" command.
+    The logs are then automatically cleaned via "<strong><em>/console clear-history</em></strong>" command.
     <br />
     <br />
     You can change the <strong>command</strong> value in order to enumerate different data.
