@@ -307,24 +307,32 @@ apresults(){
 			cat results/Vulns/${SESSION}/${log}.results >> results/Vulns/${SESSION}/final.results
 			echo "==========================================================================="
 			if [[ ${Y} == ${Z} ]]; then
+				
+				######################
+				######################
+				#  Targetted Lookup  #
+				######################
+				echo -e "${W}Was there a specific target you were looking for?${YLW}(y/n)${NC}"
+				read GETTED
+				if [[ ${GETTED} == "y" ]]; then
+					echo -e "${W}Please specify a keyword for your target Access Point${NC}"
+					echo -e "${RED}eg. ${YLW}123 Apartment${RED} <-- target access point name${NC}"
+					echo -e "${RED}Keyword to search for would be ${YLW}Apartment${RED} or ${YLW}123${NC}"
+					read KEY
+					cat /opt/MkCheck/results/Vulns/${SESSION}/final.results | grep ${KEY}
+				fi
+				
+				####################
+				####################
+				#  Return To Main  #
+				####################
 				break
 			fi
 		done
 
-		######################
-		######################
-		#  Targetted Lookup  #
-		######################
+	
 
-		echo -e "${W}Was there a specific target you were looking for?${YLW}(y/n)${NC}"
-		read GETTED
-		if [[ ${GETTED} == "y" ]]; then
-			echo -e "${W}Please specify a keyword for your target Access Point${NC}"
-			echo -e "${RED}eg. ${YLW}123 Apartment${RED} <-- target access point name${NC}"
-			echo -e "${RED}Keyword to search for would be ${YLW}Apartment${RED} or ${YLW}123${NC}"
-			read KEY
-			cat /opt/MkCheck/results/Vulns/${SESSION}/final.results | grep ${KEY}
-		fi
+		
 }
 
 ###################################################3###############33
