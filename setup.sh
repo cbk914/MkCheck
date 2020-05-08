@@ -55,7 +55,7 @@ fi
 # RouterSploit Dependancies
 
 cd /root/routersploit
-sudo apt-get install python3-pip figlet python3.7 tor proxychains4
+sudo apt-get install python3-pip figlet python3.7 tor proxychains4 -y
 python3.7 -m pip install -r requirements.txt
 python3.7 -m pip install -r requirements-dev.txt
 
