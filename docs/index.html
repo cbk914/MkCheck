@@ -20,35 +20,35 @@
 
   MCheck is used to check MikroTik Routers for:
   <br />
-     <em>-winbox_auth_bypass_creds_disclosure (Affected Versions: <strong>6.29</strong> to <strong>6.42</strong>)
+     <em>-winbox_auth_bypass_creds_disclosure (Affected Versions: <strong><a style="color: orange">6.29</a></strong> to <strong><a style="color: orange">6.42</a></strong>)
   <br />
-     -routeros_jailbreak (Affected Versions: <strong>2.9.8</strong> to <strong>6.41rc56</strong>)</em>
+     -routeros_jailbreak (Affected Versions: <strong><a style="color: orange">2.9.8</a></strong> to <strong><a style="color: orange">6.41rc56</a></strong>)</em>
   <br />
   <br />
   If routersploit module confirms if the Mikrotik device is vulnerable and if found - displays login credentials
   <br />
-  Which must be entered into <strong><em>scripts/miko.py</em></strong> for MkCheck's auto search module to correctly work.
+  Which must be entered into <strong><em><a style="color: #006699">scripts/miko.py</a></em></strong> for MkCheck's auto search module to correctly work.
   <br />
   <br />
     <strong>Change These:</strong>
     <br />
     <strong>****************</strong>
     <br />
-    <em> username = "<strong>admin</strong>"
+    <em> username = "<strong><a style="color: #cc3300">admin</a></strong>"
  <br />
-         password = "<strong>admin</strong>"</em>
+         password = "<strong><a style="color: #cc3300">admin</a></strong>"</em>
   <br />
   <br />
   The main function auto spawns ssh sessions on the compromised targets to enumerate the Network Access Point name from IP
   <br>
-    This is done through <strong><em>command = "/system identity print"</em></strong>
+    This is done through <strong><em><a style="color: #ace600">command = "/system identity print"</a></em></strong>
     <br />
-    The logs are then automatically cleaned via "<strong><em>/console clear-history</em></strong>" command.
+    The logs are then automatically cleaned via "<strong><em><a style="color: #ace600">/console clear-history</a></em></strong>" command.
     <br />
     <br />
     You can change the <strong>command</strong> value in order to enumerate different data.
     <br />
-    Chaning the command to "<em>/system default-configuration print</em>" will print out the default configuration
+    Chaning the command to "<em><a style="color: #ace600">/system default-configuration print</a></em>" will print out the default configuration
     <br />
     <br />
     Once the Network AP Name has been found the attacker can use the IP and login credentials to work with
@@ -79,11 +79,11 @@
 
 # USAGE
 <br />
- -The user must create the <strong><em>'scripts/tiks.txt'</em></strong> list with MikroTik Router IP's.
+ -The user must create the <strong><em>'<a style="color: #006699">scripts/tiks.txt</a>'</em></strong> list with MikroTik Router IP's.
   <br />
-  Current <em>'scripts/tiks.txt'</em> does not contain valid MikroTik Router IP's. <strong>(STRICTLY EXAMPLE)</strong>
+  Current <em>'<a style="color: #006699">scripts/tiks.txt</a>'</em> does not contain valid MikroTik Router IP's. <strong>(STRICTLY EXAMPLE)</strong>
   <br />
-  -Easiest way to do this is using Shodan for Vuln searching. WinBox Auth Bypass looks for port <strong>8291</strong>
+  -Easiest way to do this is using Shodan for Vuln searching. WinBox Auth Bypass looks for port <strong><a style="color: #ff1a1a">8291</a></strong>
   <br />
   -nMap can be used as well, using the following command:
     <br />
@@ -95,7 +95,7 @@
     <br />
     Once the attacker has a specific netblock <eg. 111.69.145.1/24>, the best way to create the list is using Microsoft Excel
     As you need to fill in the first block (111.69.145.1), then you can drag the coloum to quickly fill the IP's in the colom.
-    Then copy the entire block into the <strong><em>'scripts/tiks.txt'</em></strong> file.
+    Then copy the entire block into the <strong><em>'<a style="color: #006699">scripts/tiks.txt</a>'</em></strong> file.
     <br />
 
 
