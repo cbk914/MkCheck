@@ -11,7 +11,7 @@ apname = "/system identity print" # Change this for a different command to be ru
 clear = "/console clear-history"
 
 p = paramiko.SSHClient()
-p.set_missing_host_key_policy(paramiko.AutoAddPolicy()) 
+p.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 p.connect(host, port, username, password)
 
 remote_connection = p.invoke_shell()
@@ -29,3 +29,5 @@ stdin, stdout, stderr = p.exec_command(clear)
 time.sleep(2)
 
 p.close()
+
+#####################################################______________ czFsM250NzggX18gUmFiYjE3J3MgRGVu ______________#####################################################

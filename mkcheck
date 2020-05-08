@@ -115,16 +115,16 @@ edit_session(){
     ##############################
 	#  RSF Session Folder Check  #
 	##############################
-	
+
 	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
 			mkdir /opt/MkCheck/results/RSF/${SESSION}
 	fi
-	
+
 	####################################################
     ###############################
 	#  Vuln Session Folder Check  #
 	###############################
-	
+
 	if [[ ! -d /opt/MkCheck/results/Vulns/${SESSION} ]]; then
 		mkdir /opt/MkCheck/results/Vulns/${SESSION}
 	fi
@@ -143,7 +143,7 @@ fresh(){
 	sleep 2
 	nano files/tiks.txt
 	echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}.${SESSION}_tiks.txt${NC}"
-	cp files/tiks.txt files/.${SESSION}_tiks.txt 
+	cp files/tiks.txt files/.${SESSION}_tiks.txt
 	cp files/tiks.txt files/tiks_res.txt
 	cp files/tiks.txt files/tiks_rsf.txt
 
@@ -151,16 +151,16 @@ fresh(){
     ##############################
 	#  RSF Session Folder Check  #
 	##############################
-	
+
 	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
 			mkdir /opt/MkCheck/results/RSF/${SESSION}
 	fi
-	
+
 	####################################################
     ###############################
 	#  Vuln Session Folder Check  #
 	###############################
-	
+
 	if [[ ! -d /opt/MkCheck/results/Vulns/${SESSION} ]]; then
 		mkdir /opt/MkCheck/results/Vulns/${SESSION}
 	fi
@@ -177,7 +177,7 @@ session_choice(){
 	echo -e "${W}Would you like to ${URED}u${NC}${W}se a previous session, edit an ${URED}e${NC}${W}xisting session or start ${URED}f${NC}${W}resh?${YLW}(u/e/f)${NC}"
 	read CONF
 	if [[ ${CONF} == "f" ]]; then
-		fresh		
+		fresh
 	elif [[ ${CONF} == "e" ]]; then
 		edit_session
 	else
@@ -202,7 +202,7 @@ if [[ ! -f '.conf' ]]; then
 		echo "# LEAVE THIS LINE IN* (FOR BEST RESULTS USE AN ENTIRE IP BLOCK)" > /opt/MkCheck/files/tiks.txt
 		sudo nano /opt/MkCheck/files/tiks.txt
 	fi
-	
+
 	#################################################
     #################################################
 	#  Second check to see if data is example data  #
@@ -220,7 +220,7 @@ if [[ ! -f '.conf' ]]; then
 	echo "${SESSION}" > .conf
 	echo -e "${W}Session: ${LP}${SESSION}${NC}"
 	cp files/tiks.txt files/.${SESSION}_tiks.txt
-	
+
 	##############################
 	##############################
 	#  RSF Session Folder Check  #
@@ -229,7 +229,7 @@ if [[ ! -f '.conf' ]]; then
 	mkdir /opt/MkCheck/results/RSF/${SESSION}
 	mkdir /opt/MkCheck/results/Vulns/${SESSION}
 else
-	
+
 	####################################
 	####################################
 	# (SC) Check for data replacement  #
@@ -307,7 +307,7 @@ apresults(){
 			echo "${log} ${IP}" >> results/Vulns/${SESSION}/final.results
 			echo "==========================================================================="
 			if [[ ${Y} == ${Z} ]]; then
-				
+
 				######################
 				######################
 				#  Targetted Lookup  #
@@ -321,7 +321,7 @@ apresults(){
 					read KEY
 					cat /opt/MkCheck/results/Vulns/${SESSION}/final.results | grep ${KEY}
 				fi
-				
+
 				####################
 				####################
 				#  Return To Main  #
@@ -330,9 +330,9 @@ apresults(){
 			fi
 		done
 
-	
 
-		
+
+
 }
 
 ###################################################3###############33
@@ -403,7 +403,7 @@ rtsploit(){
 	cd /root/routersploit
 	for name in `cat /opt/MkCheck/files/tiks_rsf.txt`
 		do
-			
+
 			#########################################
 			#########################################
 			#  winbox_auth_bypass_creds_disclosure  #
@@ -412,7 +412,7 @@ rtsploit(){
 			WINSAVE=$(sudo python3 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}")
 			echo "${WINSAVE}" >> /opt/MkCheck/results/RSF/${SESSION}/${name}.results
 			echo "${WINSAVE}" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
-			
+
 			########################
 			########################
 			#  routeros_jailbreak  #
@@ -566,4 +566,4 @@ figlet MkCheck
 echo -e "${NC}"
 main
 
-# czFsM250NzggX18gUmFiYjE3J3MgRGVu
+#####################################################______________ czFsM250NzggX18gUmFiYjE3J3MgRGVu ______________#####################################################

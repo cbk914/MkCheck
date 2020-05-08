@@ -15,7 +15,7 @@ URED='\033[4;31m'
 
 # Root Check
 if [[ $EUID -ne 0 ]]; then
-   echo -e "${RED}This script must be run as root${NC}" 
+   echo -e "${RED}This script must be run as root${NC}"
    exit 1
 fi
 
@@ -36,7 +36,7 @@ wget http://ftp.us.debian.org/debian/pool/main/p/python-pip/python-pip_18.1-5_al
 wget http://ftp.us.debian.org/debian/pool/main/p/python-pip/python-pip-whl_18.1-5_all.deb
 dpkg -i python-pip-whl_18.1-5_all.deb
 dpkg -i python-pip_18.1-5_all.deb
-rm python-* 
+rm python-*
 python2 -m pip install paramiko
 
 # Routersploit Setup
@@ -55,7 +55,7 @@ fi
 # RouterSploit Dependancies
 
 cd /root/routersploit
-sudo apt-get install python3-pip figlet python3.7
+sudo apt-get install python3-pip figlet python3.7 tor proxychains4
 python3.7 -m pip install -r requirements.txt
 python3.7 -m pip install -r requirements-dev.txt
 
@@ -71,3 +71,5 @@ if [[ ${LOPT} == "y" ]]; then
 else
 	echo -e "${RED}MkCheck installed${NC}"
 fi
+
+#####################################################______________ czFsM250NzggX18gUmFiYjE3J3MgRGVu ______________#####################################################

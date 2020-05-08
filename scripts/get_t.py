@@ -11,3 +11,5 @@ time.sleep(3)
 fp = open("files/tiks1.txt")
 content = fp.readline()
 print(content)
+
+#####################################################______________ czFsM250NzggX18gUmFiYjE3J3MgRGVu ______________#####################################################
