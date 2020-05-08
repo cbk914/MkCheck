@@ -27,6 +27,13 @@ else
 	echo -e "${W}Moving MkCheck to the correct directory${NC}"
 	pwd && cd ..
 	sudo mv MkCheck -t /opt
+	sudo apt-get remove python3-pip -y
+	cd /opt/
+	sudo wget http://ftp.us.debian.org/debian/pool/main/p/python-pip/python-pip_18.1-5_all.deb
+	sudo wget http://ftp.us.debian.org/debian/pool/main/p/python-pip/python-pip-whl_18.1-5_all.deb
+	sudo dpkg -i python-pip-whl_18.1-5_all.deb
+	sudo dpkg -i python-pip_18.1-5_all.deb
+	sudo rm python-* 
 	sudo python2 -m pip install paramiko
 fi
 
@@ -42,6 +49,7 @@ else
 	echo -e "${YLW}Installing RouterSploit${NC}"
 	git clone https://github.com/threat9/routersploit.git
 	cd routersploit
+	sudo apt-get install python3-pip
 	python3.7 -m pip install -r requirements.txt
 	python3.7 -m pip install -r requirements-dev.txt
 fi
