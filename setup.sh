@@ -18,7 +18,7 @@ if [[ $EUID -ne 0 ]]; then
    echo -e "${RED}This script must be run as root${NC}" 
    exit 1
 fi
-apt-get install figlet python3.7 python3-pip 
+
 # MCheck install
 if [[ -d /opt/MkCheck ]]; then
 	sleep 1
@@ -27,15 +27,17 @@ else
 	echo -e "${W}Moving MkCheck to the correct directory${NC}"
 	pwd && cd ..
 	sudo mv MkCheck -t /opt
-	sudo apt-get remove python3-pip -y
-	cd /opt/
-	sudo wget http://ftp.us.debian.org/debian/pool/main/p/python-pip/python-pip_18.1-5_all.deb
-	sudo wget http://ftp.us.debian.org/debian/pool/main/p/python-pip/python-pip-whl_18.1-5_all.deb
-	sudo dpkg -i python-pip-whl_18.1-5_all.deb
-	sudo dpkg -i python-pip_18.1-5_all.deb
-	sudo rm python-* 
-	sudo python2 -m pip install paramiko
 fi
+
+# Python2 Dependancies
+apt-get remove python3-pip -y
+cd /opt/
+wget http://ftp.us.debian.org/debian/pool/main/p/python-pip/python-pip_18.1-5_all.deb
+wget http://ftp.us.debian.org/debian/pool/main/p/python-pip/python-pip-whl_18.1-5_all.deb
+dpkg -i python-pip-whl_18.1-5_all.deb
+dpkg -i python-pip_18.1-5_all.deb
+rm python-* 
+python2 -m pip install paramiko
 
 # Routersploit Setup
 cd /root/
@@ -48,11 +50,15 @@ if [[ -d "/root/routersploit" ]]; then
 else
 	echo -e "${YLW}Installing RouterSploit${NC}"
 	git clone https://github.com/threat9/routersploit.git
-	cd routersploit
-	sudo apt-get install python3-pip
-	python3.7 -m pip install -r requirements.txt
-	python3.7 -m pip install -r requirements-dev.txt
 fi
+
+# RouterSploit Dependancies
+
+cd /root/routersploit
+sudo apt-get install python3-pip figlet python3.7
+python3.7 -m pip install -r requirements.txt
+python3.7 -m pip install -r requirements-dev.txt
+
 
 cd /opt/MkCheck
 chmod +x mkcheck
