@@ -94,13 +94,13 @@ fi
 ######################
 
 edit_session(){
-	echo -e "${YLW}This changs a single number set <xx.xx.132.xx>, to change multiple, just run this option again${NC}"
+	      echo -e "${YLW}This changs a single number set <xx.xx.132.xx>, to change multiple, just run this option again${NC}"
         echo -e "${W}Please enter the name of the session to edit${NC}"
         read SESH_EDIT
         cp files/.${SESH_EDIT}_tiks.txt files/.temp_tiks.txt
         echo -e "${W}Please enter the number to be replaced${NC}"
         read OUTNUM
-		echo -e "${W}Please enter the number to insert${NC}"
+		    echo -e "${W}Please enter the number to insert${NC}"
         read INNUM
         echo -e "${W}Please enter the name for this target files session${NC}"
         read SESSION
@@ -108,8 +108,8 @@ edit_session(){
         sed -i "s/${OUTNUM}/${INNUM}/g" files/.temp_tiks.txt
         cp files/.temp_tiks.txt files/tiks_res.txt						# Make result targets file
         cp files/.temp_tiks.txt files/tiks_rsf.txt						# Make routersploit targets file
-		cp files/.temp_tiks.txt files/tiks.txt							# Make MikroTik targets file
-		mv files/.temp_tiks.txt files/.${SESSION}_tiks.txt				# Make backup session file
+		    cp files/.temp_tiks.txt files/tiks.txt							# Make MikroTik targets file
+		    mv files/.temp_tiks.txt files/.${SESSION}_tiks.txt				# Make backup session file
 
 	########################################################
     ##############################
@@ -299,40 +299,36 @@ running(){
 ###############################################
 
 apresults(){
-	for log in `cat /opt/MkCheck/files/tiks_res.txt`
+  Y='1'
+  for log in `cat /opt/MkCheck/files/tiks_res.txt`
 		do
-			Y='1'
 			Y=$(( ${Y} + 1 ))
 			IP=$(cat results/Vulns/${SESSION}/${log}.results)
 			echo "${log} ${IP}" >> results/Vulns/${SESSION}/final.results
 			echo "==========================================================================="
-			if [[ ${Y} == ${Z} ]]; then
+			if [[ ${Y} -eq ${Z} ]] || [[ ${Y} -gt ${Z} ]]; then
 
-				######################
-				######################
-				#  Targetted Lookup  #
-				######################
-				echo -e "${W}Was there a specific target you were looking for?${YLW}(y/n)${NC}"
-				read GETTED
-				if [[ ${GETTED} == "y" ]]; then
-					echo -e "${W}Please specify a keyword for your target Access Point${NC}"
-					echo -e "${RED}eg. ${YLW}123 Apartment${RED} <-- target access point name${NC}"
-					echo -e "${RED}Keyword to search for would be ${YLW}Apartment${RED} or ${YLW}123${NC}"
-					read KEY
-					cat /opt/MkCheck/results/Vulns/${SESSION}/final.results | grep ${KEY}
-				fi
+				    ######################
+				    ######################
+				    #  Targetted Lookup  #
+				    ######################
+				    echo -e "${W}Was there a specific target you were looking for?${YLW}(y/n)${NC}"
+				    read GETTED
+				    if [[ ${GETTED} == "y" ]]; then
+					       echo -e "${W}Please specify a keyword for your target Access Point${NC}"
+					       echo -e "${RED}eg. ${YLW}123 Apartment${RED} <-- target access point name${NC}"
+					       echo -e "${RED}Keyword to search for would be ${YLW}Apartment${RED} or ${YLW}123${NC}"
+					       read KEY
+					       cat /opt/MkCheck/results/Vulns/${SESSION}/final.results | grep ${KEY}
+				    fi
 
-				####################
-				####################
-				#  Return To Main  #
-				####################
-				break
+				  ####################
+				  ####################
+				  #  Return To Main  #
+				  ####################
+				  break
 			fi
 		done
-
-
-
-
 }
 
 ###################################################3###############33
