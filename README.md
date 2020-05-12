@@ -16,6 +16,20 @@
 # *MkCheck*
 <strong>*s1l3nt78*</strong>
 
+
+<br><br>
+<strong>
+This software should not be used within any system or 
+<br>
+network for which you do not have permission, nor should 
+<br>
+it be used for any illegal or illicit purposes. The author
+<br>
+ takes no responsibility for any damages that may be caused
+<br>
+ by the software in this repository.</strong>
+
+
 # Functions
 
   MCheck is used to check MikroTik Routers for:
