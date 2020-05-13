@@ -423,6 +423,19 @@ rtsploit(){
 }
 
 ######################################################
+##################
+# nMap IP Search #
+##################
+
+mkmap(){
+	echo -e "${W}Please enter your IP block to scan eg. ${YLW}111.11.11.1/24${NC}"
+	echo -e "${W}The ports needed are ${RED}80 8291 ${NC}"
+	read BLOCK
+	sudo nmap -vv -O -A -p 22,8291 ${BLOCK}
+	main
+}
+
+######################################################
 #################
 #  Update Args  #
 #################
@@ -509,10 +522,11 @@ main(){
 	echo -e ""
 	echo -e "${RED}1. ${LGRY}MikroTik Auto-EX"
 	echo -e "${RED}2. ${LGRY}RouterSploit Vuln Check"
-  	echo -e "${LP}3. ${LGRY}Change Session"
-  	echo -e "${LP}4. ${LGRY}Change Credential Values"
-	echo -e "${LP}5. ${LGRY}Clear all previous sessions.${NC}"
-	echo -e "${LCYN}6. ${LGRY}Update MkCheck"
+  	echo -e "${RED}3. ${LGRY}nMap Port Scan"
+	echo -e "${LP}4. ${LGRY}Change Session"
+  	echo -e "${LP}5. ${LGRY}Change Credential Values"
+	echo -e "${LP}6. ${LGRY}Clear all previous sessions.${NC}"
+	echo -e "${LCYN}7. ${LGRY}Update MkCheck"
 	echo ""
 	echo -e "${YLW}Which module would you like to use?${NC}"
 	read MODULE
@@ -528,11 +542,13 @@ main(){
 	elif [[ ${MODULE} == "2" ]]; then
 		rtsploit
 	elif [[ ${MODULE} == "3" ]]; then
+		mkmap
+	elif [[ ${MODULE} == "4" ]]; then
 		session_choice
 		main
-	elif [[ ${MODULE} == "4" ]]; then
-		nano /opt/MkCheck/scripts/miko.py
 	elif [[ ${MODULE} == "5" ]]; then
+		nano /opt/MkCheck/scripts/miko.py
+	elif [[ ${MODULE} == "6" ]]; then
 		sudo rm -rf .conf results/Vulns/* files/.*_tiks.txt
 		echo -e "${W}Would you like to create a ${URED}n${NC}${W}ew session or ${URED}e${NC}${W}xit?${YLW}(n/e)${NC}"
 		read MOD
@@ -542,7 +558,7 @@ main(){
 		else
 			exit 2
 		fi
-  	elif [[ ${MODULE} == "6" ]]; then
+  	elif [[ ${MODULE} == "7" ]]; then
     	update
 		main
 	else
