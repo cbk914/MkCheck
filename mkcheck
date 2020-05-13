@@ -431,7 +431,7 @@ mkmap(){
 	echo -e "${W}Please enter your IP block to scan eg. ${YLW}111.11.11.1/24${NC}"
 	echo -e "${W}The ports needed are ${RED}80 8291 ${NC}"
 	read BLOCK
-	sudo nmap -vv -O -A -p 22,8291 ${BLOCK}
+	sudo nmap -vv -O -p 22,8291 -Pn ${BLOCK}
 	main
 }
 
