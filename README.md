@@ -18,7 +18,7 @@
 
 
 <br><br>
-<strong><em># *IMPORTANT*</em></strong>
+# *IMPORTANT*
 <br><br>
 <strong>
 This software should not be used within any system or 
