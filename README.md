@@ -140,9 +140,9 @@ For ideas or collaboration requests on future projects., contact details can be 
 <br />
 <em>GitHub Pages can be found here.
 <br />
--<a href="https://github.com/s1l3nt78/sifter">Sifter</a> = Osint, Recon and Vuln Scanner
+-<a href="https://s1l3nt78.github.io/sifter">Sifter</a> = Osint, Recon and Vuln Scanner
 <br />
--<a href="https://github.com/s1l3nt78/TigerShark">TigerShark</a> = Multi-Tooled Phishing Framework</em>
+-<a href="https://s1l3nt78.github.io/TigerShark">TigerShark</a> = Multi-Tooled Phishing Framework</em>
 <br />
 <br />
 <br />
