@@ -112,7 +112,7 @@ edit_session(){
 		    mv files/.temp_tiks.txt files/.${SESSION}_tiks.txt				# Make backup session file
 
 	########################################################
-    ##############################
+    	##############################
 	#  RSF Session Folder Check  #
 	##############################
 
@@ -121,7 +121,7 @@ edit_session(){
 	fi
 
 	####################################################
-    ###############################
+   	 ###############################
 	#  Vuln Session Folder Check  #
 	###############################
 
@@ -157,7 +157,7 @@ fresh(){
 	fi
 
 	####################################################
-    ###############################
+    	###############################
 	#  Vuln Session Folder Check  #
 	###############################
 
@@ -174,12 +174,23 @@ fresh(){
 session_choice(){
   SESSION=$(cat .conf)
 	echo -e "${W}Previous Sessions: ${LP}${SESSION}${NC}"
-	echo -e "${W}Would you like to ${URED}u${NC}${W}se a previous session, edit an ${URED}e${NC}${W}xisting session or start ${URED}f${NC}${W}resh?${YLW}(u/e/f)${NC}"
+	echo -e "${W}Would you like to ${URED}u${NC}${W}se a previous session, ${URED}e${NC}${W}dit an existing session, \n ${URED}c${NC}${W}reate a new session or start ${URED}f${NC}${W}resh?${YLW}(u/e/f)${NC}"
 	read CONF
 	if [[ ${CONF} == "f" ]]; then
 		fresh
 	elif [[ ${CONF} == "e" ]]; then
 		edit_session
+	elif [[ ${CONF} == "c" ]]; then
+		echo -e "${W}Please enter the name of this session${NC}"
+		read SESSION
+		echo ${SESSION} >> .conf
+		echo -e "${W}Please enter your IP block${NC}"
+		sleep 2
+		rm files/tiks.txt
+		nano files/tiks.txt
+		cp files/tiks.txt files/.${SESSION}_tiks.txt
+		cp files/tiks.txt files/tiks_res.txt
+		cp files/tiks.txt files/tiks_rsf.txt
 	else
 		echo -e "${W}Please enter the name of the session to use:${NC}"
 		read SESSION
@@ -204,7 +215,7 @@ if [[ ! -f '.conf' ]]; then
 	fi
 
 	#################################################
-    #################################################
+    	#################################################
 	#  Second check to see if data is example data  #
 	#################################################
 
@@ -465,24 +476,24 @@ update(){
         figlet -f mini "Up to date."
         echo -e "${NC}"
     else
-		sleep 5
+	    sleep 5
 	    echo -e "${W}Are there pull conflicts with files?(y/n)${NC}"
-        sleep 3
+            sleep 3
 	    read UANS
 	    if [[ ${UANS} == "y" ]]; then
         	export LPATH
         	echo -e "${W}Please enter the conflicting files (seperated by a space)${NC}"
-		    read FILES
+		read FILES
           	sleep 2
-		    up_arg ${FILES}
-		    git pull
+		up_arg ${FILES}
+		git pull
 	    else
-		    git pull
+		git pull
 	    fi
 	    if [[ -f '/usr/sbin/mkcheck' ]]; then
-		    sudo cp mkcheck -t /usr/sbin
-		    sudo chmod +x /usr/sbin/mkcheck
-		fi
+		sudo cp mkcheck -t /usr/sbin
+		sudo chmod +x /usr/sbin/mkcheck
+	    fi
 		main
     fi
   echo -e "${NC}"
@@ -513,7 +524,7 @@ main(){
 	echo -e "${ORNG}by ${LCYN}s1l3nt78${NC}"
 	echo ""
 	echo -e "${LGRY}Mikrotik WinBox Auth Bypass - ${W}Versions ${YLW}6.29${NC} ${W}to${NC} ${YLW}6.42"
-    echo -e "${LGRY}Mikrotik RouterOS Jailbreak - ${W}Versions ${YLW}2.9.8${NC} ${W}to ${YLW}6.41rc56${NC}"
+   	echo -e "${LGRY}Mikrotik RouterOS Jailbreak - ${W}Versions ${YLW}2.9.8${NC} ${W}to ${YLW}6.41rc56${NC}"
 	echo -e "${W}Hit ${UBLUE}Ctrl + Z${NC} ${W}to background MkCheck or ${UBLUE}Ctrl + C${NC} ${W}to quit a scan${NC}"
 	echo ""
 	echo -e "${URED}${W}Current Session: ${ORNG}${SESSION}${NC}"
