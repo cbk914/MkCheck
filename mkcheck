@@ -15,6 +15,7 @@ UBLUE='\033[4;34m'
 URED='\033[4;31m'
 LCYN='\033[1;36m'
 Z=1
+ARGUMENT=$2
 
 #########################################
 #######################
@@ -579,14 +580,75 @@ main(){
 }
 
 ##########################################
+#############
+# Help Menu #
+#############
+helpmenu(){
+	echo -e "${LP}"
+	figlet MkCheck
+	echo -e "${YLW}"
+	echo ""
+	echo "# mkcheck -u Checks for any updates on Github"
+	echo -e "# mkcheck -r <session name> \n Runs the Routersploit module against given session name"
+	echo -e "# mkcheck -m <session name> \n Runs the MikroTik exploitation module (${YLW}no proxy${NC}) against given session name"
+    echo -e "# mkcheck -p <session name> \n Runs the MikroTik exploitation module (${YLW}proxy${NC}) against given session name"
+	echo -e "# mkcheck -n <IP block> \n Runs the nMap module against given IP Block"
+	echo -e "# sifter -h Print this menu and exit" 1>&2
+}
+
+##########################################
 #############################
 #  Start of MkCheck Script  #
 #############################
-
 cd /opt/MkCheck
-echo -e "${LP}"
-figlet MkCheck
-echo -e "${NC}"
-main
+while getopts "ur:m:p:n:h" options; do            	            # Loop: Get the next option;
+	case "${options}" in                                # use silent error checking;
+                                                        # option a takes 1 arguments.
+		u)
+            update
+			main
+            ;;
+		
+		r)
+			cp files/.${ARGUMENT}_tiks.txt files/tiks.txt
+			cp files/.${ARGUMENT}_tiks.txt files/tiks_res.txt
+			cp files/.${ARGUMENT}_tiks.txt files/tiks_rsf.txt
+			rtsploit
+			;;
+
+		m)
+			cp files/.${ARGUMENT}_tiks.txt files/tiks.txt
+			cp files/.${ARGUMENT}_tiks.txt files/tiks_res.txt
+			cp files/.${ARGUMENT}_tiks.txt files/tiks_rsf.txt
+			mchecker
+			;;
+
+		p)
+			sudo service tor start
+			cp files/.${ARGUMENT}_tiks.txt files/tiks.txt
+			cp files/.${ARGUMENT}_tiks.txt files/tiks_res.txt
+			cp files/.${ARGUMENT}_tiks.txt files/tiks_rsf.txt
+			pchecker
+			;;
+
+		n)
+			sudo nmap -vv -O -p 22,8291 -Pn ${ARGUMENT}
+			;;
+
+		h)
+			helpmenu
+			;;
+
+	esac
+done
+if [[ $OPTIND == 1 ]]; then				                # if no option is passed
+	echo -e "${LP}"
+	figlet MkCheck
+	echo -e "${NC}"
+	main		  	                                # default command is run
+fi
+exit 0
+
+
 
 #####################################################______________ czFsM250NzggX18gUmFiYjE3J3MgRGVu ______________#####################################################
