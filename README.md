@@ -39,7 +39,7 @@ it be used for any illegal or illicit purposes. The author
   <br />
      <em>-winbox_auth_bypass_creds_disclosure&ensp; -&ensp;(Affected Versions: <strong>6.29</strong> to <strong>6.42</strong>)
   <br />
-     -routeros_jailbreak&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; -&ensp;(Affected Versions: <strong>2.9.8</strong> to <strong>6.41rc56</strong>)</em>
+     -routeros_jailbreak&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; -&ensp;(Affected Versions: <strong>2.9.8</strong> to <strong>6.41rc56</strong>)</em>
   <br />
   <br />
   If routersploit module confirms if the Mikrotik device is vulnerable and if found - displays login credentials
