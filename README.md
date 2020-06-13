@@ -34,9 +34,9 @@ it be used for any illegal or illicit purposes. The author
 
 # Termux
 
- MkCheck works well in Termux, provided you are able to run root. 
+ MkCheck works well in Termux, <strong>provided you are able to run <em>root</em></strong>. 
  <br />
- Otherwise Nethunter (with chroot) works as well, without any extra config.
+ Otherwise Nethunter (<strong><em>with chroot</em></strong>) works as well, without any extra config.
  
 
 # Functions
