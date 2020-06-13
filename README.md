@@ -32,9 +32,17 @@ it be used for any illegal or illicit purposes. The author
 <br>
  by the software in this repository.</strong>
 
+# Termux
+
+ MkCheck works well in Termux, provided you are able to run root. 
+ <br />
+ Otherwise Nethunter (with chroot) works as well, without any extra config.
+ 
 
 # Functions
 
+  *Threading to be added soon to speed up the scan process
+  
   MCheck is used to check MikroTik Routers for:
   <br />
      <em>-winbox_auth_bypass_creds_disclosure&ensp; -&ensp;(Affected Versions: <strong>6.29</strong> to <strong>6.42</strong>)
