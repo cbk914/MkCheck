@@ -89,6 +89,15 @@ if [[ ! -d '/opt/MkCheck/results/Vulns' ]]; then
 	mkdir /opt/MkCheck/results/Vulns
 fi
 
+###########################################
+##############################
+#  BTW Session Folder Check  #
+##############################
+
+if [[ ! -d '/opt/MkCheck/results/btw' ]]; then
+	mkdir /opt/MkCheck/results/btw
+fi
+
 #########################################################
 ######################
 # (SE) Session Edit  #
@@ -113,11 +122,11 @@ edit_session(){
 		    mv files/.temp_tiks.txt files/.${SESSION}_tiks.txt				# Make backup session file
 
 	########################################################
-    	##############################
+    ##############################
 	#  RSF Session Folder Check  #
 	##############################
 
-	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
+	if [[ ! -d '/opt/MkCheck/results/RSF/${SESSION}' ]]; then
 			mkdir /opt/MkCheck/results/RSF/${SESSION}
 	fi
 
@@ -126,8 +135,17 @@ edit_session(){
 	#  Vuln Session Folder Check  #
 	###############################
 
-	if [[ ! -d /opt/MkCheck/results/Vulns/${SESSION} ]]; then
+	if [[ ! -d '/opt/MkCheck/results/Vulns/${SESSION}' ]]; then
 		mkdir /opt/MkCheck/results/Vulns/${SESSION}
+	fi
+
+	########################################################
+	##############################
+	#  BTW Session Folder Check  #
+	##############################
+
+	if [[ ! -d '/opt/MkCheck/results/btw/${SESSION}' ]]; then
+		mkdir /opt/MkCheck/results/btw/${SESSION}
 	fi
 }
 
@@ -153,7 +171,7 @@ fresh(){
 	#  RSF Session Folder Check  #
 	##############################
 
-	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
+	if [[ ! -d '/opt/MkCheck/results/RSF/${SESSION}' ]]; then
 			mkdir /opt/MkCheck/results/RSF/${SESSION}
 	fi
 
@@ -162,8 +180,17 @@ fresh(){
 	#  Vuln Session Folder Check  #
 	###############################
 
-	if [[ ! -d /opt/MkCheck/results/Vulns/${SESSION} ]]; then
+	if [[ ! -d '/opt/MkCheck/results/Vulns/${SESSION}' ]]; then
 		mkdir /opt/MkCheck/results/Vulns/${SESSION}
+	fi
+
+	########################################################
+	##############################
+	#  BTW Session Folder Check  #
+	##############################
+
+	if [[ ! -d '/opt/MkCheck/results/btw/${SESSION}' ]]; then
+		mkdir /opt/MkCheck/results/btw/${SESSION}
 	fi
 }
 
@@ -216,7 +243,7 @@ if [[ ! -f '.conf' ]]; then
 	fi
 
 	#################################################
-    	#################################################
+    #################################################
 	#  Second check to see if data is example data  #
 	#################################################
 
@@ -240,6 +267,7 @@ if [[ ! -f '.conf' ]]; then
 
 	mkdir /opt/MkCheck/results/RSF/${SESSION}
 	mkdir /opt/MkCheck/results/Vulns/${SESSION}
+	mkdir /opt/MkCheck/results/btw/${SESSION}
 else
 
 	####################################
@@ -286,69 +314,64 @@ fi
 #########################################
 
 51(){
-	RARG=$(python3 scripts/g51.py)
+	RARG=$(python3 scripts/get/g51.py)
 	VAR=$(echo ${RARG})
 	FARG='host = "ARG"'
 	mv files/file_51.txt files/small_file_51.txt
 	# Start
-	TARG=$(cat scripts/m51.py | grep "host = *")
-	sed -i "s/${TARG}/${FARG}/g" scripts/m51.py
-	sed -i "s/ARG/${VAR}/g" scripts/m51.py
+	TARG=$(cat scripts/miko/m51.py | grep "host = *")
+	sed -i "s/${TARG}/${FARG}/g" scripts/miko/m51.py
+	sed -i "s/ARG/${VAR}/g" scripts/miko/m51.py
 	#echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
 
 102(){
-	RARG=$(python3 scripts/g102.py)
+	RARG=$(python3 scripts/get/g102.py)
 	VAR=$(echo ${RARG})
 	FARG='host = "ARG"'
 	mv files/file_102.txt files/small_file_102.txt
 	# Start
-	TARG=$(cat scripts/m102.py | grep "host = *")
-	sed -i "s/${TARG}/${FARG}/g" scripts/m102.py
-	sed -i "s/ARG/${VAR}/g" scripts/m102.py
+	TARG=$(cat scripts/miko/m102.py | grep "host = *")
+	sed -i "s/${TARG}/${FARG}/g" scripts/miko/m102.py
+	sed -i "s/ARG/${VAR}/g" scripts/miko/m102.py
 	#echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
 
 153(){
-	RARG=$(python3 scripts/g153.py)
+	RARG=$(python3 scripts/get/g153.py)
 	VAR=$(echo ${RARG})
 	FARG='host = "ARG"'
 	mv files/file_153.txt files/small_file_153.txt
 	# Start
-	TARG=$(cat scripts/m153.py | grep "host = *")
-	sed -i "s/${TARG}/${FARG}/g" scripts/m153.py
-	sed -i "s/ARG/${VAR}/g" scripts/m153.py
+	TARG=$(cat scripts/miko/m153.py | grep "host = *")
+	sed -i "s/${TARG}/${FARG}/g" scripts/miko/m153.py
+	sed -i "s/ARG/${VAR}/g" scripts/miko/m153.py
 	#echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
 
 204(){
-	RARG=$(python3 scripts/g204.py)
+	RARG=$(python3 scripts/get/g204.py)
 	VAR=$(echo ${RARG})
 	FARG='host = "ARG"'
 	mv files/file_204.txt files/small_file_204.txt
 	# Start
-	TARG=$(cat scripts/m204.py | grep "host = *")
-	sed -i "s/${TARG}/${FARG}/g" scripts/m204.py
-	sed -i "s/ARG/${VAR}/g" scripts/m204.py
+	TARG=$(cat scripts/miko/m204.py | grep "host = *")
+	sed -i "s/${TARG}/${FARG}/g" scripts/miko/m204.py
+	sed -i "s/ARG/${VAR}/g" scripts/miko/m204.py
 	#echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
 
 255(){
-	RARG=$(python3 scripts/g255.py)
+	RARG=$(python3 scripts/get/g255.py)
 	VAR=$(echo ${RARG})
 	FARG='host = "ARG"'
 	mv files/file_255.txt files/small_file_255.txt
 	# Start
-	TARG=$(cat scripts/m255.py | grep "host = *")
-	sed -i "s/${TARG}/${FARG}/g" scripts/m255.py
-	sed -i "s/ARG/${VAR}/g" scripts/m255.py
+	TARG=$(cat scripts/miko/m255.py | grep "host = *")
+	sed -i "s/${TARG}/${FARG}/g" scripts/miko/m255.py
+	sed -i "s/ARG/${VAR}/g" scripts/miko/m255.py
 	#echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
-####################
-####################
-#  Host Auto Load  #
-####################
-
 
 ###############################################
 ###############################################
@@ -399,7 +422,7 @@ m51(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		51
 		echo ""
-		sudo python2 scripts/m51.py | tee output.log
+		sudo python2 scripts/miko/m51.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
 		VER=$(cat output.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
@@ -420,7 +443,7 @@ m102(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		102
 		echo ""
-		sudo python2 scripts/m102.py | tee output.log
+		sudo python2 scripts/miko/m102.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
 		VER=$(cat output.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
@@ -441,7 +464,7 @@ m153(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		153
 		echo ""
-		sudo python2 scripts/m153.py | tee output.log
+		sudo python2 scripts/miko/m153.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
 		VER=$(cat output.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
@@ -462,7 +485,7 @@ m204(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		204
 		echo ""
-		sudo python2 scripts/m204.py | tee output.log
+		sudo python2 scripts/miko/m204.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
 		VER=$(cat output.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
@@ -483,7 +506,7 @@ m255(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		255
 		echo ""
-		sudo python2 scripts/m255.py | tee output.log
+		sudo python2 scripts/miko/m255.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
 		VER=$(cat output.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
@@ -508,7 +531,7 @@ p51(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		51
 		echo ""
-		proxychains4 sudo python2 scripts/m51.py | tee output.log
+		proxychains4 sudo python2 scripts/miko/m51.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
 		VER=$(cat output.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
@@ -529,7 +552,7 @@ p102(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		102
 		echo ""
-		proxychains4 sudo python2 scripts/m102.py | tee output.log
+		proxychains4 sudo python2 scripts/miko/m102.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
 		VER=$(cat output.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
@@ -550,7 +573,7 @@ p153(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		153
 		echo ""
-		proxychains4 sudo python2 scripts/m153.py | tee output.log
+		proxychains4 sudo python2 scripts/miko/m153.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
 		VER=$(cat output.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
@@ -571,7 +594,7 @@ p204(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		204
 		echo ""
-		proxychains4 sudo python2 scripts/m204.py | tee output.log
+		proxychains4 sudo python2 scripts/miko/m204.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
 		VER=$(cat output.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
@@ -592,7 +615,7 @@ p255(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		255
 		echo ""
-		proxychains4 sudo python2 scripts/m255.py | tee output.log
+		proxychains4 sudo python2 scripts/miko/m255.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
 		VER=$(cat output.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
@@ -609,9 +632,32 @@ p255(){
 
 #######################################3##################################33
 #############################
+#  ByTheWay BackDoor Check  #
+#############################
+bytheway(){
+	for name in `cat files/tiks.txt`
+	do
+		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		echo ""
+		echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${name}${NC}"
+		echo ""
+		BTW=$(./btw -i ${name})
+		echo "${BTW}" >> /opt/MkCheck/results/btw/${SESSION}/${name}.log
+		echo "${BTW}" >> /opt/MkCheck/results/btw/${SESSION}/final.results
+		echo "=================================================" >> /opt/MkCheck/results/btw/${SESSION}/final.results
+		Z=$(( $Z + 1 ))
+		if [[ ${Z} -eq 255 ]]; then
+			echo -e "${LP}Sorting Results${NC}"
+			break
+		fi
+	done
+	main
+}
+
+#######################################3##################################33
+#############################
 #  Routersploit Vuln Check  #
 #############################
-
 rtsploit(){
 	cd /root/routersploit
 	for name in `cat /opt/MkCheck/files/tiks_rsf.txt`
@@ -684,21 +730,25 @@ update(){
     else
 	    sleep 5
 	    echo -e "${W}Are there pull conflicts with files?(y/n)${NC}"
-            sleep 3
+        sleep 3
 	    read UANS
 	    if [[ ${UANS} == "y" ]]; then
         	export LPATH
         	echo -e "${W}Please enter the conflicting files (seperated by a space)${NC}"
-		read FILES
+			read FILES
           	sleep 2
-		up_arg ${FILES}
-		git pull
+			up_arg ${FILES}
+			git pull
 	    else
-		git pull
+			git pull
 	    fi
 	    if [[ -f '/usr/sbin/mkcheck' ]]; then
-		sudo cp mkcheck -t /usr/sbin
-		sudo chmod +x /usr/sbin/mkcheck
+			sudo cp mkcheck -t /usr/sbin
+			sudo chmod +x /usr/sbin/mkcheck
+	    fi
+		if [[ -f '/usr/sbin/mthread' ]]; then
+			sudo cp mthread -t /usr/sbin
+			sudo chmod +x /usr/sbin/mthread
 	    fi
 		main
     fi
@@ -711,8 +761,8 @@ update(){
 #######################
 
 cred_check(){
-	USER=$(cat /opt/MkCheck/scripts/miko.py | grep 'username =')
-	PASS=$(cat /opt/MkCheck/scripts/miko.py | grep 'password =')
+	USER=$(cat /opt/MkCheck/scripts/miko/m51.py | grep 'username =')
+	PASS=$(cat /opt/MkCheck/scripts/miko/m51.py | grep 'password =')
 	echo -e "${YLW}Current Username Value: ${ORNG}${USER}"
 	echo -e "${YLW}Current Password Value: ${ORNG}${PASS}${NC}"
 }
@@ -729,8 +779,9 @@ main(){
 	echo -e "${ORNG}Codename: ${LCYN}JailBoxer"
 	echo -e "${ORNG}by ${LCYN}s1l3nt78${NC}"
 	echo ""
-	echo -e "${LGRY}Mikrotik WinBox Auth Bypass - ${W}Versions ${YLW}6.29${NC} ${W}to${NC} ${YLW}6.42"
-   	echo -e "${LGRY}Mikrotik RouterOS Jailbreak - ${W}Versions ${YLW}2.9.8${NC} ${W}to ${YLW}6.41rc56${NC}"
+	echo -e "${LGRY}Mikrotik WinBox Auth Bypass  - ${W}Versions ${YLW}6.29${NC} ${W}to${NC} ${YLW}6.42"
+   	echo -e "${LGRY}Mikrotik RouterOS Jailbreak  - ${W}Versions ${YLW}2.9.8${NC} ${W}to ${YLW}6.41rc56${NC}"
+	echo -e "${LGRY}Mikrotik ByTheWay Root Shell - ${W}Versions ${YLW}6.29${NC} ${W}to ${YLW}6.42.0${NC}"
 	echo -e "${W}Hit ${UBLUE}Ctrl + Z${NC} ${W}to background MkCheck or ${UBLUE}Ctrl + C${NC} ${W}to quit a scan${NC}"
 	echo ""
 	echo -e "${URED}${W}Current Session: ${ORNG}${SESSION}${NC}"
@@ -739,11 +790,12 @@ main(){
 	echo -e ""
 	echo -e "${RED}1. ${LGRY}MikroTik Auto-EX"
 	echo -e "${RED}2. ${LGRY}RouterSploit Vuln Check"
-  	echo -e "${RED}3. ${LGRY}nMap Port Scan"
-	echo -e "${LP}4. ${LGRY}Change Session"
-  	echo -e "${LP}5. ${LGRY}Change Credential Values"
-	echo -e "${LP}6. ${LGRY}Clear all previous sessions.${NC}"
-	echo -e "${LCYN}7. ${LGRY}Update MkCheck"
+	echo -e "${RED}3. ${LGRY}ByTheWay BackDoor Check"
+  	echo -e "${ORNG}4. ${LGRY}nMap Port Scan"
+	echo -e "${LP}5. ${LGRY}Change Session"
+  	echo -e "${LP}6. ${LGRY}Change Credential Values"
+	echo -e "${LP}7. ${LGRY}Clear all previous sessions.${NC}"
+	echo -e "${LCYN}8. ${LGRY}Update MkCheck"
 	echo ""
 	echo -e "${YLW}Which module would you like to use?${NC}"
 	read MODULE
@@ -752,35 +804,42 @@ main(){
 		read PROXY
 		if [[ ${PROXY} == "y" ]]; then
 			sudo service tor restart
-			xterm -e p51 &
-			xterm -e p102 &
-			xterm -e p153 &
-			xterm -e p204 &
-			xterm -e p255 &
-			echo -e "${YLW}When all xterm windows are finished scanning, please hit enter to sort results"
-			read ENTERB
-			apresults
+			pchecker
 		else
-			xterm -e m51 &
-			xterm -e m102 &
-			xterm -e m153 &
-			xterm -e m204 &
-			xterm -e m255 &
-			echo -e "${YLW}When all xterm windows are finished scanning, please hit enter to sort results"
-			read ENTERB
-			apresults
+			mchecker
 		fi
 	elif [[ ${MODULE} == "2" ]]; then
 		rtsploit
 	elif [[ ${MODULE} == "3" ]]; then
-		mkmap
+		bytheway
 	elif [[ ${MODULE} == "4" ]]; then
+		mkmap
+	elif [[ ${MODULE} == "5" ]]; then
 		session_choice
 		main
-	elif [[ ${MODULE} == "5" ]]; then
-		nano /opt/MkCheck/scripts/miko.py
 	elif [[ ${MODULE} == "6" ]]; then
-		sudo rm -rf .conf results/Vulns/* files/.*_tiks.txt
+		echo -e "${W}Please enter the username to to insert${NC}"
+		read USERIN
+		echo -e "${W}Please enter the password to to insert${NC}"
+		read PASSIN
+		# User Insert
+		UARG='username = "${USERIN}"'
+		TARG=$(cat scripts/miko/m51.py | grep "username = *")
+		sed -i "s/${TARG}/${UARG}/g" scripts/miko/m51.py
+		sed -i "s/${TARG}/${UARG}/g" scripts/miko/m102.py
+		sed -i "s/${TARG}/${UARG}/g" scripts/miko/m153.py
+		sed -i "s/${TARG}/${UARG}/g" scripts/miko/m204.py
+		sed -i "s/${TARG}/${UARG}/g" scripts/miko/m255.py
+		# Password Insert
+		PARG='password = "${PASSIN}"'
+		VARG=$(cat scripts/miko/m51.py | grep "password = *")
+		sed -i "s/${VARG}/${PARG}/g" scripts/miko/m51.py
+		sed -i "s/${VARG}/${PARG}/g" scripts/miko/m102.py
+		sed -i "s/${VARG}/${PARG}/g" scripts/miko/m153.py
+		sed -i "s/${VARG}/${PARG}/g" scripts/miko/m204.py
+		sed -i "s/${VARG}/${PARG}/g" scripts/miko/m255.py
+	elif [[ ${MODULE} == "7" ]]; then
+		sudo rm -rf .conf files/.*_tiks.txt
 		echo -e "${W}Would you like to create a ${URED}n${NC}${W}ew session or ${URED}e${NC}${W}xit?${YLW}(n/e)${NC}"
 		read MOD
 		if [[ ${MOD} == "n" ]]; then
@@ -789,7 +848,7 @@ main(){
 		else
 			exit 2
 		fi
-  	elif [[ ${MODULE} == "7" ]]; then
+  	elif [[ ${MODULE} == "8" ]]; then
     	update
 		main
 	else
@@ -807,12 +866,13 @@ helpmenu(){
 	figlet MkCheck
 	echo -e "${YLW}"
 	echo ""
-	echo "# mkcheck -u Checks for any updates on Github"
-	echo -e "# mkcheck -r <session name> \n Runs the Routersploit module against given session name"
-	echo -e "# mkcheck -m <session name> \n Runs the MikroTik exploitation module (${YLW}no proxy${NC}) against given session name"
-    echo -e "# mkcheck -p <session name> \n Runs the MikroTik exploitation module (${YLW}proxy${NC}) against given session name"
-	echo -e "# mkcheck -n <IP block> \n Runs the nMap module against given IP Block"
-	echo -e "# sifter -h Print this menu and exit" 1>&2
+	echo "# mthread -u Checks for any updates on Github"
+	echo -e "# mthread -r <session name> \nRuns the Routersploit module against given session name"
+	echo -e "# mthread -m <session name> \nRuns the MikroTik exploitation module (${YLW}no proxy${NC}) against given session name"
+    echo -e "# mthread -p <session name> \nRuns the MikroTik exploitation module (${YLW}proxy${NC}) against given session name"
+	echo -e "# mthread -b <session name> \nRuns the ByTheWay Root Shell Exploit Check against given session name"
+	echo -e "# mthread -n <IP block> \n Runs the nMap module against given IP Block"
+	echo -e "# mthread -h Print this menu and exit" 1>&2
 }
 
 ##########################################
@@ -820,7 +880,7 @@ helpmenu(){
 #  Start of MkCheck Script  #
 #############################
 cd /opt/MkCheck
-while getopts "ur:m:p:n:h" options; do            	            # Loop: Get the next option;
+while getopts "ur:m:p:n:b:h" options; do            	            # Loop: Get the next option;
 	case "${options}" in                                # use silent error checking;
                                                         # option a takes 1 arguments.
 		u)
@@ -848,6 +908,12 @@ while getopts "ur:m:p:n:h" options; do            	            # Loop: Get the n
 			cp files/.${ARGUMENT}_tiks.txt files/tiks_res.txt
 			cp files/.${ARGUMENT}_tiks.txt files/tiks_rsf.txt
 			pchecker
+			;;
+
+		b)
+			cp files/.${ARGUMENT}_tiks.txt files/tiks.txt
+			cp files/.${ARGUMENT}_tiks.txt files/tiks_res.txt
+			bytheway
 			;;
 
 		n)

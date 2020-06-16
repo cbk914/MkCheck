@@ -40,8 +40,7 @@ it be used for any illegal or illicit purposes. The author
  
 # Still in Development
 
-    The script still needs some optimization and will get rid of redundancies.
-    <br /> 
+    The script still needs some optimization and will get rid of redundancies. 
     As well as clean up alot of the unnecessary code
 
 
@@ -51,14 +50,24 @@ it be used for any illegal or illicit purposes. The author
   
   MCheck is used to check MikroTik Routers for:
   <br />
-     <em>-winbox_auth_bypass_creds_disclosure&ensp; -&ensp;(Affected Versions: <strong>6.29</strong> to <strong>6.42</strong>)
+     <em>-winbox_auth_bypass_creds_disclosure&ensp; -&ensp;Affected Versions: <strong>6.29</strong> to <strong>6.42</strong>
   <br />
-     -routeros_jailbreak&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; -&ensp;(Affected Versions: <strong>2.9.8</strong> to <strong>6.41rc56</strong>)</em>
+     -routeros_jailbreak&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; -&ensp;Affected Versions: <strong>2.9.8</strong> to <strong>6.41rc56</strong></em>
+ <br />
+ -ByTheWay (<em>CVE-2018-14847</em>)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; -&ensp;Affected Versions: <strong>* Longterm: 6.30.1 - 6.40.7</strong></em><br />
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<strong>* Stable: 6.29 - 6.42.0</strong><br />
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<strong>* Beta: 6.29rc1 - 6.43rc3</strong>
+<br />
   <br />
+  MkCheck matches IP address to WiFi Access Point Names
   <br />
   If routersploit module confirms if the Mikrotik device is vulnerable and if found - displays login credentials
   <br />
   Which must be entered into <strong><em>scripts/miko.py</em></strong> for MkCheck's auto search module to correctly work.
+  <br />
+  ByTheWay Root Shell Check The exploit leverages the path traversal vulnerability CVE-2018-14847 to extract the admin password and create  an "option" package 
+  <br />
+  to enable the developer backdoor. Post exploitation the attacker can connect to Telnet or SSH using the root user "devel" with the admin's password.
   <br />
   <br />
     <strong>Change These:</strong>
@@ -91,6 +100,7 @@ it be used for any illegal or illicit purposes. The author
   <em>
  - Vulns (MikroTik AP Name Search)
  - RSF (Routersploit Scan Info)
+ - btw (ByTheWay Exploit Check)
   </em>
  <br />
  <br />
@@ -110,8 +120,7 @@ it be used for any illegal or illicit purposes. The author
 <img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MkCheck/master/docs/main.PNG">
  <br />
  <br />
-<img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MkCheck/master/docs/mcheck.PNG"
-<br />
+<img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MkCheck/master/docs/mcheck.PNG">
 <br />
  <br />
 <img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MkCheck/master/docs/rsf.PNG">

@@ -38,7 +38,6 @@ cd /opt/
 #dpkg -i python-pip_18.1-5_all.deb
 #rm python-*
 python2 -m pip install paramiko
-python2 -m pip install netmiko
 # Routersploit Setup
 cd /root/
 echo -e "${LP}"
@@ -60,14 +59,22 @@ python3.7 -m pip install -r requirements.txt
 python3.7 -m pip install -r requirements-dev.txt
 
 
+# ByTheWay Setup
+cd /opt/MkCheck/files/bytheway
+mkdir build
+cd build
+cmake ..
+make
+mv btw -t /opt/MkCheck/scripts
+
 cd /opt/MkCheck
-chmod +x mkcheck
+chmod +x mkcheck mthread
 # Path Options
 echo -e "${YLW}Would you like to add MkCheck to path to run it from anywhere?${LBBLUE}(y/n)${NC}"
 read LOPT
 if [[ ${LOPT} == "y" ]]; then
 	sudo cp mkcheck mthread -t /usr/sbin
-	sudo chown $USER:$USER /usr/sbin/mkcheck
+	sudo chown $USER:$USER /usr/sbin/mkcheck /usr/sbin/mthread
 else
 	echo -e "${RED}MkCheck installed${NC}"
 fi

@@ -82,6 +82,15 @@ fi
 
 ##########################################
 ########################
+#   BTW folder check   #
+########################
+
+if [[ ! -d '/opt/MkCheck/results/btw' ]]; then
+	mkdir /opt/MkCheck/results/btw
+fi
+
+##########################################
+########################
 #   Vuln folder check  #
 ########################
 
@@ -113,11 +122,11 @@ edit_session(){
 		    mv files/.temp_tiks.txt files/.${SESSION}_tiks.txt				# Make backup session file
 
 	########################################################
-    	##############################
+	##############################
 	#  RSF Session Folder Check  #
 	##############################
 
-	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
+	if [[ ! -d '/opt/MkCheck/results/RSF/${SESSION}' ]]; then
 			mkdir /opt/MkCheck/results/RSF/${SESSION}
 	fi
 
@@ -126,8 +135,17 @@ edit_session(){
 	#  Vuln Session Folder Check  #
 	###############################
 
-	if [[ ! -d /opt/MkCheck/results/Vulns/${SESSION} ]]; then
+	if [[ ! -d '/opt/MkCheck/results/Vulns/${SESSION}' ]]; then
 		mkdir /opt/MkCheck/results/Vulns/${SESSION}
+	fi
+
+	########################################################
+	##############################
+	#  BTW Session Folder Check  #
+	##############################
+
+	if [[ ! -d '/opt/MkCheck/results/btw/${SESSION}' ]]; then
+		mkdir /opt/MkCheck/results/btw/${SESSION}
 	fi
 }
 
@@ -153,8 +171,8 @@ fresh(){
 	#  RSF Session Folder Check  #
 	##############################
 
-	if [[ ! -d /opt/MkCheck/results/RSF/${SESSION} ]]; then
-			mkdir /opt/MkCheck/results/RSF/${SESSION}
+	if [[ ! -d '/opt/MkCheck/results/RSF/${SESSION}' ]]; then
+		mkdir /opt/MkCheck/results/RSF/${SESSION}
 	fi
 
 	####################################################
@@ -162,8 +180,17 @@ fresh(){
 	#  Vuln Session Folder Check  #
 	###############################
 
-	if [[ ! -d /opt/MkCheck/results/Vulns/${SESSION} ]]; then
+	if [[ ! -d '/opt/MkCheck/results/Vulns/${SESSION}' ]]; then
 		mkdir /opt/MkCheck/results/Vulns/${SESSION}
+	fi
+
+	########################################################
+	##############################
+	#  BTW Session Folder Check  #
+	##############################
+
+	if [[ ! -d '/opt/MkCheck/results/btw/${SESSION}' ]]; then
+		mkdir /opt/MkCheck/results/btw/${SESSION}
 	fi
 }
 
@@ -199,8 +226,6 @@ session_choice(){
 	fi
 }
 
-
-
 #########################################################################
 #######################
 #    Session Check    #
@@ -216,7 +241,7 @@ if [[ ! -f '.conf' ]]; then
 	fi
 
 	#################################################
-    	#################################################
+    #################################################
 	#  Second check to see if data is example data  #
 	#################################################
 
@@ -240,6 +265,7 @@ if [[ ! -f '.conf' ]]; then
 
 	mkdir /opt/MkCheck/results/RSF/${SESSION}
 	mkdir /opt/MkCheck/results/Vulns/${SESSION}
+	mkdir /opt/MkCheck/results/btw/${SESSION}
 else
 
 	####################################
@@ -404,6 +430,30 @@ pchecker(){
 
 #######################################3##################################33
 #############################
+#  ByTheWay BackDoor Check  #
+#############################
+bytheway(){
+	for name in `cat files/tiks.txt`
+	do
+		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		echo ""
+		echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${name}${NC}"
+		echo ""
+		BTW=$(./btw -i ${name})
+		echo "${BTW}" >> /opt/MkCheck/results/btw/${SESSION}/${name}.log
+		echo "${BTW}" >> /opt/MkCheck/results/btw/${SESSION}/final.results
+		echo "=================================================" >> /opt/MkCheck/results/btw/${SESSION}/final.results
+		Z=$(( $Z + 1 ))
+		if [[ ${Z} -eq 255 ]]; then
+			echo -e "${LP}Sorting Results${NC}"
+			break
+		fi
+	done
+	main
+}
+
+#######################################3##################################33
+#############################
 #  Routersploit Vuln Check  #
 #############################
 
@@ -479,21 +529,25 @@ update(){
     else
 	    sleep 5
 	    echo -e "${W}Are there pull conflicts with files?(y/n)${NC}"
-            sleep 3
+        sleep 3
 	    read UANS
 	    if [[ ${UANS} == "y" ]]; then
         	export LPATH
         	echo -e "${W}Please enter the conflicting files (seperated by a space)${NC}"
-		read FILES
+			read FILES
           	sleep 2
-		up_arg ${FILES}
-		git pull
+			up_arg ${FILES}
+			git pull
 	    else
-		git pull
+			git pull
 	    fi
 	    if [[ -f '/usr/sbin/mkcheck' ]]; then
-		sudo cp mkcheck -t /usr/sbin
-		sudo chmod +x /usr/sbin/mkcheck
+			sudo cp mkcheck -t /usr/sbin
+			sudo chmod +x /usr/sbin/mkcheck
+	    fi
+		if [[ -f '/usr/sbin/mthread' ]]; then
+			sudo cp mthread -t /usr/sbin
+			sudo chmod +x /usr/sbin/mthread
 	    fi
 		main
     fi
@@ -524,8 +578,9 @@ main(){
 	echo -e "${ORNG}Codename: ${LCYN}JailBoxer"
 	echo -e "${ORNG}by ${LCYN}s1l3nt78${NC}"
 	echo ""
-	echo -e "${LGRY}Mikrotik WinBox Auth Bypass - ${W}Versions ${YLW}6.29${NC} ${W}to${NC} ${YLW}6.42"
-   	echo -e "${LGRY}Mikrotik RouterOS Jailbreak - ${W}Versions ${YLW}2.9.8${NC} ${W}to ${YLW}6.41rc56${NC}"
+	echo -e "${LGRY}Mikrotik WinBox Auth Bypass  - ${W}Versions ${YLW}6.29${NC} ${W}to${NC} ${YLW}6.42"
+   	echo -e "${LGRY}Mikrotik RouterOS Jailbreak  - ${W}Versions ${YLW}2.9.8${NC} ${W}to ${YLW}6.41rc56${NC}"
+	echo -e "${LGRY}Mikrotik ByTheWay Root Shell - ${W}Versions ${YLW}6.29${NC} ${W}to ${YLW}6.42.0${NC}"
 	echo -e "${W}Hit ${UBLUE}Ctrl + Z${NC} ${W}to background MkCheck or ${UBLUE}Ctrl + C${NC} ${W}to quit a scan${NC}"
 	echo ""
 	echo -e "${URED}${W}Current Session: ${ORNG}${SESSION}${NC}"
@@ -534,11 +589,12 @@ main(){
 	echo -e ""
 	echo -e "${RED}1. ${LGRY}MikroTik Auto-EX"
 	echo -e "${RED}2. ${LGRY}RouterSploit Vuln Check"
-  	echo -e "${RED}3. ${LGRY}nMap Port Scan"
-	echo -e "${LP}4. ${LGRY}Change Session"
-  	echo -e "${LP}5. ${LGRY}Change Credential Values"
-	echo -e "${LP}6. ${LGRY}Clear all previous sessions.${NC}"
-	echo -e "${LCYN}7. ${LGRY}Update MkCheck"
+	echo -e "${RED}3. ${LGRY}ByTheWay BackDoor Check"
+  	echo -e "${ORNG}4. ${LGRY}nMap Port Scan"
+	echo -e "${LP}5. ${LGRY}Change Session"
+  	echo -e "${LP}6. ${LGRY}Change Credential Values"
+	echo -e "${LP}7. ${LGRY}Clear all previous sessions.${NC}"
+	echo -e "${LCYN}8. ${LGRY}Update MkCheck"
 	echo ""
 	echo -e "${YLW}Which module would you like to use?${NC}"
 	read MODULE
@@ -554,14 +610,27 @@ main(){
 	elif [[ ${MODULE} == "2" ]]; then
 		rtsploit
 	elif [[ ${MODULE} == "3" ]]; then
-		mkmap
+		bytheway
 	elif [[ ${MODULE} == "4" ]]; then
+		mkmap
+	elif [[ ${MODULE} == "5" ]]; then
 		session_choice
 		main
-	elif [[ ${MODULE} == "5" ]]; then
-		nano /opt/MkCheck/scripts/miko.py
 	elif [[ ${MODULE} == "6" ]]; then
-		sudo rm -rf .conf results/Vulns/* files/.*_tiks.txt
+		echo -e "${W}Please enter the username to to insert${NC}"
+		read USERIN
+		echo -e "${W}Please enter the password to to insert${NC}"
+		read PASSIN
+		# User Insert
+		UARG='username = "${USERIN}"'
+		TARG=$(cat scripts/miko.py | grep "username = *")
+		sed -i "s/${TARG}/${UARG}/g" scripts/miko.py
+		# Password Insert
+		PARG='password = "${PASSIN}"'
+		VARG=$(cat scripts/miko.py | grep "password = *")
+		sed -i "s/${VARG}/${PARG}/g" scripts/miko.py
+	elif [[ ${MODULE} == "7" ]]; then
+		sudo rm -rf .conf files/.*_tiks.txt
 		echo -e "${W}Would you like to create a ${URED}n${NC}${W}ew session or ${URED}e${NC}${W}xit?${YLW}(n/e)${NC}"
 		read MOD
 		if [[ ${MOD} == "n" ]]; then
@@ -570,7 +639,7 @@ main(){
 		else
 			exit 2
 		fi
-  	elif [[ ${MODULE} == "7" ]]; then
+  	elif [[ ${MODULE} == "8" ]]; then
     	update
 		main
 	else
@@ -592,8 +661,9 @@ helpmenu(){
 	echo -e "# mkcheck -r <session name> \n Runs the Routersploit module against given session name"
 	echo -e "# mkcheck -m <session name> \n Runs the MikroTik exploitation module (${YLW}no proxy${NC}) against given session name"
     echo -e "# mkcheck -p <session name> \n Runs the MikroTik exploitation module (${YLW}proxy${NC}) against given session name"
+	echo -e "# mkcheck -b <session name> \nRuns the ByTheWay Root Shell Exploit Check against given session name"
 	echo -e "# mkcheck -n <IP block> \n Runs the nMap module against given IP Block"
-	echo -e "# sifter -h Print this menu and exit" 1>&2
+	echo -e "# mkcheck -h Print this menu and exit" 1>&2
 }
 
 ##########################################
@@ -601,7 +671,7 @@ helpmenu(){
 #  Start of MkCheck Script  #
 #############################
 cd /opt/MkCheck
-while getopts "ur:m:p:n:h" options; do            	            # Loop: Get the next option;
+while getopts "ur:m:p:n:b:h" options; do            	            # Loop: Get the next option;
 	case "${options}" in                                # use silent error checking;
                                                         # option a takes 1 arguments.
 		u)
@@ -629,6 +699,12 @@ while getopts "ur:m:p:n:h" options; do            	            # Loop: Get the n
 			cp files/.${ARGUMENT}_tiks.txt files/tiks_res.txt
 			cp files/.${ARGUMENT}_tiks.txt files/tiks_rsf.txt
 			pchecker
+			;;
+
+		b)
+			cp files/.${ARGUMENT}_tiks.txt files/tiks.txt
+			cp files/.${ARGUMENT}_tiks.txt files/tiks_res.txt
+			bytheway
 			;;
 
 		n)
