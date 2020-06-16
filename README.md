@@ -40,8 +40,7 @@ it be used for any illegal or illicit purposes. The author
  
 # Still in Development
 
-    The script still needs some optimization and will get rid of redundancies.
-    <br /> 
+    The script still needs some optimization and will get rid of redundancies. 
     As well as clean up alot of the unnecessary code
 
 
