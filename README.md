@@ -47,17 +47,15 @@ it be used for any illegal or illicit purposes. The author
 
 # Functions
 
-  *Threading to be added soon to speed up the scan process
-  
   MCheck is used to check MikroTik Routers for:
   <br />
      <em>-winbox_auth_bypass_creds_disclosure&ensp; -&ensp;Affected Versions: <strong>6.29</strong> to <strong>6.42</strong>
   <br />
      -routeros_jailbreak&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; -&ensp;Affected Versions: <strong>2.9.8</strong> to <strong>6.41rc56</strong>
  <br />
- -ByTheWay (<em>CVE-2018-14847</em>)&emsp;&emsp;&emsp;&emsp;&ensp; -&ensp;Affected Versions: <strong>* Longterm: 6.30.1 - 6.40.7</strong></em><br />
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<strong>* Stable: 6.29 - 6.42.0</strong><br />
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<strong>* Beta: 6.29rc1 - 6.43rc3</strong></em>
+ -ByTheWay (<em>CVE-2018-14847</em>)&emsp;&emsp;&emsp;&emsp;&ensp; -&ensp;Affected Versions: <strong>* Longterm: 6.30.1</strong> to <strong>6.40.7</strong></em><br />
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<strong>* Stable: 6.29</strong> to <strong>6.42.0</strong><br />
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<strong>* Beta: 6.29rc1</strong> to <strong>6.43rc3</strong></em>
   <br />
   MkCheck matches IP address to WiFi Access Point Names
   <br />
