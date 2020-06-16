@@ -105,7 +105,7 @@ it be used for any illegal or illicit purposes. The author
 
  # Version 2.5
 
- <strong>mthread</strong> script added to speed up scans.
+ <strong><em>mthread</em> (untested)</strong> script added to speed up scans.
  <br />
  <strong><em>mkcheck</em></strong> will work correctly in termux, but <strong><em>mthread</em></strong>
  <br />

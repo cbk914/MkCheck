@@ -104,13 +104,13 @@ fi
 ######################
 
 edit_session(){
-	      echo -e "${YLW}This changs a single number set <xx.xx.132.xx>, to change multiple, just run this option again${NC}"
+	    echo -e "${YLW}This changs a single number set <xx.xx.132.xx>, to change multiple, just run this option again${NC}"
         echo -e "${W}Please enter the name of the session to edit${NC}"
         read SESH_EDIT
         cp files/.${SESH_EDIT}_tiks.txt files/.temp_tiks.txt
         echo -e "${W}Please enter the number to be replaced${NC}"
         read OUTNUM
-		    echo -e "${W}Please enter the number to insert${NC}"
+		echo -e "${W}Please enter the number to insert${NC}"
         read INNUM
         echo -e "${W}Please enter the name for this target files session${NC}"
         read SESSION
@@ -118,8 +118,12 @@ edit_session(){
         sed -i "s/${OUTNUM}/${INNUM}/g" files/.temp_tiks.txt
         cp files/.temp_tiks.txt files/tiks_res.txt						# Make result targets file
         cp files/.temp_tiks.txt files/tiks_rsf.txt						# Make routersploit targets file
-		    cp files/.temp_tiks.txt files/tiks.txt							# Make MikroTik targets file
-		    mv files/.temp_tiks.txt files/.${SESSION}_tiks.txt				# Make backup session file
+		cp files/.temp_tiks.txt files/tiks.txt							# Make MikroTik targets file
+		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then				# Creates split Target file for mthread
+			rm files/small_file*
+		fi
+		python3 files/split.py
+		mv files/.temp_tiks.txt files/.${SESSION}_tiks.txt				# Make backup session file
 
 	########################################################
     ##############################
@@ -161,6 +165,10 @@ fresh(){
 	echo -e "${W}Please enter your target block${NC}"
 	sleep 2
 	nano files/tiks.txt
+	if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
+		rm files/small_file*
+	fi
+	python3 files/split.py
 	echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}.${SESSION}_tiks.txt${NC}"
 	cp files/tiks.txt files/.${SESSION}_tiks.txt
 	cp files/tiks.txt files/tiks_res.txt
@@ -216,6 +224,10 @@ session_choice(){
 		sleep 2
 		rm files/tiks.txt
 		nano files/tiks.txt
+		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
+			rm files/small_file*
+		fi
+		python3 files/split.py
 		cp files/tiks.txt files/.${SESSION}_tiks.txt
 		cp files/tiks.txt files/tiks_res.txt
 		cp files/tiks.txt files/tiks_rsf.txt
@@ -223,6 +235,10 @@ session_choice(){
 		echo -e "${W}Please enter the name of the session to use:${NC}"
 		read SESSION
 		cp files/.${SESSION}_tiks.txt files/tiks.txt
+		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
+			rm files/small_file*
+		fi
+		python3 files/split.py
 	fi
 }
 
@@ -253,6 +269,10 @@ if [[ ! -f '.conf' ]]; then
 		echo -e "${URED}Please enter an IP block to start scanning first${NC}"
 		echo "# LEAVE THIS LINE IN* (FOR BEST RESULTS USE AN ENTIRE IP BLOCK)" > /opt/MkCheck/files/tiks.txt
 		nano /opt/MkCheck/files/tiks.txt
+		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
+			rm files/small_file*
+		fi
+		python3 files/split.py
 	fi
 	echo -e "${W}Please enter a name for this session${NC}"
 	read SESSION
