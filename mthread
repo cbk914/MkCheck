@@ -285,25 +285,70 @@ fi
 #  Insert new target for MCheck Attack  #
 #########################################
 
-target(){
-	RARG=$(python3 scripts/get_t.py)
+51(){
+	RARG=$(python3 scripts/g51.py)
 	VAR=$(echo ${RARG})
 	FARG='host = "ARG"'
+	mv files/file_51.txt files/small_file_51.txt
+	# Start
+	TARG=$(cat scripts/m51.py | grep "host = *")
+	sed -i "s/${TARG}/${FARG}/g" scripts/m51.py
+	sed -i "s/ARG/${VAR}/g" scripts/m51.py
+	#echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
 
+102(){
+	RARG=$(python3 scripts/g102.py)
+	VAR=$(echo ${RARG})
+	FARG='host = "ARG"'
+	mv files/file_102.txt files/small_file_102.txt
+	# Start
+	TARG=$(cat scripts/m102.py | grep "host = *")
+	sed -i "s/${TARG}/${FARG}/g" scripts/m102.py
+	sed -i "s/ARG/${VAR}/g" scripts/m102.py
+	#echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
+}
+
+153(){
+	RARG=$(python3 scripts/g153.py)
+	VAR=$(echo ${RARG})
+	FARG='host = "ARG"'
+	mv files/file_153.txt files/small_file_153.txt
+	# Start
+	TARG=$(cat scripts/m153.py | grep "host = *")
+	sed -i "s/${TARG}/${FARG}/g" scripts/m153.py
+	sed -i "s/ARG/${VAR}/g" scripts/m153.py
+	#echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
+}
+
+204(){
+	RARG=$(python3 scripts/g204.py)
+	VAR=$(echo ${RARG})
+	FARG='host = "ARG"'
+	mv files/file_204.txt files/small_file_204.txt
+	# Start
+	TARG=$(cat scripts/m204.py | grep "host = *")
+	sed -i "s/${TARG}/${FARG}/g" scripts/m204.py
+	sed -i "s/ARG/${VAR}/g" scripts/m204.py
+	#echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
+}
+
+255(){
+	RARG=$(python3 scripts/g255.py)
+	VAR=$(echo ${RARG})
+	FARG='host = "ARG"'
+	mv files/file_255.txt files/small_file_255.txt
+	# Start
+	TARG=$(cat scripts/m255.py | grep "host = *")
+	sed -i "s/${TARG}/${FARG}/g" scripts/m255.py
+	sed -i "s/ARG/${VAR}/g" scripts/m255.py
+	#echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
+}
 ####################
 ####################
 #  Host Auto Load  #
 ####################
 
-running(){
-	mv files/tiks1.txt files/tiks.txt
-	# Start
-	TARG=$(cat scripts/miko.py | grep "host = *")
-	sed -i "s/${TARG}/${FARG}/g" scripts/miko.py
-	sed -i "s/ARG/${VAR}/g" scripts/miko.py
-	echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
-}
 
 ###############################################
 ###############################################
@@ -348,15 +393,13 @@ apresults(){
 #  Mikro Network AP Name Check (No Proxy)  #
 ############################################
 
-mchecker(){
-	while [[ $Z -lt 255 ]];
+m51(){
+	while [[ $Z -lt 51 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
-		target
+		51
 		echo ""
-		running
-		echo ""
-		sudo python2 scripts/miko.py | tee output.log
+		sudo python2 scripts/m51.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
 		VER=$(cat output.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
@@ -364,28 +407,108 @@ mchecker(){
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
 		sudo rm output.log
 		Z=$(( $Z + 1 ))
-		if [[ ${Z} -eq 255 ]]; then
+		if [[ ${Z} -eq 51 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
 			break
 		fi
 	done
-	apresults
-	main
+}
+
+m102(){
+	while [[ $Z -lt 51 ]];
+	do
+		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		102
+		echo ""
+		sudo python2 scripts/m102.py | tee output.log
+		NAME=$(cat output.log | grep 'name:')
+		VER=$(cat output.log | grep 'RouterOS')
+		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
+		sudo rm output.log
+		Z=$(( $Z + 1 ))
+		if [[ ${Z} -eq 51 ]]; then
+			echo -e "${LP}Sorting Results${NC}"
+			break
+		fi
+	done
+}
+
+m153(){
+	while [[ $Z -lt 51 ]];
+	do
+		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		153
+		echo ""
+		sudo python2 scripts/m153.py | tee output.log
+		NAME=$(cat output.log | grep 'name:')
+		VER=$(cat output.log | grep 'RouterOS')
+		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
+		sudo rm output.log
+		Z=$(( $Z + 1 ))
+		if [[ ${Z} -eq 51 ]]; then
+			echo -e "${LP}Sorting Results${NC}"
+			break
+		fi
+	done
+}
+
+m204(){
+	while [[ $Z -lt 51 ]];
+	do
+		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		204
+		echo ""
+		sudo python2 scripts/m204.py | tee output.log
+		NAME=$(cat output.log | grep 'name:')
+		VER=$(cat output.log | grep 'RouterOS')
+		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
+		sudo rm output.log
+		Z=$(( $Z + 1 ))
+		if [[ ${Z} -eq 51 ]]; then
+			echo -e "${LP}Sorting Results${NC}"
+			break
+		fi
+	done
+}
+
+m255(){
+	while [[ $Z -lt 51 ]];
+	do
+		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		255
+		echo ""
+		sudo python2 scripts/m255.py | tee output.log
+		NAME=$(cat output.log | grep 'name:')
+		VER=$(cat output.log | grep 'RouterOS')
+		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
+		sudo rm output.log
+		Z=$(( $Z + 1 ))
+		if [[ ${Z} -eq 51 ]]; then
+			echo -e "${LP}Sorting Results${NC}"
+			break
+		fi
+	done
 }
 
 ##############################################################333########33###
 #######################################
 #  Network AP Discovery (with Proxy)  #
 #######################################
-pchecker(){
-	while [[ $Z -lt 255 ]];
+p51(){
+	while [[ $Z -lt 51 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
-		target
+		51
 		echo ""
-		running
-		echo ""
-		proxychains4 sudo python2 scripts/miko.py | tee output.log
+		proxychains4 sudo python2 scripts/m51.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
 		VER=$(cat output.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
@@ -393,13 +516,95 @@ pchecker(){
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
 		sudo rm output.log
 		Z=$(( $Z + 1 ))
-		if [[ ${Z} -eq 255 ]]; then
+		if [[ ${Z} -eq 51 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
 			break
 		fi
 	done
-	apresults
-	main
+}
+
+p102(){
+	while [[ $Z -lt 51 ]];
+	do
+		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		102
+		echo ""
+		proxychains4 sudo python2 scripts/m102.py | tee output.log
+		NAME=$(cat output.log | grep 'name:')
+		VER=$(cat output.log | grep 'RouterOS')
+		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
+		sudo rm output.log
+		Z=$(( $Z + 1 ))
+		if [[ ${Z} -eq 51 ]]; then
+			echo -e "${LP}Sorting Results${NC}"
+			break
+		fi
+	done
+}
+
+p153(){
+	while [[ $Z -lt 51 ]];
+	do
+		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		153
+		echo ""
+		proxychains4 sudo python2 scripts/m153.py | tee output.log
+		NAME=$(cat output.log | grep 'name:')
+		VER=$(cat output.log | grep 'RouterOS')
+		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
+		sudo rm output.log
+		Z=$(( $Z + 1 ))
+		if [[ ${Z} -eq 51 ]]; then
+			echo -e "${LP}Sorting Results${NC}"
+			break
+		fi
+	done
+}
+
+p204(){
+	while [[ $Z -lt 51 ]];
+	do
+		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		204
+		echo ""
+		proxychains4 sudo python2 scripts/m204.py | tee output.log
+		NAME=$(cat output.log | grep 'name:')
+		VER=$(cat output.log | grep 'RouterOS')
+		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
+		sudo rm output.log
+		Z=$(( $Z + 1 ))
+		if [[ ${Z} -eq 51 ]]; then
+			echo -e "${LP}Sorting Results${NC}"
+			break
+		fi
+	done
+}
+
+p255(){
+	while [[ $Z -lt 51 ]];
+	do
+		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		255
+		echo ""
+		proxychains4 sudo python2 scripts/m255.py | tee output.log
+		NAME=$(cat output.log | grep 'name:')
+		VER=$(cat output.log | grep 'RouterOS')
+		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
+		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
+		sudo rm output.log
+		Z=$(( $Z + 1 ))
+		if [[ ${Z} -eq 51 ]]; then
+			echo -e "${LP}Sorting Results${NC}"
+			break
+		fi
+	done
 }
 
 #######################################3##################################33
@@ -547,9 +752,23 @@ main(){
 		read PROXY
 		if [[ ${PROXY} == "y" ]]; then
 			sudo service tor restart
-			pchecker
+			xterm -e p51 &
+			xterm -e p102 &
+			xterm -e p153 &
+			xterm -e p204 &
+			xterm -e p255 &
+			echo -e "${YLW}When all xterm windows are finished scanning, please hit enter to sort results"
+			read ENTERB
+			apresults
 		else
-			mchecker
+			xterm -e m51 &
+			xterm -e m102 &
+			xterm -e m153 &
+			xterm -e m204 &
+			xterm -e m255 &
+			echo -e "${YLW}When all xterm windows are finished scanning, please hit enter to sort results"
+			read ENTERB
+			apresults
 		fi
 	elif [[ ${MODULE} == "2" ]]; then
 		rtsploit

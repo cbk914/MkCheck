@@ -6,7 +6,7 @@
  <img align="center" src="https://img.shields.io/github/stars/s1l3nt78/MkCheck" />
  <br />
  <img align="center" src="https://img.shields.io/badge/Codename-JailBoxer-orange" />
- <img align="center" src="https://img.shields.io/badge/Version-2-red" />
+ <img align="center" src="https://img.shields.io/badge/Version-2.5-red" />
  <br />
   <img align="center" src="https://img.shields.io/badge/Author-s1l3nt78-blueviolet" />
 </p>
@@ -88,6 +88,16 @@ it be used for any illegal or illicit purposes. The author
   </em>
  <br />
  <br />
+
+ # Version 2.5
+
+ <strong>mthread</strong> script added to speed up scans.
+ <br />
+ <strong><em>mkcheck</em></strong> will work correctly in termux, but <strong><em>mthread</em></strong>
+ <br />
+ will not as it replies on external xterm windows.
+ <br />
+ <br /> 
 
 <h2>Images:</h2>
 <p>

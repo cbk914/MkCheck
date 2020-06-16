@@ -30,15 +30,15 @@ else
 fi
 
 # Python2 Dependancies
-apt-get remove python3-pip -y
+#apt-get remove python3-pip -y
 cd /opt/
-wget http://ftp.us.debian.org/debian/pool/main/p/python-pip/python-pip_18.1-5_all.deb
-wget http://ftp.us.debian.org/debian/pool/main/p/python-pip/python-pip-whl_18.1-5_all.deb
-dpkg -i python-pip-whl_18.1-5_all.deb
-dpkg -i python-pip_18.1-5_all.deb
-rm python-*
+#wget http://ftp.us.debian.org/debian/pool/main/p/python-pip/python-pip_18.1-5_all.deb
+#wget http://ftp.us.debian.org/debian/pool/main/p/python-pip/python-pip-whl_18.1-5_all.deb
+#dpkg -i python-pip-whl_18.1-5_all.deb
+#dpkg -i python-pip_18.1-5_all.deb
+#rm python-*
 python2 -m pip install paramiko
-
+python2 -m pip install netmiko
 # Routersploit Setup
 cd /root/
 echo -e "${LP}"
@@ -66,7 +66,7 @@ chmod +x mkcheck
 echo -e "${YLW}Would you like to add MkCheck to path to run it from anywhere?${LBBLUE}(y/n)${NC}"
 read LOPT
 if [[ ${LOPT} == "y" ]]; then
-	sudo cp mkcheck -t /usr/sbin
+	sudo cp mkcheck mthread -t /usr/sbin
 	sudo chown $USER:$USER /usr/sbin/mkcheck
 else
 	echo -e "${RED}MkCheck installed${NC}"

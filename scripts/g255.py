@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 import time
 
-with open('files/tiks.txt', 'r') as fin:
+with open('files/small_file_255.txt', 'r') as fin:
     data = fin.read().splitlines(True)
-with open('files/tiks1.txt', 'w') as fout:
+with open('files/file_255.txt', 'w') as fout:
     fout.writelines(data[1:])
 
 time.sleep(3)
 
-fp = open("files/tiks1.txt")
+fp = open("files/file_255.txt")
 content = fp.readline()
 print(content)
 
