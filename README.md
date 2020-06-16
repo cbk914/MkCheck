@@ -38,6 +38,12 @@ it be used for any illegal or illicit purposes. The author
  <br />
  Otherwise Nethunter (<strong><em>with chroot</em></strong>) works as well, without any extra config.
  
+# Still in Development
+
+    The script still needs some optimization and will get rid of redundancies.
+    <br /> 
+    As well as clean up alot of the unnecessary code
+
 
 # Functions
 
