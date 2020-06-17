@@ -824,9 +824,23 @@ main(){
 		read PROXY
 		if [[ ${PROXY} == "y" ]]; then
 			sudo service tor restart
-			pchecker
+			p51 &
+			p102 &
+			p152 &
+			p204 &
+			p255 &
+			echo -e "${ORNG}When all 5 windows are finished scanning, please hit enter${NC}"
+			read ENTEROPT
+			apresults
 		else
-			mchecker
+			m51 &
+			m102 &
+			m152 &
+			m204 &
+			m255 &
+			echo -e "${ORNG}When all 5 windows are finished scanning, please hit enter${NC}"
+			read ENTEROPT
+			apresults
 		fi
 	elif [[ ${MODULE} == "2" ]]; then
 		rtsploit
