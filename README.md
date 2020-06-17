@@ -18,20 +18,15 @@
 <strong>*s1l3nt78*</strong>
 <br>
 <em>Because exploitation is fun</em>
+<br>
 
-<br><br>
 # *IMPORTANT*
-<br><br>
-<strong>
-This software should not be used within any system or 
-<br>
-network for which you do not have permission, nor should 
-<br>
-it be used for any illegal or illicit purposes. The author
-<br>
+
+ This software should not be used within any system or 
+ network for which you do not have permission, nor should 
+ it be used for any illegal or illicit purposes. The author
  takes no responsibility for any damages that may be caused
-<br>
- by the software in this repository.</strong>
+ by the software in this repository.
 
 # Termux
 
@@ -41,8 +36,8 @@ it be used for any illegal or illicit purposes. The author
  
 # Still in Development
 
-    The script still needs some optimization and will get rid of redundancies. 
-    As well as clean up alot of the unnecessary code
+    The mthread script is still in development and still needs some optimization and will get 
+    rid of redundancies. As well as clean up alot of the unnecessary code
 
 
 # Functions
