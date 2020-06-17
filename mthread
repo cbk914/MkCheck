@@ -122,7 +122,7 @@ edit_session(){
 		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then				# Creates split Target file for mthread
 			rm files/small_file*
 		fi
-		python3 /opt/MkCheck/files/split.pt
+		python3 /opt/MkCheck/files/split.py
 		mv files/.temp_tiks.txt files/.${SESSION}_tiks.txt				# Make backup session file
 
 	########################################################
@@ -168,7 +168,7 @@ fresh(){
 	if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
 		rm files/small_file*
 	fi
-	python3 /opt/MkCheck/files/split.pt
+	python3 /opt/MkCheck/files/split.py
 	echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}.${SESSION}_tiks.txt${NC}"
 	cp files/tiks.txt files/.${SESSION}_tiks.txt
 	cp files/tiks.txt files/tiks_res.txt
@@ -227,7 +227,7 @@ session_choice(){
 		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
 			rm files/small_file*
 		fi
-		python3 /opt/MkCheck/files/split.pt
+		python3 /opt/MkCheck/files/split.py
 		cp files/tiks.txt files/.${SESSION}_tiks.txt
 		cp files/tiks.txt files/tiks_res.txt
 		cp files/tiks.txt files/tiks_rsf.txt
@@ -238,7 +238,7 @@ session_choice(){
 		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
 			rm files/small_file*
 		fi
-		python3 /opt/MkCheck/files/split.pt
+		python3 /opt/MkCheck/files/split.py
 	fi
 }
 
@@ -254,7 +254,7 @@ if [[ ! -f '.conf' ]]; then
 	RE=$(cat /opt/MkCheck/files/tiks.txt)
 	if [[ ${RE} == "" ]]; then
 		echo -e "${URED}Please enter an IP block to start scanning first${NC}"
-		echo "# LEAVE THIS LINE IN* (FOR BEST RESULTS USE AN ENTIRE IP BLOCK)" > /opt/MkCheck/files/tiks.txt
+		echo "# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)" > /opt/MkCheck/files/tiks.txt
 		sudo nano /opt/MkCheck/files/tiks.txt
 	fi
 
@@ -263,16 +263,16 @@ if [[ ! -f '.conf' ]]; then
 	#  Second check to see if data is example data  #
 	#################################################
 
-	RR=$(cat /opt/MkCheck/files/tiks.txt | grep "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS")
-	if [[ ${RR} == "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS" ]]; then
+	RR=$(cat /opt/MkCheck/files/tiks.txt | grep "# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)")
+	if [[ ${RR} == "# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)" ]]; then
 		sudo rm /opt/MkCheck/files/tiks.txt
 		echo -e "${URED}Please enter an IP block to start scanning first${NC}"
-		echo "# LEAVE THIS LINE IN* (FOR BEST RESULTS USE AN ENTIRE IP BLOCK)" > /opt/MkCheck/files/tiks.txt
+		echo "# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)" > /opt/MkCheck/files/tiks.txt
 		nano /opt/MkCheck/files/tiks.txt
 		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
 			rm files/small_file*
 		fi
-		python3 /opt/MkCheck/files/split.pt
+		python3 /opt/MkCheck/files/split.py
 	fi
 	echo -e "${W}Please enter a name for this session${NC}"
 	read SESSION
@@ -304,8 +304,8 @@ fi
 ############################################
 
 if [[ -f '/opt/MkCheck/files/tiks_rsf.txt' ]]; then
-	RT=$(cat /opt/MkCheck/files/tiks_rsf.txt | grep "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS")
-	if [[ ${RT} == "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS" ]]; then
+	RT=$(cat /opt/MkCheck/files/tiks_rsf.txt | grep "# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)")
+	if [[ ${RT} == "# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)" ]]; then
 		sudo rm /opt/MkCheck/files/tiks_rsf.txt
 		cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_rsf.txt
 	fi
@@ -319,8 +319,8 @@ fi
 ######################################
 
 if [[ -f '/opt/MkCheck/files/tiks_res.txt' ]]; then
-	RS=$(cat /opt/MkCheck/files/tiks_res.txt | grep "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS")
-	if [[ ${RS} == "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS" ]]; then
+	RS=$(cat /opt/MkCheck/files/tiks_res.txt | grep "# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)")
+	if [[ ${RS} == "# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)" ]]; then
 		sudo rm /opt/MkCheck/files/tiks_res.txt
 		cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_res.txt
 	fi
