@@ -122,7 +122,7 @@ edit_session(){
 		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then				# Creates split Target file for mthread
 			rm files/small_file*
 		fi
-		python3 files/split.py
+		python3 /opt/MkCheck/files/split.pt
 		mv files/.temp_tiks.txt files/.${SESSION}_tiks.txt				# Make backup session file
 
 	########################################################
@@ -168,7 +168,7 @@ fresh(){
 	if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
 		rm files/small_file*
 	fi
-	python3 files/split.py
+	python3 /opt/MkCheck/files/split.pt
 	echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}.${SESSION}_tiks.txt${NC}"
 	cp files/tiks.txt files/.${SESSION}_tiks.txt
 	cp files/tiks.txt files/tiks_res.txt
@@ -227,7 +227,7 @@ session_choice(){
 		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
 			rm files/small_file*
 		fi
-		python3 files/split.py
+		python3 /opt/MkCheck/files/split.pt
 		cp files/tiks.txt files/.${SESSION}_tiks.txt
 		cp files/tiks.txt files/tiks_res.txt
 		cp files/tiks.txt files/tiks_rsf.txt
@@ -238,7 +238,7 @@ session_choice(){
 		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
 			rm files/small_file*
 		fi
-		python3 files/split.py
+		python3 /opt/MkCheck/files/split.pt
 	fi
 }
 
@@ -272,7 +272,7 @@ if [[ ! -f '.conf' ]]; then
 		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
 			rm files/small_file*
 		fi
-		python3 files/split.py
+		python3 /opt/MkCheck/files/split.pt
 	fi
 	echo -e "${W}Please enter a name for this session${NC}"
 	read SESSION
@@ -333,7 +333,7 @@ fi
 #  Insert new target for MCheck Attack  #
 #########################################
 
-51(){
+g51(){
 	RARG=$(python3 scripts/get/g51.py)
 	VAR=$(echo ${RARG})
 	FARG='host = "ARG"'
@@ -345,7 +345,7 @@ fi
 	#echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
 
-102(){
+g102(){
 	RARG=$(python3 scripts/get/g102.py)
 	VAR=$(echo ${RARG})
 	FARG='host = "ARG"'
@@ -357,7 +357,7 @@ fi
 	#echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
 
-153(){
+g153(){
 	RARG=$(python3 scripts/get/g153.py)
 	VAR=$(echo ${RARG})
 	FARG='host = "ARG"'
@@ -369,7 +369,7 @@ fi
 	#echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
 
-204(){
+g204(){
 	RARG=$(python3 scripts/get/g204.py)
 	VAR=$(echo ${RARG})
 	FARG='host = "ARG"'
@@ -381,7 +381,7 @@ fi
 	#echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
 
-255(){
+g255(){
 	RARG=$(python3 scripts/get/g255.py)
 	VAR=$(echo ${RARG})
 	FARG='host = "ARG"'
@@ -440,7 +440,7 @@ m51(){
 	while [[ $Z -lt 51 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
-		51
+		g51
 		echo ""
 		sudo python2 scripts/miko/m51.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
@@ -461,7 +461,7 @@ m102(){
 	while [[ $Z -lt 51 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
-		102
+		g102
 		echo ""
 		sudo python2 scripts/miko/m102.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
@@ -482,7 +482,7 @@ m153(){
 	while [[ $Z -lt 51 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
-		153
+		g153
 		echo ""
 		sudo python2 scripts/miko/m153.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
@@ -503,7 +503,7 @@ m204(){
 	while [[ $Z -lt 51 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
-		204
+		g204
 		echo ""
 		sudo python2 scripts/miko/m204.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
@@ -524,7 +524,7 @@ m255(){
 	while [[ $Z -lt 51 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
-		255
+		g255
 		echo ""
 		sudo python2 scripts/miko/m255.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
@@ -549,7 +549,7 @@ p51(){
 	while [[ $Z -lt 51 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
-		51
+		g51
 		echo ""
 		proxychains4 sudo python2 scripts/miko/m51.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
@@ -570,7 +570,7 @@ p102(){
 	while [[ $Z -lt 51 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
-		102
+		g102
 		echo ""
 		proxychains4 sudo python2 scripts/miko/m102.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
@@ -591,7 +591,7 @@ p153(){
 	while [[ $Z -lt 51 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
-		153
+		g153
 		echo ""
 		proxychains4 sudo python2 scripts/miko/m153.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
@@ -612,7 +612,7 @@ p204(){
 	while [[ $Z -lt 51 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
-		204
+		g204
 		echo ""
 		proxychains4 sudo python2 scripts/miko/m204.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')
@@ -633,7 +633,7 @@ p255(){
 	while [[ $Z -lt 51 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
-		255
+		g255
 		echo ""
 		proxychains4 sudo python2 scripts/miko/m255.py | tee output.log
 		NAME=$(cat output.log | grep 'name:')

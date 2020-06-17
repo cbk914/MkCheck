@@ -1,5 +1,5 @@
 #/usr/bin/env python3
-my_file = 'tiks.txt'
+my_file = '/opt/MkCheck/files/tiks.txt'
 sorting = True
 hold_lines = []
 with open(my_file,'r') as text_file:
@@ -11,7 +11,7 @@ while sorting:
     count = 0
     increment = (outer_count-1) * 51
     left = len(hold_lines) - increment
-    file_name = "small_file_" + str(outer_count * 51) + ".txt"
+    file_name = "/opt/MkCheck/files/small_file_" + str(outer_count * 51) + ".txt"
     hold_new_lines = []
     if left < 51:
         while count < left:
