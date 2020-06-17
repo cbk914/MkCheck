@@ -18,20 +18,15 @@
 <strong>*s1l3nt78*</strong>
 <br>
 <em>Because exploitation is fun</em>
+<br>
 
-<br><br>
 # *IMPORTANT*
-<br><br>
-<strong>
-This software should not be used within any system or 
-<br>
-network for which you do not have permission, nor should 
-<br>
-it be used for any illegal or illicit purposes. The author
-<br>
+
+ This software should not be used within any system or 
+ network for which you do not have permission, nor should 
+ it be used for any illegal or illicit purposes. The author
  takes no responsibility for any damages that may be caused
-<br>
- by the software in this repository.</strong>
+ by the software in this repository.
 
 # Termux
 
@@ -41,19 +36,19 @@ it be used for any illegal or illicit purposes. The author
  
 # Still in Development
 
-    The script still needs some optimization and will get rid of redundancies. 
-    As well as clean up alot of the unnecessary code
+    The mthread script is still in development and still needs some optimization and will get 
+    rid of redundancies. As well as clean up alot of the unnecessary code
 
 
 # Functions
 
   MCheck is used to check MikroTik Routers for:
   <br />
-     <em>-winbox_auth_bypass_creds_disclosure&ensp; -&ensp;Affected Versions: <strong>6.29</strong> to <strong>6.42</strong>
+     <em>+winbox_auth_bypass_creds_disclosure&ensp; -&ensp;Affected Versions: <strong>6.29</strong> to <strong>6.42</strong>
   <br />
-     -routeros_jailbreak&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; -&ensp;Affected Versions: <strong>2.9.8</strong> to <strong>6.41rc56</strong>
+     +routeros_jailbreak&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; -&ensp;Affected Versions: <strong>2.9.8</strong> to <strong>6.41rc56</strong>
  <br />
- -ByTheWay (<em>CVE-2018-14847</em>)&emsp;&emsp;&emsp;&emsp;&ensp; -&ensp;Affected Versions: <strong>* Longterm: 6.30.1</strong> to <strong>6.40.7</strong></em><br />
+ +ByTheWay (<em>CVE-2018-14847</em>)&emsp;&emsp;&emsp;&emsp;&ensp; -&ensp;Affected Versions: <strong>* Longterm: 6.30.1</strong> to <strong>6.40.7</strong></em><br />
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<strong>* Stable: 6.29</strong> to <strong>6.42.0</strong><br />
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<strong>* Beta: 6.29rc1</strong> to <strong>6.43rc3</strong></em>
   <br />
@@ -107,9 +102,10 @@ it be used for any illegal or illicit purposes. The author
 
  <strong><em>mthread</em> (untested)</strong> script added to speed up scans.
  <br />
- <strong><em>mkcheck</em></strong> will work correctly in termux, but <strong><em>mthread</em></strong>
- <br />
- will not as it replies on external xterm windows.
+<br />
+ <strong><em>mkcheck</em></strong> will work correctly in termux, but
+<br />
+ <strong><em>mthread</em></strong> will not as it relies on external xterm windows.
  <br />
  <br /> 
 
