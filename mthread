@@ -442,13 +442,13 @@ m51(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		g51
 		echo ""
-		sudo python2 scripts/miko/m51.py | tee output.log
-		NAME=$(cat output.log | grep 'name:')
-		VER=$(cat output.log | grep 'RouterOS')
+		sudo python2 scripts/miko/m51.py | tee m51.log
+		NAME=$(cat m51.log | grep 'name:')
+		VER=$(cat m51.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
-		sudo rm output.log
+		sudo rm m51.log
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} -eq 51 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
@@ -463,13 +463,13 @@ m102(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		g102
 		echo ""
-		sudo python2 scripts/miko/m102.py | tee output.log
-		NAME=$(cat output.log | grep 'name:')
-		VER=$(cat output.log | grep 'RouterOS')
+		sudo python2 scripts/miko/m102.py | tee m102.log
+		NAME=$(cat m102.log | grep 'name:')
+		VER=$(cat m102.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
-		sudo rm output.log
+		sudo rm m102.log
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} -eq 51 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
@@ -484,13 +484,13 @@ m153(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		g153
 		echo ""
-		sudo python2 scripts/miko/m153.py | tee output.log
-		NAME=$(cat output.log | grep 'name:')
-		VER=$(cat output.log | grep 'RouterOS')
+		sudo python2 scripts/miko/m153.py | tee m153.log
+		NAME=$(cat m153.log | grep 'name:')
+		VER=$(cat m153.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
-		sudo rm output.log
+		sudo rm m153.log
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} -eq 51 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
@@ -505,13 +505,13 @@ m204(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		g204
 		echo ""
-		sudo python2 scripts/miko/m204.py | tee output.log
-		NAME=$(cat output.log | grep 'name:')
-		VER=$(cat output.log | grep 'RouterOS')
+		sudo python2 scripts/miko/m204.py | tee m204.log
+		NAME=$(cat m204.log | grep 'name:')
+		VER=$(cat m204.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
-		sudo rm output.log
+		sudo rm m204.log
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} -eq 51 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
@@ -526,13 +526,13 @@ m255(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		g255
 		echo ""
-		sudo python2 scripts/miko/m255.py | tee output.log
-		NAME=$(cat output.log | grep 'name:')
-		VER=$(cat output.log | grep 'RouterOS')
+		sudo python2 scripts/miko/m255.py | tee m255.log
+		NAME=$(cat m255.log | grep 'name:')
+		VER=$(cat m255.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
-		sudo rm output.log
+		sudo rm m255.log
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} -eq 51 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
@@ -551,13 +551,13 @@ p51(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		g51
 		echo ""
-		proxychains4 sudo python2 scripts/miko/m51.py | tee output.log
-		NAME=$(cat output.log | grep 'name:')
-		VER=$(cat output.log | grep 'RouterOS')
+		proxychains4 sudo python2 scripts/miko/m51.py | tee p51.log
+		NAME=$(cat p51.log | grep 'name:')
+		VER=$(cat p51.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
-		sudo rm output.log
+		sudo rm p51.log
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} -eq 51 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
@@ -572,13 +572,13 @@ p102(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		g102
 		echo ""
-		proxychains4 sudo python2 scripts/miko/m102.py | tee output.log
-		NAME=$(cat output.log | grep 'name:')
-		VER=$(cat output.log | grep 'RouterOS')
+		proxychains4 sudo python2 scripts/miko/m102.py | tee p102.log
+		NAME=$(cat p102.log | grep 'name:')
+		VER=$(cat p102.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
-		sudo rm output.log
+		sudo rm p102.log
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} -eq 51 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
@@ -593,13 +593,13 @@ p153(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		g153
 		echo ""
-		proxychains4 sudo python2 scripts/miko/m153.py | tee output.log
-		NAME=$(cat output.log | grep 'name:')
-		VER=$(cat output.log | grep 'RouterOS')
+		proxychains4 sudo python2 scripts/miko/m153.py | tee p153.log
+		NAME=$(cat p153.log | grep 'name:')
+		VER=$(cat p153.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
-		sudo rm output.log
+		sudo rm p153.log
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} -eq 51 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
@@ -614,13 +614,13 @@ p204(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		g204
 		echo ""
-		proxychains4 sudo python2 scripts/miko/m204.py | tee output.log
-		NAME=$(cat output.log | grep 'name:')
-		VER=$(cat output.log | grep 'RouterOS')
+		proxychains4 sudo python2 scripts/miko/m204.py | tee p204.log
+		NAME=$(cat p204.log | grep 'name:')
+		VER=$(cat p204.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
-		sudo rm output.log
+		sudo rm p204.log
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} -eq 51 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
@@ -635,13 +635,13 @@ p255(){
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		g255
 		echo ""
-		proxychains4 sudo python2 scripts/miko/m255.py | tee output.log
-		NAME=$(cat output.log | grep 'name:')
-		VER=$(cat output.log | grep 'RouterOS')
+		proxychains4 sudo python2 scripts/miko/m255.py | tee p255.log
+		NAME=$(cat p255.log | grep 'name:')
+		VER=$(cat p255.log | grep 'RouterOS')
 		echo "${NAME}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "${VER}" >> results/Vulns/${SESSION}/${VAR}.results
 		echo "=================================================" >> results/Vulns/${SESSION}/${VAR}.results
-		sudo rm output.log
+		sudo rm p255.log
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} -eq 51 ]]; then
 			echo -e "${LP}Sorting Results${NC}"
@@ -787,6 +787,29 @@ cred_check(){
 	echo -e "${YLW}Current Password Value: ${ORNG}${PASS}${NC}"
 }
 
+#############################
+#  MkCheck Running Options  #
+#############################
+mrun(){
+	xterm -e bash scripts/thread.sh -1 &
+	xterm -e bash scripts/thread.sh -2 &
+	xterm -e bash scripts/thread.sh -3 &
+	xterm -e bash scripts/thread.sh -4 &
+	xterm -e bash scripts/thread.sh -5 &
+	echo -e "${ORNG}When all 5 windows are finished scanning, please hit enter${NC}"
+	read ENTEROPT
+	apresults
+}
+prun(){
+	xterm -e bash scripts/thread.sh -a &
+	xterm -e bash scripts/thread.sh -b &
+	xterm -e bash scripts/thread.sh -c &
+	xterm -e bash scripts/thread.sh -d &
+	xterm -e bash scripts/thread.sh -e &
+	echo -e "${ORNG}When all 5 windows are finished scanning, please hit enter${NC}"
+	read ENTEROPT
+	apresults
+}
 ################################################################################
 ###############
 #  Main Menu  #
@@ -824,23 +847,9 @@ main(){
 		read PROXY
 		if [[ ${PROXY} == "y" ]]; then
 			sudo service tor restart
-			xterm -e p51 &
-			xterm -e p102 &
-			xterm -e p152 &
-			xterm -e p204 &
-			xterm -e p255 &
-			echo -e "${ORNG}When all 5 windows are finished scanning, please hit enter${NC}"
-			read ENTEROPT
-			apresults
+			prun
 		else
-			xterm -e m51 &
-			xterm -e m102 &
-			xterm -e m152 &
-			xterm -e m204 &
-			xterm -e m255 &
-			echo -e "${ORNG}When all 5 windows are finished scanning, please hit enter${NC}"
-			read ENTEROPT
-			apresults
+			mrun
 		fi
 	elif [[ ${MODULE} == "2" ]]; then
 		rtsploit
@@ -933,7 +942,7 @@ while getopts "ur:m:p:n:b:h" options; do            	            # Loop: Get the
 			cp files/.${ARGUMENT}_tiks.txt files/tiks.txt
 			cp files/.${ARGUMENT}_tiks.txt files/tiks_res.txt
 			cp files/.${ARGUMENT}_tiks.txt files/tiks_rsf.txt
-			mchecker
+			mrun
 			;;
 
 		p)
@@ -941,7 +950,7 @@ while getopts "ur:m:p:n:b:h" options; do            	            # Loop: Get the
 			cp files/.${ARGUMENT}_tiks.txt files/tiks.txt
 			cp files/.${ARGUMENT}_tiks.txt files/tiks_res.txt
 			cp files/.${ARGUMENT}_tiks.txt files/tiks_rsf.txt
-			pchecker
+			prun
 			;;
 
 		b)
