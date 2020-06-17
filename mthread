@@ -824,20 +824,20 @@ main(){
 		read PROXY
 		if [[ ${PROXY} == "y" ]]; then
 			sudo service tor restart
-			p51 &
-			p102 &
-			p152 &
-			p204 &
-			p255 &
+			xterm -e p51 &
+			xterm -e p102 &
+			xterm -e p152 &
+			xterm -e p204 &
+			xterm -e p255 &
 			echo -e "${ORNG}When all 5 windows are finished scanning, please hit enter${NC}"
 			read ENTEROPT
 			apresults
 		else
-			m51 &
-			m102 &
-			m152 &
-			m204 &
-			m255 &
+			xterm -e m51 &
+			xterm -e m102 &
+			xterm -e m152 &
+			xterm -e m204 &
+			xterm -e m255 &
 			echo -e "${ORNG}When all 5 windows are finished scanning, please hit enter${NC}"
 			read ENTEROPT
 			apresults
