@@ -759,8 +759,10 @@ update(){
           	sleep 2
 			up_arg ${FILES}
 			git pull
+			bash setup.sh
 	    else
 			git pull
+			bash setup.sh
 	    fi
 	    if [[ -f '/usr/sbin/mkcheck' ]]; then
 			sudo cp mkcheck -t /usr/sbin
