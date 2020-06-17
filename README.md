@@ -107,9 +107,10 @@ it be used for any illegal or illicit purposes. The author
 
  <strong>mthread</strong> script added to speed up scans.
  <br />
- <strong><em>mkcheck</em></strong> will work correctly in termux, but <strong><em>mthread</em></strong>
- <br />
- will not as it replies on external xterm windows.
+<br />
+ <strong><em>mkcheck</em></strong> will work correctly in termux, but
+<br />
+ <strong><em>mthread</em></strong> will not as it replies on external xterm windows.
  <br />
  <br /> 
 
