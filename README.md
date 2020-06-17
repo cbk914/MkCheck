@@ -105,7 +105,7 @@
 <br />
  <strong><em>mkcheck</em></strong> will work correctly in termux, but
 <br />
- <strong><em>mthread</em></strong> will not as it replies on external xterm windows.
+ <strong><em>mthread</em></strong> will not as it relies on external xterm windows.
  <br />
  <br /> 
 
