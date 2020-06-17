@@ -792,9 +792,13 @@ cred_check(){
 #############################
 mrun(){
 	xterm -e bash scripts/thread.sh -1 &
+	sleep 3
 	xterm -e bash scripts/thread.sh -2 &
+	sleep 3
 	xterm -e bash scripts/thread.sh -3 &
+	sleep 3
 	xterm -e bash scripts/thread.sh -4 &
+	sleep 3
 	xterm -e bash scripts/thread.sh -5 &
 	echo -e "${ORNG}When all 5 windows are finished scanning, please hit enter${NC}"
 	read ENTEROPT
@@ -802,9 +806,13 @@ mrun(){
 }
 prun(){
 	xterm -e bash scripts/thread.sh -a &
+	sleep 3
 	xterm -e bash scripts/thread.sh -b &
+	sleep 3
 	xterm -e bash scripts/thread.sh -c &
+	sleep 3
 	xterm -e bash scripts/thread.sh -d &
+	sleep 3
 	xterm -e bash scripts/thread.sh -e &
 	echo -e "${ORNG}When all 5 windows are finished scanning, please hit enter${NC}"
 	read ENTEROPT
@@ -979,4 +987,4 @@ exit 0
 
 
 
-#####################################################______________ czFsM250NzggX18gUmFiYjE3J3MgRGVu ______________#####################################################
+########################______________ czFsM250NzggX18gUmFiYjE3J3MgRGVu ______________########################
