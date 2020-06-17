@@ -60,12 +60,17 @@ python3.7 -m pip install -r requirements-dev.txt
 
 
 # ByTheWay Setup
-cd /opt/MkCheck/files/bytheway
-mkdir build
-cd build
-cmake ..
-make
-mv btw -t /opt/MkCheck/scripts
+if [[ -f '/opt/MkCheck/scripts/btw' ]]; then
+	echo -e "${YLW}ByTheWay binary already compiled${NC}"
+else
+	echo -e "${YLW}Compiling ByTheWay binary${NC}"
+	cd /opt/MkCheck/files/bytheway
+	mkdir build
+	cd build
+	cmake ..
+	make
+	mv btw -t /opt/MkCheck/scripts
+fi
 
 cd /opt/MkCheck
 chmod +x mkcheck mthread
