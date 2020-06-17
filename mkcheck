@@ -618,17 +618,13 @@ main(){
 		main
 	elif [[ ${MODULE} == "6" ]]; then
 		echo -e "${W}Please enter the username to to insert${NC}"
-		read USERIN
+		read USR
 		echo -e "${W}Please enter the password to to insert${NC}"
-		read PASSIN
+		read PW
 		# User Insert
-		UARG='username = "${USERIN}"'
-		TARG=$(cat scripts/miko.py | grep "username = *")
-		sed -i "s/${TARG}/${UARG}/g" scripts/miko.py
+		sed -i "s/${USER}/username = \"${USR}\"/g" scripts/miko.py
 		# Password Insert
-		PARG='password = "${PASSIN}"'
-		VARG=$(cat scripts/miko.py | grep "password = *")
-		sed -i "s/${VARG}/${PARG}/g" scripts/miko.py
+		sed -i "s/${PASS}/password = \"${PW}\"/g" scripts/miko.py
 	elif [[ ${MODULE} == "7" ]]; then
 		sudo rm -rf .conf files/.*_tiks.txt
 		echo -e "${W}Would you like to create a ${URED}n${NC}${W}ew session or ${URED}e${NC}${W}xit?${YLW}(n/e)${NC}"
