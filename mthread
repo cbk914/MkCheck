@@ -678,35 +678,52 @@ bytheway(){
 	main
 }
 
-#######################################3##################################33
-#############################
-#  Routersploit Vuln Check  #
-#############################
-rtsploit(){
-	cd /root/routersploit
+#######################################
+######################
+#  Routersploit Opts #
+######################
+# WinBox Auth Bypass #
+######################
+authbox(){
 	for name in `cat /opt/MkCheck/files/tiks_rsf.txt`
 		do
-
-			#########################################
-			#########################################
-			#  winbox_auth_bypass_creds_disclosure  #
-			#########################################
-
 			WB=$(sudo python3.7 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}")
-			echo "${WB}" >> /opt/MkCheck/results/RSF/${SESSION}/${name}.results
-			echo "${WB}" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
+			echo "${WB}" >> /opt/MkCheck/results/RSF/${SESSION}/WinBox.${name}
+			echo "${WB}" >> /opt/MkCheck/results/RSF/${SESSION}/WinBox.final
 			echo "${WB}"
-			########################
-			########################
-			#  routeros_jailbreak  #
-			########################
-
-			JAIL=$(sudo python3 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}")
-			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${SESSION}/${name}.results
-			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
-			echo "${JAIL}"
-			echo "======================================================================" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
+			echo "======================================================================" >> /opt/MkCheck/results/RSF/${SESSION}/WinBox.final
 		done
+}
+####################
+# Jail Break Check #
+jailer(){
+	for name in `cat /opt/MkCheck/files/tiks_rsf.txt`
+		do
+			JAIL=$(sudo python3 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}")
+			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${SESSION}/Jail.${name}
+			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${SESSION}/Jailbreak.final
+			echo "${JAIL}"
+			echo "======================================================================" >> /opt/MkCheck/results/RSF/${SESSION}/Jailbreak.final
+		done
+}
+########################
+# RouterSploit Runtime #
+########################
+rtsploit(){
+	cd /root/routersploit
+	#########################################
+	#########################################
+	#  winbox_auth_bypass_creds_disclosure  #
+	#########################################
+	xterm -e authbox &
+	########################
+	########################
+	#  routeros_jailbreak  #
+	########################
+	xterm -e jailer &
+	echo -e "${ORNG}When both xterm windows are done, please hit ${YLW}enter${NC}"
+	read ENDRSF
+	main
 }
 
 ######################################################

@@ -25,7 +25,7 @@ ARGUMENT=$2
 function trap_ctrlc (){
     # perform cleanup here
     echo -e "${URED}Ctrl-C caught...${NC}"
-    echo -e "${W}Would you like to ${YLW}q${W}uit the program, go back to ${YLW}m${W}enu or ${YLW}b${W}ack to scripts?${YLW}(${YLW}p${W}/${YLW}m${W}/${YLW}b${W})${NC}"
+    echo -e "${W}Would you like to ${YLW}q${W}uit the program, go back to ${YLW}m${W}enu or ${YLW}b${W}ack to script?${YLW}(${YLW}p${W}/${YLW}m${W}/${YLW}b${W})${NC}"
 	read EXIT
 	if [[ ${EXIT} == "q" ]]; then
 		if [[ ${MODULE} == "1" ]]; then
@@ -627,7 +627,9 @@ mkmap(){
 	echo -e "${W}Please enter your IP block to scan eg. ${YLW}111.11.11.1/24${NC}"
 	echo -e "${W}The ports needed are ${RED}80 8291 ${NC}"
 	read BLOCK
+	echo -e "${ORNG}"
 	sudo nmap -vv -O -p 22,8291 -Pn ${BLOCK}
+	echo -e "${NC}"
 	main
 }
 
