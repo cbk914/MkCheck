@@ -97,9 +97,11 @@
  <br />
  <br />
 
- # Version 2.5
+ # Version 3
 
- <strong><em>mthread</em> (untested)</strong> script added to speed up scans.
+ <strong><em>mthread</em></strong> script added to speed up scans.
+ <br />
+ Automatic Clean-Up of SSH command history done in order to remain hidden.
  <br />
 <br />
  <strong><em>mkcheck</em></strong> will work correctly in termux, but
