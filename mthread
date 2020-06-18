@@ -25,7 +25,7 @@ ARGUMENT=$2
 function trap_ctrlc (){
     # perform cleanup here
     echo -e "${URED}Ctrl-C caught...${NC}"
-    echo -e "${W}Would you like to ${YLW}q${W}uit the program, go back to ${YLW}m${W}enu or ${YLW}b${W}ack to scripts?${YLW}(${YLW}p${W}/${YLW}m${W}/${YLW}b${W})${NC}"
+    echo -e "${W}Would you like to ${YLW}q${W}uit the program, go back to ${YLW}m${W}enu or ${YLW}b${W}ack to script?${YLW}(${YLW}p${W}/${YLW}m${W}/${YLW}b${W})${NC}"
 	read EXIT
 	if [[ ${EXIT} == "q" ]]; then
 		if [[ ${MODULE} == "1" ]]; then
@@ -115,7 +115,7 @@ edit_session(){
         cp files/.${SESH_EDIT}_tiks.txt files/.temp_tiks.txt
         echo -e "${W}Please enter the number to be replaced${NC}"
         read OUTNUM
-		echo -e "${W}Please enter the number to insert${NC}"
+	echo -e "${W}Please enter the number to insert${NC}"
         read INNUM
         echo -e "${W}Please enter the name for this target files session${NC}"
         read SESSION
@@ -123,20 +123,20 @@ edit_session(){
         sed -i "s/${OUTNUM}/${INNUM}/g" files/.temp_tiks.txt
         cp files/.temp_tiks.txt files/tiks_res.txt						# Make result targets file
         cp files/.temp_tiks.txt files/tiks_rsf.txt						# Make routersploit targets file
-		cp files/.temp_tiks.txt files/tiks.txt							# Make MikroTik targets file
-		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then				# Creates split Target file for mthread
-			rm files/small_file*
-		fi
-		python3 /opt/MkCheck/files/split.py
-		mv files/.temp_tiks.txt files/.${SESSION}_tiks.txt				# Make backup session file
+	cp files/.temp_tiks.txt files/tiks.txt							# Make MikroTik targets file
+	if [[ -f '/opt/MkCheck/files/small_file*' ]]; then				# Creates split Target file for mthread
+		rm files/small_file*
+	fi
+	python3 /opt/MkCheck/files/split.py
+	mv files/.temp_tiks.txt files/.${SESSION}_tiks.txt				# Make backup session file
 
 	########################################################
-    ##############################
+    	##############################
 	#  RSF Session Folder Check  #
 	##############################
 
 	if [[ ! -d '/opt/MkCheck/results/RSF/${SESSION}' ]]; then
-			mkdir /opt/MkCheck/results/RSF/${SESSION}
+		mkdir /opt/MkCheck/results/RSF/${SESSION}
 	fi
 
 	####################################################
@@ -718,7 +718,9 @@ mkmap(){
 	echo -e "${W}Please enter your IP block to scan eg. ${YLW}111.11.11.1/24${NC}"
 	echo -e "${W}The ports needed are ${RED}80 8291 ${NC}"
 	read BLOCK
+	echo -e "${ORNG}"
 	sudo nmap -vv -O -p 22,8291 -Pn ${BLOCK}
+	echo -e "${NC}"
 	main
 }
 
