@@ -3,7 +3,6 @@
 def showbanner():
     print('''
 
-
   MMM      MMM       KKK                          TTTTTTTTTTT      KKK
   MMMM    MMMM       KKK                          TTTTTTTTTTT      KKK
   MMM MMMM MMM  III  KKK  KKK  RRRRRR     OOOOOO      TTT     III  KKK  KKK
@@ -12,7 +11,7 @@ def showbanner():
   MMM      MMM  III  KKK  KKK  RRR  RRR   OOOOOO      TTT     III  KKK  KKK ''')
 
     print("MikroTik RouterOS Exploitation")
-    print("Version:\033[1;32 2.5 \033[1;31_ Revision:\033[1;32 2")
+    print("Version:\033[1;32 3")              # \033[1;31_ Revision:\033[1;32 2
     exit
 
 showbanner()

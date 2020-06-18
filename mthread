@@ -25,13 +25,18 @@ ARGUMENT=$2
 function trap_ctrlc (){
     # perform cleanup here
     echo -e "${URED}Ctrl-C caught...${NC}"
-    echo -e "${W}Would you like to exit?${YLW}(y/n)${NC}"
+    echo -e "${W}Would you like to ${YLW}q${W}uit the program, go back to ${YLW}m${W}enu or ${YLW}b${W}ack to scripts?${YLW}(${YLW}p${W}/${YLW}m${W}/${YLW}b${W})${NC}"
 	read EXIT
-	if [[ ${EXIT} == "y" ]]; then
+	if [[ ${EXIT} == "q" ]]; then
 		if [[ ${MODULE} == "1" ]]; then
 			apresults
 		fi
 		exit 2
+	elif [[ ${EXIT} == "m" ]]; then
+		if [[ ${MODULE} == "1" ]]; then
+			apresults
+		fi
+		main
 	else
 		return
 	fi
@@ -164,6 +169,7 @@ fresh(){
 	echo ${SESSION} >> .conf
 	echo -e "${W}Please enter your target block${NC}"
 	sleep 2
+	echo -e "${RED}Please make first target end with 0 (${UBLUE}eg. a.b.c.0${NC}${RED})${NC}"
 	nano files/tiks.txt
 	if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
 		rm files/small_file*
@@ -242,8 +248,6 @@ session_choice(){
 	fi
 }
 
-
-
 #########################################################################
 #######################
 #    Session Check    #
@@ -254,7 +258,7 @@ if [[ ! -f '.conf' ]]; then
 	RE=$(cat /opt/MkCheck/files/tiks.txt)
 	if [[ ${RE} == "" ]]; then
 		echo -e "${URED}Please enter an IP block to start scanning first${NC}"
-		echo "# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)" > /opt/MkCheck/files/tiks.txt
+		echo -e "${RED}Please make first target end with 0 (${UBLUE}eg. a.b.c.0${NC}${RED})${NC}"
 		sudo nano /opt/MkCheck/files/tiks.txt
 	fi
 
@@ -263,11 +267,11 @@ if [[ ! -f '.conf' ]]; then
 	#  Second check to see if data is example data  #
 	#################################################
 
-	RR=$(cat /opt/MkCheck/files/tiks.txt | grep "# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)")
-	if [[ ${RR} == "# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)" ]]; then
+	RR=$(cat /opt/MkCheck/files/tiks.txt | grep "a.b.c.0")
+	if [[ ${RR} == "a.b.c.0" ]]; then
 		sudo rm /opt/MkCheck/files/tiks.txt
 		echo -e "${URED}Please enter an IP block to start scanning first${NC}"
-		echo "# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)" > /opt/MkCheck/files/tiks.txt
+		echo -e "${RED}Please make first target end with 0 (${UBLUE}eg. a.b.c.0${NC}${RED})${NC}"
 		nano /opt/MkCheck/files/tiks.txt
 		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
 			rm files/small_file*
@@ -304,8 +308,8 @@ fi
 ############################################
 
 if [[ -f '/opt/MkCheck/files/tiks_rsf.txt' ]]; then
-	RT=$(cat /opt/MkCheck/files/tiks_rsf.txt | grep "# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)")
-	if [[ ${RT} == "# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)" ]]; then
+	RT=$(cat /opt/MkCheck/files/tiks_rsf.txt | grep "a.b.c.0")
+	if [[ ${RT} == "a.b.c.0" ]]; then
 		sudo rm /opt/MkCheck/files/tiks_rsf.txt
 		cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_rsf.txt
 	fi
@@ -319,8 +323,8 @@ fi
 ######################################
 
 if [[ -f '/opt/MkCheck/files/tiks_res.txt' ]]; then
-	RS=$(cat /opt/MkCheck/files/tiks_res.txt | grep "# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)")
-	if [[ ${RS} == "# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)" ]]; then
+	RS=$(cat /opt/MkCheck/files/tiks_res.txt | grep "a.b.c.0")
+	if [[ ${RS} == "a.b.c.0" ]]; then
 		sudo rm /opt/MkCheck/files/tiks_res.txt
 		cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_res.txt
 	fi
@@ -804,6 +808,9 @@ mrun(){
 	xterm -e bash scripts/thread.sh -5 &
 	echo -e "${ORNG}When all 5 windows are finished scanning, please hit enter${NC}"
 	read ENTEROPT
+	echo -e "${YLW}Clearing Target Device SSH History & Sorting Results${NC}"
+	sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USER} -c '/console clear-history'
+	sudo rm -rf /opt/MkCheck/logs
 	apresults
 }
 prun(){
@@ -818,6 +825,9 @@ prun(){
 	xterm -e bash scripts/thread.sh -e &
 	echo -e "${ORNG}When all 5 windows are finished scanning, please hit enter${NC}"
 	read ENTEROPT
+	echo -e "${YLW}Clearing Target Device SSH History & Sorting Results${NC}"
+	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USER} -c '/console clear-history'
+	sudo rm -rf /opt/MkCheck/logs
 	apresults
 }
 ################################################################################
@@ -882,6 +892,8 @@ main(){
 		sed -i "s/${USER}/username = \"${USR}\"/g" scripts/miko/m204.py
 		sed -i "s/${USER}/username = \"${USR}\"/g" scripts/miko/m255.py
 		# Password Insert
+		ZET=$(cat /opt/MkCheck/scripts/clear.py | grep "ZTE=")
+		sed -i "s/${ZET}/ZTE='${PW}'/g" scripts/clear.py
 		sed -i "s/${PASS}/password = \"${PW}\"/g" scripts/miko/m51.py
 		sed -i "s/${PASS}/password = \"${PW}\"/g" scripts/miko/m102.py
 		sed -i "s/${PASS}/password = \"${PW}\"/g" scripts/miko/m153.py

@@ -25,13 +25,18 @@ ARGUMENT=$2
 function trap_ctrlc (){
     # perform cleanup here
     echo -e "${URED}Ctrl-C caught...${NC}"
-    echo -e "${W}Would you like to exit?${YLW}(y/n)${NC}"
+    echo -e "${W}Would you like to ${YLW}q${W}uit the program, go back to ${YLW}m${W}enu or ${YLW}b${W}ack to scripts?${YLW}(${YLW}p${W}/${YLW}m${W}/${YLW}b${W})${NC}"
 	read EXIT
-	if [[ ${EXIT} == "y" ]]; then
+	if [[ ${EXIT} == "q" ]]; then
 		if [[ ${MODULE} == "1" ]]; then
 			apresults
 		fi
 		exit 2
+	elif [[ ${EXIT} == "m" ]]; then
+		if [[ ${MODULE} == "1" ]]; then
+			apresults
+		fi
+		main
 	else
 		return
 	fi
@@ -104,13 +109,13 @@ fi
 ######################
 
 edit_session(){
-	      echo -e "${YLW}This changs a single number set <xx.xx.132.xx>, to change multiple, just run this option again${NC}"
+	    echo -e "${YLW}This changs a single number set <xx.xx.132.xx>, to change multiple, just run this option again${NC}"
         echo -e "${W}Please enter the name of the session to edit${NC}"
         read SESH_EDIT
         cp files/.${SESH_EDIT}_tiks.txt files/.temp_tiks.txt
         echo -e "${W}Please enter the number to be replaced${NC}"
         read OUTNUM
-		    echo -e "${W}Please enter the number to insert${NC}"
+		echo -e "${W}Please enter the number to insert${NC}"
         read INNUM
         echo -e "${W}Please enter the name for this target files session${NC}"
         read SESSION
@@ -118,11 +123,15 @@ edit_session(){
         sed -i "s/${OUTNUM}/${INNUM}/g" files/.temp_tiks.txt
         cp files/.temp_tiks.txt files/tiks_res.txt						# Make result targets file
         cp files/.temp_tiks.txt files/tiks_rsf.txt						# Make routersploit targets file
-		    cp files/.temp_tiks.txt files/tiks.txt							# Make MikroTik targets file
-		    mv files/.temp_tiks.txt files/.${SESSION}_tiks.txt				# Make backup session file
+		cp files/.temp_tiks.txt files/tiks.txt							# Make MikroTik targets file
+		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then				# Creates split Target file for mthread
+			rm files/small_file*
+		fi
+		python3 /opt/MkCheck/files/split.py
+		mv files/.temp_tiks.txt files/.${SESSION}_tiks.txt				# Make backup session file
 
 	########################################################
-	##############################
+    ##############################
 	#  RSF Session Folder Check  #
 	##############################
 
@@ -161,6 +170,115 @@ fresh(){
 	echo -e "${W}Please enter your target block${NC}"
 	sleep 2
 	nano files/tiks.txt
+	if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
+		rm files/small_file*
+	fi
+	python3 /opt/MkCheck/files/split.py
+	echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}.${SESSION}_tiks.txt${NC}"
+	cp files/tiks.txt files/.${SESSION}_tiks.txt
+	cp files/tiks.txt files/tiks_res.txt
+	cp files/tiks.txt files/tiks_rsf.txt
+
+	########################################################
+    ##############################
+	#  RSF Session Folder Check  #
+	##############################
+
+	if [[ ! -d '/opt/MkCheck/results/RSF/${SESSION}' ]]; then
+			mkdir /opt/MkCheck/results/RSF/${SESSION}
+	fi
+
+	####################################################
+    	###############################
+	#  Vuln Session Folder Check  #
+	###############################
+
+	if [[ ! -d '/opt/MkCheck/results/Vulns/${SESSION}' ]]; then
+		mkdir /opt/MkCheck/results/Vulns/${SESSION}
+	fi
+
+	########################################################
+	##############################
+	#  BTW Session Folder Check  #
+	##############################
+
+	if [[ ! -d '/opt/MkCheck/results/btw/${SESSION}' ]]; then
+		mkdir /opt/MkCheck/results/btw/${SESSION}
+	fi
+}
+
+#########################################################
+######################
+# (SE) Session Edit  #
+######################
+
+edit_session(){
+	    echo -e "${YLW}This changs a single number set <xx.xx.132.xx>, to change multiple, just run this option again${NC}"
+        echo -e "${W}Please enter the name of the session to edit${NC}"
+        read SESH_EDIT
+        cp files/.${SESH_EDIT}_tiks.txt files/.temp_tiks.txt
+        echo -e "${W}Please enter the number to be replaced${NC}"
+        read OUTNUM
+		echo -e "${W}Please enter the number to insert${NC}"
+        read INNUM
+        echo -e "${W}Please enter the name for this target files session${NC}"
+        read SESSION
+        echo ${SESSION} >> .conf
+        sed -i "s/${OUTNUM}/${INNUM}/g" files/.temp_tiks.txt
+        cp files/.temp_tiks.txt files/tiks_res.txt						# Make result targets file
+        cp files/.temp_tiks.txt files/tiks_rsf.txt						# Make routersploit targets file
+		cp files/.temp_tiks.txt files/tiks.txt							# Make MikroTik targets file
+		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then				# Creates split Target file for mthread
+			rm files/small_file*
+		fi
+		python3 /opt/MkCheck/files/split.py
+		mv files/.temp_tiks.txt files/.${SESSION}_tiks.txt				# Make backup session file
+
+	########################################################
+    ##############################
+	#  RSF Session Folder Check  #
+	##############################
+
+	if [[ ! -d '/opt/MkCheck/results/RSF/${SESSION}' ]]; then
+			mkdir /opt/MkCheck/results/RSF/${SESSION}
+	fi
+
+	####################################################
+   	 ###############################
+	#  Vuln Session Folder Check  #
+	###############################
+
+	if [[ ! -d '/opt/MkCheck/results/Vulns/${SESSION}' ]]; then
+		mkdir /opt/MkCheck/results/Vulns/${SESSION}
+	fi
+
+	########################################################
+	##############################
+	#  BTW Session Folder Check  #
+	##############################
+
+	if [[ ! -d '/opt/MkCheck/results/btw/${SESSION}' ]]; then
+		mkdir /opt/MkCheck/results/btw/${SESSION}
+	fi
+}
+
+##############################################################
+#  Fresh Session  #
+###################
+
+fresh(){
+	sudo rm files/tiks.txt files/tiks_res.txt files/tiks_rsf.txt
+	echo -e "${W}Please enter a name for this session${NC}"
+	read SESSION
+	echo ${SESSION} >> .conf
+	echo -e "${W}Please enter your target block${NC}"
+	sleep 2
+	echo -e "${RED}Please make first target end with 0 (${UBLUE}eg. a.b.c.0${NC}${RED})${NC}"
+	nano files/tiks.txt
+	if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
+		rm files/small_file*
+	fi
+	python3 /opt/MkCheck/files/split.py
 	echo -e "${YLW}Backup of this sessions Target file saved as ${UBLUE}.${SESSION}_tiks.txt${NC}"
 	cp files/tiks.txt files/.${SESSION}_tiks.txt
 	cp files/tiks.txt files/tiks_res.txt
@@ -216,6 +334,10 @@ session_choice(){
 		sleep 2
 		rm files/tiks.txt
 		nano files/tiks.txt
+		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
+			rm files/small_file*
+		fi
+		python3 /opt/MkCheck/files/split.py
 		cp files/tiks.txt files/.${SESSION}_tiks.txt
 		cp files/tiks.txt files/tiks_res.txt
 		cp files/tiks.txt files/tiks_rsf.txt
@@ -223,6 +345,10 @@ session_choice(){
 		echo -e "${W}Please enter the name of the session to use:${NC}"
 		read SESSION
 		cp files/.${SESSION}_tiks.txt files/tiks.txt
+		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
+			rm files/small_file*
+		fi
+		python3 /opt/MkCheck/files/split.py
 	fi
 }
 
@@ -236,7 +362,7 @@ if [[ ! -f '.conf' ]]; then
 	RE=$(cat /opt/MkCheck/files/tiks.txt)
 	if [[ ${RE} == "" ]]; then
 		echo -e "${URED}Please enter an IP block to start scanning first${NC}"
-		echo "# LEAVE THIS LINE IN* (FOR BEST RESULTS USE AN ENTIRE IP BLOCK)" > /opt/MkCheck/files/tiks.txt
+		echo -e "${RED}Please make first target end with 0 (${UBLUE}eg. a.b.c.0${NC}${RED})${NC}"
 		sudo nano /opt/MkCheck/files/tiks.txt
 	fi
 
@@ -245,12 +371,16 @@ if [[ ! -f '.conf' ]]; then
 	#  Second check to see if data is example data  #
 	#################################################
 
-	RR=$(cat /opt/MkCheck/files/tiks.txt | grep "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS")
-	if [[ ${RR} == "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS" ]]; then
+	RR=$(cat /opt/MkCheck/files/tiks.txt | grep "a.b.c.0")
+	if [[ ${RR} == "a.b.c.0" ]]; then
 		sudo rm /opt/MkCheck/files/tiks.txt
 		echo -e "${URED}Please enter an IP block to start scanning first${NC}"
-		echo "# LEAVE THIS LINE IN* (FOR BEST RESULTS USE AN ENTIRE IP BLOCK)" > /opt/MkCheck/files/tiks.txt
+		echo -e "${RED}Please make first target end with 0 (${UBLUE}eg. a.b.c.0${NC}${RED})${NC}"
 		nano /opt/MkCheck/files/tiks.txt
+		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
+			rm files/small_file*
+		fi
+		python3 /opt/MkCheck/files/split.py
 	fi
 	echo -e "${W}Please enter a name for this session${NC}"
 	read SESSION
@@ -282,8 +412,8 @@ fi
 ############################################
 
 if [[ -f '/opt/MkCheck/files/tiks_rsf.txt' ]]; then
-	RT=$(cat /opt/MkCheck/files/tiks_rsf.txt | grep "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS")
-	if [[ ${RT} == "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS" ]]; then
+	RT=$(cat /opt/MkCheck/files/tiks_rsf.txt | grep "a.b.c.0")
+	if [[ ${RT} == "a.b.c.0" ]]; then
 		sudo rm /opt/MkCheck/files/tiks_rsf.txt
 		cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_rsf.txt
 	fi
@@ -297,8 +427,8 @@ fi
 ######################################
 
 if [[ -f '/opt/MkCheck/files/tiks_res.txt' ]]; then
-	RS=$(cat /opt/MkCheck/files/tiks_res.txt | grep "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS")
-	if [[ ${RS} == "# NOTE THIS IP BLOCK DOES NOT CONTAIN MIKROTIK ROUTERS" ]]; then
+	RS=$(cat /opt/MkCheck/files/tiks_res.txt | grep "a.b.c.0")
+	if [[ ${RS} == "a.b.c.0" ]]; then
 		sudo rm /opt/MkCheck/files/tiks_res.txt
 		cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_res.txt
 	fi
@@ -375,7 +505,7 @@ apresults(){
 ############################################
 
 mchecker(){
-	while [[ $Z -lt 255 ]];
+	while [[ $Z -le 255 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		target
@@ -391,10 +521,12 @@ mchecker(){
 		sudo rm output.log
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} -eq 255 ]]; then
-			echo -e "${LP}Sorting Results${NC}"
 			break
 		fi
 	done
+	echo -e "${YLW}Clearing Target Device SSH History & Sorting Results${NC}"
+	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USER} -c '/console clear-history'
+	sudo rm -rf /opt/MkCheck/logs
 	apresults
 	main
 }
@@ -404,7 +536,7 @@ mchecker(){
 #  Network AP Discovery (with Proxy)  #
 #######################################
 pchecker(){
-	while [[ $Z -lt 255 ]];
+	while [[ $Z -le 255 ]];
 	do
 		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
 		target
@@ -420,10 +552,12 @@ pchecker(){
 		sudo rm output.log
 		Z=$(( $Z + 1 ))
 		if [[ ${Z} -eq 255 ]]; then
-			echo -e "${LP}Sorting Results${NC}"
 			break
 		fi
 	done
+	echo -e "${YLW}Clearing Target Device SSH History & Sorting Results${NC}"
+	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USER} -c '/console clear-history'
+	sudo rm -rf /opt/MkCheck/logs
 	apresults
 	main
 }
@@ -627,6 +761,8 @@ main(){
 		sed -i "s/${USER}/username = \"${USR}\"/g" scripts/miko.py
 		# Password Insert
 		sed -i "s/${PASS}/password = \"${PW}\"/g" scripts/miko.py
+		ZET=$(cat /opt/MkCheck/scripts/clear.py | grep "ZTE=")
+		sed -i "s/${ZET}/ZTE='${PW}'/g" scripts/clear.py
 	elif [[ ${MODULE} == "7" ]]; then
 		sudo rm -rf .conf files/.*_tiks.txt
 		echo -e "${W}Would you like to create a ${URED}n${NC}${W}ew session or ${URED}e${NC}${W}xit?${YLW}(n/e)${NC}"

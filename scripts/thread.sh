@@ -116,9 +116,9 @@ apresults(){
 #  Mikro Network AP Name Check (No Proxy)  #
 ############################################
 m51(){
-	while [[ $Z -lt 51 ]];
+	while [[ $Z -le 51 ]];
 	do
-		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		echo -e "${UBLUE}${Z}${NC}${RED}. Press <CTRL+C> to exit.${NC}"
 		g51
 		echo ""
 		sudo python2 scripts/miko/m51.py | tee m51.log
@@ -138,9 +138,9 @@ m51(){
 }
 
 m102(){
-	while [[ $Z -lt 51 ]];
+	while [[ $Z -le 51 ]];
 	do
-		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		echo -e "${UBLUE}${Z}${NC}${RED}. Press <CTRL+C> to exit.${NC}"
 		g102
 		echo ""
 		sudo python2 scripts/miko/m102.py | tee m102.log
@@ -160,9 +160,9 @@ m102(){
 }
 
 m153(){
-	while [[ $Z -lt 51 ]];
+	while [[ $Z -le 51 ]];
 	do
-		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		echo -e "${UBLUE}${Z}${NC}${RED}. Press <CTRL+C> to exit.${NC}"
 		g153
 		echo ""
 		sudo python2 scripts/miko/m153.py | tee m153.log
@@ -182,9 +182,9 @@ m153(){
 }
 
 m204(){
-	while [[ $Z -lt 51 ]];
+	while [[ $Z -le 51 ]];
 	do
-		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		echo -e "${UBLUE}${Z}${NC}${RED}. Press <CTRL+C> to exit.${NC}"
 		g204
 		echo ""
 		sudo python2 scripts/miko/m204.py | tee m204.log
@@ -204,9 +204,9 @@ m204(){
 }
 
 m255(){
-	while [[ $Z -lt 51 ]];
+	while [[ $Z -le 51 ]];
 	do
-		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		echo -e "${UBLUE}${Z}${NC}${RED}. Press <CTRL+C> to exit.${NC}"
 		g255
 		echo ""
 		sudo python2 scripts/miko/m255.py | tee m255.log
@@ -229,9 +229,9 @@ m255(){
 #  Network AP Discovery (with Proxy)  #
 #######################################
 p51(){
-	while [[ $Z -lt 51 ]];
+	while [[ $Z -le 51 ]];
 	do
-		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		echo -e "${UBLUE}${Z}${NC}${RED}. Press <CTRL+C> to exit.${NC}"
 		g51
 		echo ""
 		proxychains4 sudo python2 scripts/miko/m51.py | tee p51.log
@@ -251,9 +251,9 @@ p51(){
 }
 
 p102(){
-	while [[ $Z -lt 51 ]];
+	while [[ $Z -le 51 ]];
 	do
-		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		echo -e "${UBLUE}${Z}${NC}${RED}. Press <CTRL+C> to exit.${NC}"
 		g102
 		echo ""
 		proxychains4 sudo python2 scripts/miko/m102.py | tee p102.log
@@ -273,9 +273,9 @@ p102(){
 }
 
 p153(){
-	while [[ $Z -lt 51 ]];
+	while [[ $Z -le 51 ]];
 	do
-		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		echo -e "${UBLUE}${Z}${NC}${RED}. Press <CTRL+C> to exit.${NC}"
 		g153
 		echo ""
 		proxychains4 sudo python2 scripts/miko/m153.py | tee p153.log
@@ -295,9 +295,9 @@ p153(){
 }
 
 p204(){
-	while [[ $Z -lt 51 ]];
+	while [[ $Z -le 51 ]];
 	do
-		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		echo -e "${UBLUE}${Z}${NC}${RED}. Press <CTRL+C> to exit.${NC}"
 		g204
 		echo ""
 		proxychains4 sudo python2 scripts/miko/m204.py | tee p204.log
@@ -317,9 +317,9 @@ p204(){
 }
 
 p255(){
-	while [[ $Z -lt 51 ]];
+	while [[ $Z -le 51 ]];
 	do
-		echo -e "${RED}Press <CTRL+C> to exit.${NC}"
+		echo -e "${UBLUE}${Z}${NC}${RED}. Press <CTRL+C> to exit.${NC}"
 		g255
 		echo ""
 		proxychains4 sudo python2 scripts/miko/m255.py | tee p255.log
