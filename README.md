@@ -123,25 +123,18 @@
 
 
 # USAGE
-<br />
- -The user must create the <strong><em>'scripts/tiks.txt'</em></strong> list with MikroTik Router IP's.
-  <br />
-  Current <em>'scripts/tiks.txt'</em> does not contain valid MikroTik Router IP's. <strong>(STRICTLY EXAMPLE)</strong>
-  <br />
-  -Easiest way to do this is using Shodan for Vuln searching. WinBox Auth Bypass looks for port <strong>8291</strong>
-  <br />
-  -nMap can be used as well, using the following command:
-    <br />
-    <br />
-    <strong><em># sudo nmap -vv -O -A -Pn -p 80,8291 111.11.11.1/24</em></strong>
-    <br />
-    This will scan the given IP block for all online devices and check if the appropriate services are running and vulnerable
-    <br />
-    <br />
-    Once the attacker has a specific netblock <eg. 111.69.145.1/24>, the best way to create the list is using Microsoft Excel
-    As you need to fill in the first block (111.69.145.1), then you can drag the coloum to quickly fill the IP's in the colom.
-    Then copy the entire block into the <strong><em>'scripts/tiks.txt'</em></strong> file.
-    <br />
+
+- The user must create the <strong><em>'scripts/tiks.txt'</em></strong> list with MikroTik Router IP's.
+- Easiest way to do this is using Shodan for Vuln searching. WinBox Auth Bypass looks for port <strong>8291</strong>
+- nMap can be used as well, using the following command:
+
+<strong><em># sudo nmap -vv -O -A -Pn -p 80,8291 111.11.11.1/24</em></strong>
+This will scan the given IP block for all online devices and check if the appropriate services are running and vulnerable
+
+Once the attacker has a specific netblock (eg. 111.69.145.1/24), the best way to create the list is using Microsoft Excel
+As you need to fill in the first block (111.69.145.0), then you can drag the coloum to quickly fill the IP's in the colom.
+Then copy the entire block into the <strong><em>'scripts/tiks.txt'</em></strong> file.
+
 
 
 # USER LICENCE
