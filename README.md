@@ -159,21 +159,14 @@ ILLEGAL OR OTHERWISE, FALLS SOLELY ON THE RESPONSIBILY OF THE USER.
 <br/>
 
 # Other Projects
-<br />
+
 All information on projects in development can be found <a href="https://s1l3nt78.github.io">here</a>.
-<br />
 For any requests or ideas on current projects please submit an issue request to the corresponding tool.
-<br />
 For ideas or collaboration requests on future projects., contact details can be found on the page.
-<br />
-<br />
+
 <em>GitHub Pages can be found here.
-<br />
--<a href="https://s1l3nt78.github.io/sifter">Sifter</a> = Osint, Recon and Vuln Scanner
-<br />
--<a href="https://s1l3nt78.github.io/TigerShark">TigerShark</a> = Multi-Tooled Phishing Framework</em>
-<br />
-<br />
-<br />
+
+- <a href="https://s1l3nt78.github.io/sifter">Sifter</a> = Osint, Recon and Vuln Scanner
+- <a href="https://s1l3nt78.github.io/TigerShark">TigerShark</a> = Multi-Tooled Phishing Framework</em>
 
          <!--###########_________ czFsM250NzggX18gUmFiYjE3J3MgRGVu _________###########--!>
