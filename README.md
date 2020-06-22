@@ -31,13 +31,11 @@
 
  	MkCheck works well in Termux, <strong>provided you are able to run <em>root</em></strong>. 
  	Otherwise Nethunter (<strong><em>with chroot</em></strong>) works as well, without any extra config.
- 	Recommended to download release for Termux.
- 
-# Still in Development
-
-    The mthread script is still in development and still needs some optimization and will get 
-    rid of redundancies. As well as clean up alot of the unnecessary code
-
+ 	For Termux you should download the release from <a href="https://github.com/s1l3nt78/MkCheck/releases/download/v3_0/Release_v3.zip">here</a>.
+	Then run:
+	# unzip Release_v3.zip
+	# cd Release_v3
+	# bash setup.sh
 
 # Functions
 
@@ -97,8 +95,12 @@
  <br />
  <br />
 
- # Version 3
+# Version: 3 [Mthread Still in Development]
 
+    The mthread script is still in development and still needs some optimization and will get 
+    rid of redundancies. As well as clean up alot of the unnecessary code.
+    mthread does NOT work in Termux
+    
  <strong><em>mthread</em></strong> script added to speed up scans.
  <br />
  Automatic Clean-Up of SSH command history done in order to remain hidden.
