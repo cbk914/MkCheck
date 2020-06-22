@@ -29,9 +29,9 @@
 
 # Termux
 
- MkCheck works well in Termux, <strong>provided you are able to run <em>root</em></strong>. 
- <br />
- Otherwise Nethunter (<strong><em>with chroot</em></strong>) works as well, without any extra config.
+ 	MkCheck works well in Termux, <strong>provided you are able to run <em>root</em></strong>. 
+ 	Otherwise Nethunter (<strong><em>with chroot</em></strong>) works as well, without any extra config.
+ 	Recommended to download release for Termux.
  
 # Still in Development
 
