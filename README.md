@@ -31,7 +31,7 @@
 
  MkCheck works well in Termux, <strong>provided you are able to run <em>root</em></strong>. 
  <br>
- Otherwise Nethunter (<strong><em>with chroot</em></strong>) works as well, without any extra config.
+ Otherwise Nethunter (<strong><em>with chroot</em> on a non-rooted device</strong>) works as well, without any extra config.
  <br>
  For Termux you should download the release from <a href="https://github.com/s1l3nt78/MkCheck/releases/download/v3_0/Release_v3.zip">here</a>.
  <br>
@@ -40,6 +40,11 @@
 	# unzip Release_v3.zip
 	# cd Release_v3
 	# bash setup.sh
+
+To setup up Root Nethunter on a non-rooted android, just follow 
+<br>
+instructions from <a href="https://github.com/s1l3nt78/MkCheck/wiki/Installing-Nethunter-to-run-root-(without-rooted-device)">here</a>.
+
 
 # Functions
 
