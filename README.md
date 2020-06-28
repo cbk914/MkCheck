@@ -29,10 +29,10 @@
 
 # Termux
 
- 	MkCheck works well in Termux, <strong>provided you are able to run <em>root</em></strong>. 
- 	Otherwise Nethunter (<strong><em>with chroot</em></strong>) works as well, without any extra config.
- 	For Termux you should download the release from <a href="https://github.com/s1l3nt78/MkCheck/releases/download/v3_0/Release_v3.zip">here</a>.
-	Then run:
+ MkCheck works well in Termux, <strong>provided you are able to run <em>root</em></strong>. 
+ Otherwise Nethunter (<strong><em>with chroot</em></strong>) works as well, without any extra config.
+ For Termux you should download the release from <a href="https://github.com/s1l3nt78/MkCheck/releases/download/v3_0/Release_v3.zip">here</a>.
+Then run:
 	# unzip Release_v3.zip
 	# cd Release_v3
 	# bash setup.sh
