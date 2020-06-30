@@ -252,86 +252,86 @@ session_choice(){
 #######################
 #    Session Check    #
 #######################
-
-if [[ ! -f '.conf' ]]; then
-	# First check to see if tiks.txt has data
-	RE=$(cat /opt/MkCheck/files/tiks.txt)
-	if [[ ${RE} == "" ]]; then
-		echo -e "${URED}Please enter an IP block to start scanning first${NC}"
-		echo -e "${RED}Please make first target end with 0 (${UBLUE}eg. a.b.c.0${NC}${RED})${NC}"
-		sudo nano /opt/MkCheck/files/tiks.txt
-	fi
-
-	#################################################
-    #################################################
-	#  Second check to see if data is example data  #
-	#################################################
-
-	RR=$(cat /opt/MkCheck/files/tiks.txt | grep "a.b.c.0")
-	if [[ ${RR} == "a.b.c.0" ]]; then
-		sudo rm /opt/MkCheck/files/tiks.txt
-		echo -e "${URED}Please enter an IP block to start scanning first${NC}"
-		echo -e "${RED}Please make first target end with 0 (${UBLUE}eg. a.b.c.0${NC}${RED})${NC}"
-		nano /opt/MkCheck/files/tiks.txt
-		if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
-			rm files/small_file*
+session_check(){
+	if [[ ! -f '.conf' ]]; then
+		# First check to see if tiks.txt has data
+		RE=$(cat /opt/MkCheck/files/tiks.txt)
+		if [[ ${RE} == "" ]]; then
+			echo -e "${URED}Please enter an IP block to start scanning first${NC}"
+			echo -e "${RED}Please make first target end with 0 (${UBLUE}eg. a.b.c.0${NC}${RED})${NC}"
+			sudo nano /opt/MkCheck/files/tiks.txt
 		fi
-		python3 /opt/MkCheck/files/split.py
+
+		#################################################
+		#################################################
+		#  Second check to see if data is example data  #
+		#################################################
+
+		RR=$(cat /opt/MkCheck/files/tiks.txt | grep "a.b.c.0")
+		if [[ ${RR} == "a.b.c.0" ]]; then
+			sudo rm /opt/MkCheck/files/tiks.txt
+			echo -e "${URED}Please enter an IP block to start scanning first${NC}"
+			echo -e "${RED}Please make first target end with 0 (${UBLUE}eg. a.b.c.0${NC}${RED})${NC}"
+			nano /opt/MkCheck/files/tiks.txt
+			if [[ -f '/opt/MkCheck/files/small_file*' ]]; then
+				rm files/small_file*
+			fi
+			python3 /opt/MkCheck/files/split.py
+		fi
+		echo -e "${W}Please enter a name for this session${NC}"
+		read SESSION
+		echo "${SESSION}" > .conf
+		echo -e "${W}Session: ${LP}${SESSION}${NC}"
+		cp files/tiks.txt files/.${SESSION}_tiks.txt
+
+		##############################
+		##############################
+		#  RSF Session Folder Check  #
+		##############################
+
+		mkdir /opt/MkCheck/results/RSF/${SESSION}
+		mkdir /opt/MkCheck/results/Vulns/${SESSION}
+		mkdir /opt/MkCheck/results/btw/${SESSION}
+	else
+
+		####################################
+		####################################
+		# (SC) Check for data replacement  #
+		####################################
+
+		session_choice
 	fi
-	echo -e "${W}Please enter a name for this session${NC}"
-	read SESSION
-	echo "${SESSION}" > .conf
-	echo -e "${W}Session: ${LP}${SESSION}${NC}"
-	cp files/tiks.txt files/.${SESSION}_tiks.txt
 
-	##############################
-	##############################
-	#  RSF Session Folder Check  #
-	##############################
+	############################################
+	############################################
+	#  Routersploit file check (tiks.rsf.txt)  #
+	############################################
 
-	mkdir /opt/MkCheck/results/RSF/${SESSION}
-	mkdir /opt/MkCheck/results/Vulns/${SESSION}
-	mkdir /opt/MkCheck/results/btw/${SESSION}
-else
-
-	####################################
-	####################################
-	# (SC) Check for data replacement  #
-	####################################
-
-	session_choice
-fi
-
-############################################
-############################################
-#  Routersploit file check (tiks.rsf.txt)  #
-############################################
-
-if [[ -f '/opt/MkCheck/files/tiks_rsf.txt' ]]; then
-	RT=$(cat /opt/MkCheck/files/tiks_rsf.txt | grep "a.b.c.0")
-	if [[ ${RT} == "a.b.c.0" ]]; then
-		sudo rm /opt/MkCheck/files/tiks_rsf.txt
-		cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_rsf.txt
+	if [[ -f '/opt/MkCheck/files/tiks_rsf.txt' ]]; then
+		RT=$(cat /opt/MkCheck/files/tiks_rsf.txt | grep "a.b.c.0")
+		if [[ ${RT} == "a.b.c.0" ]]; then
+			sudo rm /opt/MkCheck/files/tiks_rsf.txt
+			cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_rsf.txt
+		fi
+	else
+		sudo cp files/tiks.txt files/tiks_rsf.txt
 	fi
-else
-	sudo cp files/tiks.txt files/tiks_rsf.txt
-fi
 
-######################################
-######################################
-#  Result file check (tiks_res.txt)  #
-######################################
+	######################################
+	######################################
+	#  Result file check (tiks_res.txt)  #
+	######################################
 
-if [[ -f '/opt/MkCheck/files/tiks_res.txt' ]]; then
-	RS=$(cat /opt/MkCheck/files/tiks_res.txt | grep "a.b.c.0")
-	if [[ ${RS} == "a.b.c.0" ]]; then
-		sudo rm /opt/MkCheck/files/tiks_res.txt
+	if [[ -f '/opt/MkCheck/files/tiks_res.txt' ]]; then
+		RS=$(cat /opt/MkCheck/files/tiks_res.txt | grep "a.b.c.0")
+		if [[ ${RS} == "a.b.c.0" ]]; then
+			sudo rm /opt/MkCheck/files/tiks_res.txt
+			cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_res.txt
+		fi
+	else
 		cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_res.txt
 	fi
-else
-	cp /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/tiks_res.txt
-fi
-
+}
 #########################################
 #########################################
 #  Insert new target for MCheck Attack  #
@@ -855,6 +855,7 @@ prun(){
 ###############
 
 main(){
+	session_check
 	MODULE=''
 	echo -e "${BRED}"
 	python3 files/banner.py
