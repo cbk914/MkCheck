@@ -25,7 +25,7 @@ ARGUMENT=$2
 function trap_ctrlc (){
     # perform cleanup here
     echo -e "${URED}Ctrl-C caught...${NC}"
-    echo -e "${W}Would you like to ${YLW}q${W}uit the program, go back to ${YLW}m${W}enu or ${YLW}b${W}ack to script?${YLW}(${YLW}p${W}/${YLW}m${W}/${YLW}b${W})${NC}"
+    echo -e "${W}Would you like to ${YLW}q${W}uit the program, go back to ${YLW}m${W}enu or ${YLW}b${W}ack to script?(${YLW}q${W}/${YLW}m${W}/${YLW}b${W})${NC}"
 	read EXIT
 	if [[ ${EXIT} == "q" ]]; then
 		if [[ ${MODULE} == "1" ]]; then
@@ -878,6 +878,7 @@ main(){
   	echo -e "${LP}6. ${LGRY}Change Credential Values"
 	echo -e "${LP}7. ${LGRY}Clear all previous sessions.${NC}"
 	echo -e "${LCYN}8. ${LGRY}Update MkCheck"
+	echo -e "${LGRY}9. Exit${NC}"
 	echo ""
 	echo -e "${YLW}Which module would you like to use?${NC}"
 	read MODULE
@@ -931,6 +932,8 @@ main(){
   	elif [[ ${MODULE} == "8" ]]; then
     	update
 		main
+	elif [[ ${MODULE} == "9" ]]; then
+		exit 2
 	else
 		echo -e "${URED}You have selected an invalid option${NC}"
 	fi
