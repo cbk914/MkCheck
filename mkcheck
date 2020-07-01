@@ -25,7 +25,7 @@ ARGUMENT=$2
 function trap_ctrlc (){
     # perform cleanup here
     echo -e "${URED}Ctrl-C caught...${NC}"
-    echo -e "${W}Would you like to ${YLW}q${W}uit the program, go back to ${YLW}m${W}enu or ${YLW}b${W}ack to script?${YLW}(${YLW}p${W}/${YLW}m${W}/${YLW}b${W})${NC}"
+    echo -e "${W}Would you like to ${YLW}q${W}uit the program, go back to ${YLW}m${W}enu or ${YLW}b${W}ack to script?(${YLW}q${W}/${YLW}m${W}/${YLW}b${W})${NC}"
 	read EXIT
 	if [[ ${EXIT} == "q" ]]; then
 		if [[ ${MODULE} == "1" ]]; then
