@@ -1,4 +1,4 @@
-# Leave in this line, or make first target a.b.c.0 (as the first line is thrown away)
+a.b.c.0
 a.b.c.1
 a.b.c.2
 a.b.c.3

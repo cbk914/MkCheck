@@ -216,7 +216,7 @@ fresh(){
 session_choice(){
   SESSION=$(cat .conf)
 	echo -e "${W}Previous Sessions: ${LP}${SESSION}${NC}"
-	echo -e "${W}Would you like to ${URED}u${NC}${W}se a previous session, ${URED}e${NC}${W}dit an existing session, \n ${URED}c${NC}${W}reate a new session or start ${URED}f${NC}${W}resh?${YLW}(u/e/f)${NC}"
+	echo -e "${W}Would you like to ${URED}u${NC}${W}se a previous session, ${URED}e${NC}${W}dit an existing session, \n${URED}c${NC}${W}reate a new session or start ${URED}f${NC}${W}resh?${YLW}(u/e/f)${NC}"
 	read CONF
 	if [[ ${CONF} == "f" ]]; then
 		fresh
@@ -404,6 +404,10 @@ g255(){
 
 apresults(){
   Y='1'
+  SYQ=$(cat /opt/MkCheck/files/tiks_res.txt | grep "#")
+  if [[ ${SYQ} == "#" ]]; then
+		echo -e "${W}Please ensure there are no commented out lines\notherwise this check will fail${NC}"
+  fi
   for log in `cat /opt/MkCheck/files/tiks_res.txt`
 		do
 			Y=$(( ${Y} + 1 ))
@@ -411,20 +415,20 @@ apresults(){
 			echo "${log} ${IP}" >> results/Vulns/${SESSION}/final.results
 			echo "==========================================================================="
 			if [[ ${Y} -eq ${Z} ]] || [[ ${Y} -gt ${Z} ]]; then
-
-				    ######################
-				    ######################
-				    #  Targetted Lookup  #
-				    ######################
-				    echo -e "${W}Was there a specific target you were looking for?${YLW}(y/n)${NC}"
-				    read GETTED
-				    if [[ ${GETTED} == "y" ]]; then
-					       echo -e "${W}Please specify a keyword for your target Access Point${NC}"
-					       echo -e "${RED}eg. ${YLW}123 Apartment${RED} <-- target access point name${NC}"
-					       echo -e "${RED}Keyword to search for would be ${YLW}Apartment${RED} or ${YLW}123${NC}"
-					       read KEY
-					       cat /opt/MkCheck/results/Vulns/${SESSION}/final.results | grep ${KEY}
-				    fi
+	# cat results/Vulns/${SESSION}/*.results | sudo tee final.results
+					######################
+					######################
+					#  Targetted Lookup  #
+					######################
+					echo -e "${W}Was there a specific target you were looking for?${YLW}(y/n)${NC}"
+					read GETTED
+					if [[ ${GETTED} == "y" ]]; then
+							echo -e "${W}Please specify a keyword for your target Access Point${NC}"
+							echo -e "${RED}eg. ${YLW}123 Apartment${RED} <-- target access point name${NC}"
+							echo -e "${RED}Keyword to search for would be ${YLW}Apartment${RED} or ${YLW}123${NC}"
+							read KEY
+							cat /opt/MkCheck/results/Vulns/${SESSION}/final.results | grep ${KEY}
+					fi
 
 				  ####################
 				  ####################
