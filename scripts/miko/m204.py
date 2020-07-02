@@ -8,7 +8,6 @@ port = 22
 username = "admin"  # CHANGE THIS
 password = "admin"  # CHANGE THIS
 apname = "/system identity print" # Change this for a different command to be run
-clear = "/console clear-history" # \n std 4 SSHC
 
 p = paramiko.SSHClient()
 p.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -24,10 +23,6 @@ opt = stdout.readlines()
 opt = "".join(opt)
 print(opt)
 # print('opt' + line.strip('\n'))
-
-time.sleep(3)
-stdin, stdout, stderr = p.exec_command(clear)
-time.sleep(2)
 
 p.close()
 
