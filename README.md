@@ -33,7 +33,7 @@
  <br>
  Otherwise Nethunter (<strong><em>with chroot</em> on a non-rooted device</strong>) works as well, without any extra config.
  <br>
- For Termux you should download the release from <a href="https://github.com/s1l3nt78/MkCheck/releases/download/v3_01/Release_v3.zip">here</a>.
+ For Termux you should download the release from <a href="https://github.com/s1l3nt78/MkCheck/releases/download/v3_1/Release_v3.zip">here</a>.
  <br>
  Then run:
 
