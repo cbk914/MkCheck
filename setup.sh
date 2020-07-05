@@ -21,7 +21,7 @@ fi
 
 # Apt Dependancies
 sudo apt update
-sudo apt-get install figlet python python3 python-tk python3-pip figlet python3.7 tor proxychains4 libboost-dev cmake -y
+sudo apt-get install figlet python python3 python-tk python3-pip figlet python3.7 tor proxychains4 libboost-all-dev cmake -y
 # MCheck install
 if [[ -d /opt/MkCheck ]]; then
 	sleep 1
@@ -57,8 +57,8 @@ fi
 # RouterSploit Dependancies
 
 cd /root/routersploit
-python3.7 -m pip install -r requirements.txt
-python3.7 -m pip install -r requirements-dev.txt
+python3 -m pip install -r requirements.txt
+python3 -m pip install -r requirements-dev.txt
 
 
 # ByTheWay Setup
