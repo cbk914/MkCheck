@@ -555,6 +555,7 @@ update(){
     echo -e "${ORNG}"
     figlet -f mini "Checking for updates"
     echo -e "${NC}"
+	mv /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/temp_tiks
     git fetch
     VER=$(git pull)
     if [[ ${VER} == "Already up to date." ]]; then
@@ -588,6 +589,7 @@ update(){
 	    fi
 		main
     fi
+	mv /opt/MkCheck/files/temp_tiks /opt/MkCheck/files/tiks.txt
   echo -e "${NC}"
 }
 

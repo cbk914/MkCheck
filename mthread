@@ -17,6 +17,13 @@ LCYN='\033[1;36m'
 Z=1
 ARGUMENT=$2
 
+######################################
+#  Target File Template Replacement  #
+######################################
+#if [[ -f '/opt/MkCheck/files/tiks_temp.txt' ]]; then
+#	mv /opt/MkCheck/files/tiks_temp.txt /opt/MkCheck/files/tiks.txt
+#fi
+
 #########################################
 #######################
 #  Trap Control Init  #
@@ -103,7 +110,11 @@ if [[ ! -d '/opt/MkCheck/results/btw' ]]; then
 	mkdir /opt/MkCheck/results/btw
 fi
 
-#########################################################
+################################################################################################################################################
+##############################														  ##########################################################
+##############################       				SESSION CONFIGS                   ##########################################################
+##############################														  ##########################################################
+################################################################################################################################################
 ######################
 # (SE) Session Edit  #
 ######################
@@ -115,7 +126,7 @@ edit_session(){
         cp files/.${SESH_EDIT}_tiks.txt files/.temp_tiks.txt
         echo -e "${W}Please enter the number to be replaced${NC}"
         read OUTNUM
-	echo -e "${W}Please enter the number to insert${NC}"
+		echo -e "${W}Please enter the number to insert${NC}"
         read INNUM
         echo -e "${W}Please enter the name for this target files session${NC}"
         read SESSION
@@ -131,7 +142,7 @@ edit_session(){
 	mv files/.temp_tiks.txt files/.${SESSION}_tiks.txt				# Make backup session file
 
 	########################################################
-    	##############################
+    ##############################
 	#  RSF Session Folder Check  #
 	##############################
 
@@ -768,6 +779,7 @@ update(){
     echo -e "${ORNG}"
     figlet -f mini "Checking for updates"
     echo -e "${NC}"
+	mv /opt/MkCheck/files/tiks.txt /opt/MkCheck/files/temp_tiks
     git fetch
     VER=$(git pull)
     if [[ ${VER} == "Already up to date." ]]; then
@@ -801,6 +813,7 @@ update(){
 	    fi
 		main
     fi
+	mv /opt/MkCheck/files/temp_tiks /opt/MkCheck/files/tiks.txt
   echo -e "${NC}"
 }
 
