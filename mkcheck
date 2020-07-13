@@ -543,6 +543,9 @@ up_arg(){
     echo $3 >> temp.log
     echo $4 >> temp.log
     echo $5 >> temp.log
+	echo $6 >> temp.log
+	echo $7 >> temp.log
+	echo $8 >> temp.log
 
     for UFILES in `cat temp.log`
        	        do

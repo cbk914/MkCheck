@@ -56,8 +56,9 @@ fi
 
 # RouterSploit Dependancies
 
-cd /root/routersploit
-python3 -m pip install -r requirements.txt
+cd /root/routersploit																		# Readline Package Depreciated
+python3 -m pip install gnureadline												  # Which is causing runtime errors
+python3 -m pip install -r requirements.txt							
 python3 -m pip install -r requirements-dev.txt
 
 
