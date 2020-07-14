@@ -1,43 +1,4 @@
 version: 2
-            
-
-      
-      
-jobs:
-  build:
-    branches:
-      only:
-        - circleci-project-setup
-      ignore:
-        - master
-    
-    machine:
-      image: ubuntu-1604:201903-01
-    
-   
-    restore_cache_cmd:
-      steps:
-        - restore_cache:
-            keys:
-              - r-dep-{{ checksum "requirements.txt" }}
-              - r-dep-
-              - r-dev-{{ checksum "requirements-dev.txt" }}
-              - r-dev-
-
-    save_cache_cmd:
-      steps:
-        - save_cache:
-            paths:
-              - /root/routersploit
-            keys:
-              - r-dep-{{ checksum "requirements.txt" }}
-              - r-dev-{{ checksum "requirements-dev.txt" }}
-      
-    steps:
-        version: 2
-            
-
-      
       
 jobs:
   build:
