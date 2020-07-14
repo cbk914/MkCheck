@@ -139,8 +139,8 @@ jobs:
       
       # Cache RouterSploit Python Packages 
         - save_cache:
-            paths:
-              - /root/routersploit
             keys:
               - r-dep-{{ checksum "requirements.txt" }}
               - r-dev-{{ checksum "requirements-dev.txt" }}
+             paths:
+              - /root/routersploit
