@@ -33,9 +33,8 @@ else
 	sudo mv MkCheck -t /opt
 fi
 
-# Python2 Dependancies
-#apt-get remove python3-pip -y
 cd /opt/
+## Python2 (Pip & Wheel [For missing packages]) ##
 #wget http://ftp.us.debian.org/debian/pool/main/p/python-pip/python-pip_18.1-5_all.deb
 #wget http://ftp.us.debian.org/debian/pool/main/p/python-pip/python-pip-whl_18.1-5_all.deb
 #dpkg -i python-pip-whl_18.1-5_all.deb
@@ -58,6 +57,7 @@ fi
 # RouterSploit Dependancies
 
 cd /root/routersploit
+chown $USER:$USER requirements.txt requirements-dev.txt
 python3 -m pip install -r requirements.txt
 python3 -m pip install -r requirements-dev.txt
 
