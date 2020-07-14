@@ -12,6 +12,7 @@ BRED='\033[1;31m'
 UPURPLE='\033[4;35m'
 UBLUE='\033[4;34m'
 URED='\033[4;31m'
+LOPT='y'
 
 # Root Check
 if [[ $EUID -ne 0 ]]; then
@@ -21,7 +22,7 @@ fi
 
 # Apt Dependancies
 sudo apt update
-sudo apt-get install figlet python python3 python-tk python3-pip figlet python3.7 tor proxychains4 libboost-all-dev cmake -y
+sudo apt-get install figlet python python3 python-tk python3-pip figlet python3.7 python3.8 tor proxychains4 libboost-all-dev cmake --allow
 # MCheck install
 if [[ -d /opt/MkCheck ]]; then
 	sleep 1
