@@ -12,8 +12,8 @@ jobs:
     steps:
       # Restore Python Packages (Cached)
       - restore_cache:
-          key: sudo deps1-{{ .Branch }}-{{ checksum "/root/routersploit/requirements.txt" }}
-          key2: sudo deps2-{{ .Branch }}-{{ checksum "/root/routersploit/requirements-dev.txt" }}
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          key2: deps2-{{ .Branch }}-{{ checksum "requirements-dev.txt" }}
      
      # Kali Repo List Install & Signing
       - run: 
@@ -83,7 +83,7 @@ jobs:
       
       # Cache RouterSploit Python Packages 
       - save_cache:
-          key: sudo deps1-{{ .Branch }}-{{ checksum "/root/routersploit/requirements.txt" }}
-          key2: sudo deps2-{{ .Branch }}-{{ checksum "/root/routersploit/requirements-dev.txt"}}
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          key2: deps2-{{ .Branch }}-{{ checksum "requirements-dev.txt" }}
           paths:
-            - "/root"
+            - "/home/circleci/.cache/pip"
