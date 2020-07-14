@@ -3,7 +3,7 @@ version: 2
 commands:
   restore_cache_cmd:
     steps:
-      - restore_cache
+      - restore_cache:
           keys:
             - r-dep-{{ checksum "requirements.txt" }}
             - r-dep-
