@@ -78,13 +78,13 @@ fi
 cd /opt/MkCheck
 chmod +x mkcheck mthread scripts/thread.sh
 # Path Options
-echo -e "${YLW}Would you like to add MkCheck to path to run it from anywhere?${LBBLUE}(y/n)${NC}"
-read LOPT
-if [[ ${LOPT} == "y" ]]; then
+#echo -e "${YLW}Would you like to add MkCheck to path to run it from anywhere?${LBBLUE}(y/n)${NC}"
+#read LOPT
+#if [[ ${LOPT} == "y" ]]; then
 	sudo cp mkcheck mthread -t /usr/sbin
 	sudo chown $USER:$USER /usr/sbin/mkcheck /usr/sbin/mthread
-else
+#else
 	echo -e "${RED}MkCheck installed${NC}"
-fi
+#fi
 
 #####################################################______________ czFsM250NzggX18gUmFiYjE3J3MgRGVu ______________#####################################################
