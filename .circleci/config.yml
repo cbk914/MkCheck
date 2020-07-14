@@ -12,8 +12,8 @@ jobs:
     steps:
       # Restore Python Packages (Cached)
       - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "/root/routersploit/requirements.txt" }}
-          key2: deps2-{{ .Branch }}-{{ checksum "/root/routersploit/requirements-dev.txt" }}
+          key: sudo deps1-{{ .Branch }}-{{ checksum "/root/routersploit/requirements.txt" }}
+          key2: sudo deps2-{{ .Branch }}-{{ checksum "/root/routersploit/requirements-dev.txt" }}
      
      # Kali Repo List Install & Signing
       - run: 
@@ -41,15 +41,17 @@ jobs:
           command: echo '* libraries/restart-without-asking boolean true' | sudo debconf-set-selections                     # Set Services to Restart Automatically
       
     # Apt Package Updates
-      - run:                                                                                       # Check for Package Updates
+      - run:                                                                                                                # Check for Package Updates
           name: Apt System Package Update
           command: sudo apt-get update
           
-    # Python3 (Pip3, Setuptools, Wheel) Install
+    # CMake/Python3 (Pip3, Setuptools, Wheel) Install
       - run:                                                                                         
-           name: Python3 Setup
-           command: sudo apt-get install python3.8 python3-pip
-      
+           name: Python3/CMake Setup 
+           command: |
+              sudo apt-get install python3.8 python3-pip cmake  
+              sudo apt --fix-broken install
+              
     # Link Python3.8 as Main Python3 interpreter
       - run:
           name: Python Version Linkage
@@ -79,8 +81,9 @@ jobs:
       #    command: |
       #      bash /opt/MkCheck/mkcheck
       
+      # Cache RouterSploit Python Packages 
       - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "/root/routersploit/requirements.txt" }}
-          key2: deps2-{{ .Branch }}-{{ checksum "/root/routersploit/requirements-dev.txt"}}
+          key: sudo deps1-{{ .Branch }}-{{ checksum "/root/routersploit/requirements.txt" }}
+          key2: sudo deps2-{{ .Branch }}-{{ checksum "/root/routersploit/requirements-dev.txt"}}
           paths:
             - "/root"
