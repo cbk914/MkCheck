@@ -83,7 +83,7 @@ jobs:
       
       # Cache RouterSploit Python Packages 
       - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
-          key2: deps2-{{ .Branch }}-{{ checksum "requirements-dev.txt" }}
+          key: deps1-{{ .Branch }}-{{ checksum "/root/routersploit/requirements.txt" }}
+          key2: deps2-{{ .Branch }}-{{ checksum "/root/routersploit/requirements-dev.txt" }}
           paths:
             - "/home/circleci/.cache/pip"
