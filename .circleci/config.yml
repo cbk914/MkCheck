@@ -1,4 +1,29 @@
 version: 2
+
+commands:
+  restore_cache_cmd:
+    steps:
+      - restore_cache
+          keys:
+            - r-dep-{{ checksum "requirements.txt" }}
+            - r-dep-
+            - r-dev-{{ checksum "requirements-dev.txt" }}
+            - r-dev-
+  save_cache_cmd:
+    steps:
+      - save_cache:
+          paths:
+            - /root/routersploit
+          keys:
+            - r-dep-{{ checksum "requirements.txt" }}
+            - r-dev-{{ checksum "requirements-dev.txt" }}
+            
+executors:
+  machine-executor:
+    machine:
+      image: ubuntu-1604:201903-01
+      
+      
 jobs:
   build:
     branches:
@@ -6,17 +31,8 @@ jobs:
         - circleci-project-setup
       ignore:
         - master
-
-    machine:
-      image: ubuntu-1604:201903-01
-
-
-    steps:
-      # Restore Python Packages (Cached)
-      - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
-          key2: deps2-{{ .Branch }}-{{ checksum "requirements-dev.txt" }}
-     
+        
+      - restore_cache_cmd:
      # Kali Repo List Install & Signing
       - run: 
           name: Install & Sign Kali Repos
@@ -84,8 +100,4 @@ jobs:
       #      bash /opt/MkCheck/mkcheck
       
       # Cache RouterSploit Python Packages 
-      - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "/root/routersploit/requirements.txt" }}
-          key2: deps2-{{ .Branch }}-{{ checksum "/root/routersploit/requirements-dev.txt" }}
-          paths:
-            - "/home/circleci/.cache/pip"
+      - save_cache_cmd:
