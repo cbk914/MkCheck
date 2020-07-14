@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    branches:
+      only:
+        - circleci-project-setup
+
+    machine:
+      image: ubuntu-1604:201903-01
+      environment:
+        DEBIAN_FRONTEND: noninteractive
+
+    steps:
+#       - restore_cache:
+#           key: deps1-{{ .Branch }}-{{ checksum "/opt/sifter/install.sh" }}
+      - run: echo "=D"
