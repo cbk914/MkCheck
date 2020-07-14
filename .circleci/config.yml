@@ -74,10 +74,10 @@ jobs:
             sudo bash setup.sh
      
       # Run MkCheck
-      - run:
-          name: MkCheck (Runtime - Install Check)
-          command: |
-            bash /opt/MkCheck/mkcheck
+      #- run:
+      #    name: MkCheck (Runtime - Install Check)
+      #    command: |
+      #      bash /opt/MkCheck/mkcheck
       
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "/root/routersploit/requirements.txt" }}
