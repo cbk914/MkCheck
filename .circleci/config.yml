@@ -1,9 +1,6 @@
 version: 2
             
-executors:
-  machine-executor:
-    machine:
-      image: ubuntu-1604:201903-01
+
       
       
 jobs:
@@ -13,27 +10,30 @@ jobs:
         - circleci-project-setup
       ignore:
         - master
-        
-      commands:
-        restore_cache_cmd:
-          steps:
-            - restore_cache:
-                keys:
-                  - r-dep-{{ checksum "requirements.txt" }}
-                  - r-dep-
-                  - r-dev-{{ checksum "requirements-dev.txt" }}
-                  - r-dev-
+    
+    machine:
+      image: ubuntu-1604:201903-01
+    
+    commands:
+      restore_cache_cmd:
+        steps:
+          - restore_cache:
+              keys:
+                - r-dep-{{ checksum "requirements.txt" }}
+                - r-dep-
+                - r-dev-{{ checksum "requirements-dev.txt" }}
+                - r-dev-
 
-        save_cache_cmd:
-          steps:
-            - save_cache:
-                paths:
-                  - /root/routersploit
-                keys:
-                  - r-dep-{{ checksum "requirements.txt" }}
-                  - r-dev-{{ checksum "requirements-dev.txt" }}
+      save_cache_cmd:
+        steps:
+          - save_cache:
+              paths:
+                - /root/routersploit
+              keys:
+                - r-dep-{{ checksum "requirements.txt" }}
+                - r-dev-{{ checksum "requirements-dev.txt" }}
       
-      steps:
+    steps:
         - restore_cache_cmd:
      # Kali Repo List Install & Signing
         - run: 
