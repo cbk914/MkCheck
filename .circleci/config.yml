@@ -1,29 +1,4 @@
 version: 2
-
-commands:
-  restore_cache_cmd:
-    steps:
-      - restore_cache
-          keys:
-            - r-dep-{{ checksum "requirements.txt" }}
-            - r-dep-
-            - r-dev-{{ checksum "requirements-dev.txt" }}
-            - r-dev-
-  save_cache_cmd:
-    steps:
-      - save_cache:
-          paths:
-            - /root/routersploit
-          keys:
-            - r-dep-{{ checksum "requirements.txt" }}
-            - r-dev-{{ checksum "requirements-dev.txt" }}
-            
-executors:
-  machine-executor:
-    machine:
-      image: ubuntu-1604:201903-01
-      
-      
 jobs:
   build:
     branches:
@@ -31,8 +6,17 @@ jobs:
         - circleci-project-setup
       ignore:
         - master
-        
-      - restore_cache_cmd:
+
+    machine:
+      image: ubuntu-1604:201903-01
+
+
+    steps:
+      # Restore Python Packages (Cached)
+#       - restore_cache:
+#           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+#           key2: deps2-{{ .Branch }}-{{ checksum "requirements-dev.txt" }}
+     
      # Kali Repo List Install & Signing
       - run: 
           name: Install & Sign Kali Repos
@@ -76,7 +60,6 @@ jobs:
           command: |
             ls /usr/bin/python
             sudo update-alternatives --install /usr/bin/python3 python3.8 /usr/bin/python3.8 1                        # Make Python3.8 the main 'Python3' interpreter
-
       # Python2 Install
       - run: 
           name: Python2 (Pip upgrade, Setuptools & Wheel install)
@@ -84,7 +67,6 @@ jobs:
             sudo pip2 install --upgrade pip 
             pip2 install --upgrade pip 
             sudo pip2 install setuptools wheel
-
       # Download & Run MkCheck Setup (CircleCI Build Branch ONLY)
       - run: 
           name: Download & Run MkCheck Setup (CircleCI Build Branch ONLY)
@@ -100,4 +82,8 @@ jobs:
       #      bash /opt/MkCheck/mkcheck
       
       # Cache RouterSploit Python Packages 
-      - save_cache_cmd:
+      #- save_cache:
+#           key: deps1-{{ .Branch }}-{{ checksum "/root/routersploit/requirements.txt" }}
+#           key2: deps2-{{ .Branch }}-{{ checksum "/root/routersploit/requirements-dev.txt" }}
+#           paths:
+#             - "/home/circleci/.cache/pip"
