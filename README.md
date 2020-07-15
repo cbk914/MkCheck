@@ -1,3 +1,4 @@
+<img align="left" src="https://img.shields.io/badge/Author-s1l3nt78-blueviolet">
 <img align="right" src="https://www.codefactor.io/repository/github/s1l3nt78/mkcheck/badge" alt="CodeFactor">
 <br />
 <p align="center">
@@ -9,8 +10,6 @@
  <br />
  <img align="center" src="https://img.shields.io/badge/Codename-JailBoxer-orange" />
  <img align="center" src="https://img.shields.io/badge/Version-3-red" />
-	<br />
-  <img align="center" src="https://img.shields.io/badge/Author-s1l3nt78-blueviolet" />
 </p>
 <br />
 <br />
