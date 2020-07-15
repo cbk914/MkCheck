@@ -1,3 +1,5 @@
+<img align="right" src="https://www.codefactor.io/repository/github/s1l3nt78/mkcheck/badge" alt="CodeFactor">
+<br />
 <p align="center">
  <img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MkCheck/master/docs/logo.PNG" />
 <br />
