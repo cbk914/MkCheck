@@ -433,7 +433,7 @@ apresults(){
   for log in `cat /opt/MkCheck/files/res.txt`
 		do
 			Y=$(( ${Y} + 1 ))
-			IP=$(cat results/Vulns/${SESSION}/${log}.results)
+			IP=$(cat results/Vulns/${log}.results)
 			echo "${log} ${IP}" >> results/Vulns/${SESSION}/final.results
 			echo "==========================================================================="
 			if [[ ${Y} -eq ${Z} ]] || [[ ${Y} -gt ${Z} ]]; then
