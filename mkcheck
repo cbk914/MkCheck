@@ -434,6 +434,7 @@ mchecker(){
 	USE=$(cat temp_user)
 	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USE} -c '/console clear-history'
 	sudo rm -rf /opt/MkCheck/logs
+	sudo rm temp_user
 	apresults
 	main
 }
@@ -473,6 +474,7 @@ pchecker(){
 	echo -e "${YLW}Clearing Target Device SSH History & Sorting Results${NC}"
 	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USE} -c '/console clear-history'
 	sudo rm -rf /opt/MkCheck/logs
+	sudo rm temp_user
 	apresults
 	main
 }
