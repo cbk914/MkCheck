@@ -9,7 +9,7 @@
  <img align="center" src="https://img.shields.io/github/stars/s1l3nt78/MkCheck" />
  <br />
  <img align="center" src="https://img.shields.io/badge/Codename-JailBoxer-orange" />
- <img align="center" src="https://img.shields.io/badge/Version-3-red" />
+ <img align="center" src="https://img.shields.io/badge/Version-3.2-red" />
 </p>
 <br />
 <br />

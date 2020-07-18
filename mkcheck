@@ -424,7 +424,15 @@ mchecker(){
 		fi
 	done
 	echo -e "${YLW}Clearing Target Device SSH History & Sorting Results${NC}"
-	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USER} -c '/console clear-history'
+	echo ${USER} > temp_user
+	TMP='= "'
+	INP=''
+	sed -i "s/${TMP}/${INP}/g" temp_user
+	TMI='"'
+	TMU=''
+	sed -i "s/${TMI}/${TMU}/g" temp_user
+	USE=$(cat temp_user)
+	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USE} -c '/console clear-history'
 	sudo rm -rf /opt/MkCheck/logs
 	apresults
 	main
@@ -454,8 +462,16 @@ pchecker(){
 			break
 		fi
 	done
+	echo ${USER} > temp_user
+	TMP='= "'
+	INP=''
+	sed -i "s/${TMP}/${INP}/g" temp_user
+	TMI='"'
+	TMU=''
+	sed -i "s/${TMI}/${TMU}/g" temp_user
+	USE=$(cat temp_user)
 	echo -e "${YLW}Clearing Target Device SSH History & Sorting Results${NC}"
-	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USER} -c '/console clear-history'
+	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USE} -c '/console clear-history'
 	sudo rm -rf /opt/MkCheck/logs
 	apresults
 	main

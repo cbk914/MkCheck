@@ -858,8 +858,16 @@ mrun(){
 	xterm -e bash scripts/thread.sh -5 &
 	echo -e "${ORNG}When all 5 windows are finished scanning, please hit enter${NC}"
 	read ENTEROPT
+	echo ${USER} > temp_user
+	TMP='= "'
+	INP=''
+	sed -i "s/${TMP}/${INP}/g" temp_user
+	TMI='"'
+	TMU=''
+	sed -i "s/${TMI}/${TMU}/g" temp_user
+	USE=$(cat temp_user)
 	echo -e "${YLW}Clearing Target Device SSH History & Sorting Results${NC}"
-	sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USER} -c '/console clear-history'
+	sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USE} -c '/console clear-history'
 	sudo rm -rf /opt/MkCheck/logs
 	apresults
 }
@@ -875,8 +883,16 @@ prun(){
 	xterm -e bash scripts/thread.sh -e &
 	echo -e "${ORNG}When all 5 windows are finished scanning, please hit enter${NC}"
 	read ENTEROPT
+	echo ${USER} > temp_user
+	TMP='= "'
+	INP=''
+	sed -i "s/${TMP}/${INP}/g" temp_user
+	TMI='"'
+	TMU=''
+	sed -i "s/${TMI}/${TMU}/g" temp_user
+	USE=$(cat temp_user)
 	echo -e "${YLW}Clearing Target Device SSH History & Sorting Results${NC}"
-	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USER} -c '/console clear-history'
+	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USE} -c '/console clear-history'
 	sudo rm -rf /opt/MkCheck/logs
 	apresults
 }
