@@ -412,10 +412,11 @@ g255(){
 # Final Result LookUp
 ############
 
-res_S(){
+resultsopt(){
 	RARG=$(python3 scripts/get/res.py)
 	VAR=$(echo ${RARG})
 	mv files/res.txt files/tiks_res.txt
+	sudo mv /opt/MkCheck/results/Vulns/* -t /opt/MkCheck/results/Vulns/${SESSION}
 }
 
 ###############################################
@@ -429,8 +430,7 @@ apresults(){
   if [[ ${SYQ} == "#" ]]; then
 		echo -e "${W}Please ensure there are no commented out lines\notherwise this check will fail${NC}"
   fi
-  res_S
-  for log in `cat /opt/MkCheck/files/tiks_res.txt`
+  for log in `cat /opt/MkCheck/files/res.txt`
 		do
 			Y=$(( ${Y} + 1 ))
 			IP=$(cat results/Vulns/${SESSION}/${log}.results)
