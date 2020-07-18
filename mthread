@@ -408,6 +408,16 @@ g255(){
 	#echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
 
+#############
+# Final Result LookUp
+############
+
+res_S(){
+	RARG=$(python3 scripts/get/res.py)
+	VAR=$(echo ${RARG})
+	mv files/res.txt files/tiks_res.txt
+}
+
 ###############################################
 ###############################################
 #  Final Results Correlation for Net AP Name  #
@@ -419,6 +429,7 @@ apresults(){
   if [[ ${SYQ} == "#" ]]; then
 		echo -e "${W}Please ensure there are no commented out lines\notherwise this check will fail${NC}"
   fi
+  res_S
   for log in `cat /opt/MkCheck/files/tiks_res.txt`
 		do
 			Y=$(( ${Y} + 1 ))
