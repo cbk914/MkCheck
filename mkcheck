@@ -367,7 +367,7 @@ apresults(){
   if [[ ${SYQ} == "#" ]]; then
 		echo -e "${W}Please ensure there are no commented out lines\notherwise this check will fail${NC}"
   fi
-  for log in `cat /opt/MkCheck/files/tiks_res.txt`
+  for log in `cat /opt/MkCheck/files/res.txt`
 		do
 			Y=$(( ${Y} + 1 ))
 			IP=$(cat results/Vulns/${SESSION}/${log}.results)
@@ -511,7 +511,7 @@ bytheway(){
 rtsploit(){
 	cd /opt/MkCheck
 	python3 scripts/get/rsf.py
-	for name in `cat /opt/MkCheck/files/tiks_rsf.txt`
+	for name in `cat /opt/MkCheck/files/rsf.txt`
 		do
 
 			#########################################

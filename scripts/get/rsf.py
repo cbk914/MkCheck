@@ -8,7 +8,7 @@ with open('files/rsf.txt', 'w') as fout:
 
 time.sleep(3)
 
-fp = open("files/res.txt")
+fp = open("files/rsf.txt")
 content = fp.readline()
 print(content)
 
