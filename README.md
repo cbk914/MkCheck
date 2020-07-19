@@ -1,5 +1,7 @@
 <img align="left" src="https://img.shields.io/badge/Author-s1l3nt78-blueviolet">
-<img align="right" src="https://www.codefactor.io/repository/github/s1l3nt78/mkcheck/badge" alt="CodeFactor">
+<img align="right" src="https://www.codefactor.io/repository/github/s1l3nt78/sifter/badge" alt="CodeFactor"><br/>
+<p align="center"><img align="center" src="https://img.shields.io/badge/Collective-The_Dead_Bunny_Club-green"></p>
+<br />
 <br />
 <p align="center">
  <img align="center" src="https://raw.githubusercontent.com/s1l3nt78/MkCheck/master/docs/logo.PNG" />
@@ -9,7 +11,7 @@
  <img align="center" src="https://img.shields.io/github/stars/s1l3nt78/MkCheck" />
  <br />
  <img align="center" src="https://img.shields.io/badge/Codename-JailBoxer-orange" />
- <img align="center" src="https://img.shields.io/badge/Version-3.2-red" />
+ <img align="center" src="https://img.shields.io/badge/Version-3.5-red" />
 </p>
 <br />
 <br />

