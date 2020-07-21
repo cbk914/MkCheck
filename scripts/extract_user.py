@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-import sys, hashlib
+import sys
+import hashlib
 
 def decrypt_password(user, pass_enc):
     key = hashlib.md5(user + b"283i4jfkai3389").digest()
