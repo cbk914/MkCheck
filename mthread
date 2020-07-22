@@ -741,12 +741,12 @@ rtsploit(){
 	#########################################
 	#  winbox_auth_bypass_creds_disclosure  #
 	#########################################
-	xterm -e authbox &
+	xterm -e bash scripts/rtsploit.sh -a &
 	########################
 	########################
 	#  routeros_jailbreak  #
 	########################
-	xterm -e jailer &
+	xterm -e bash scripts/rtsploit.sh -j &
 	echo -e "${ORNG}When both xterm windows are done, please hit ${YLW}enter${NC}"
 	read ENDRSF
 	main

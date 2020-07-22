@@ -513,7 +513,6 @@ rtsploit(){
 	python3 scripts/get/rsf.py
 	for name in `cat /opt/MkCheck/files/rsf.txt`
 		do
-
 			#########################################
 			#########################################
 			#  winbox_auth_bypass_creds_disclosure  #
