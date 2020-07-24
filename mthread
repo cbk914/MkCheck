@@ -908,6 +908,7 @@ main(){
 	session_check
 	MODULE=''
 	echo -e "${BRED}"
+	cd /opt/MkCheck
 	python3 files/banner.py
 	echo -e "${ORNG}Codename: ${LCYN}JailBoxer"
 	echo -e "${ORNG}by ${LCYN}s1l3nt78${NC}"
