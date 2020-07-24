@@ -713,6 +713,7 @@ bytheway(){
 authbox(){
 	for name in `cat /opt/MkCheck/files/rsf.txt`
 		do
+			echo -e "${RED}Running WinBox Exploit on ${name}${NC}"
 			WB=$(sudo python3 winbox.py ${name})
 			echo "${WB}" >> /opt/MkCheck/results/RSF/${SESSION}/WinBox.${name}
 			echo "${WB}" >> /opt/MkCheck/results/RSF/${SESSION}/WinBox.final

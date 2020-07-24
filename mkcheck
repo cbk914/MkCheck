@@ -518,6 +518,7 @@ rtsploit(){
 			#  winbox_auth_bypass_creds_disclosure  #
 			#########################################
 			cd /opt/MkCheck/scripts/
+			echo -e "${RED}[*]${NC} Running WinBox Exploit Check"
 			WB=$(sudo python3 winbox.py ${name})
 			echo "${WB}" >> /opt/MkCheck/results/RSF/${SESSION}/${name}.results
 			echo "${WB}" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
